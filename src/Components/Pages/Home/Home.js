@@ -1,10 +1,14 @@
 import React from 'react';
+import Banner from './Banner';
+import BuyingLuxury from './BuyingLuxury';
+import './Home.css'
 
 const Home = () => {
     return (
-        <div>
-            
-        </div>
+        <>
+            <Banner></Banner>
+            <BuyingLuxury></BuyingLuxury>
+        </>
     );
 };
 

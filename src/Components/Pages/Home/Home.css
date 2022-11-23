@@ -1,0 +1,6 @@
+.bg-img{
+transition: all linear 1s;
+}
+.bg-img:hover{
+background-size: 110%!important;
+}

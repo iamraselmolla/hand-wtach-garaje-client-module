@@ -2,6 +2,7 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import React, {useContext, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import toast from 'react-hot-toast';
 import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
@@ -22,9 +23,11 @@ const Register = () => {
         const allData = {accountType, username, email, password, profilepicture, insertTime}
         createUser(e.target.email.value, e.target.password.value)
         .then( res => {
-            console.log(allData)
+            e.target.reset()
+            setError('')
+            toast.success('Registration Successfull')
         })
-        .catch(err => console.log(err.message));
+        .catch(err => setError(err.message));
     }
     return (
         <section className='py-5 text-center'>
@@ -70,6 +73,7 @@ const Register = () => {
                                 <button className="theme_bg outline-0 border-0 px-5 py-3 fw-bolder text-white rounded">
                                     Register
                                 </button>
+                                {error && <p className='text-danger fw-bold'>{error}</p>}
 
                             </Form>
                             <div className="d-flex mt-2">

@@ -7,7 +7,7 @@ const BuyingLuxury = () => {
                 <div className="row">
                     <div className="col-md-6 text-white">
                         <div className="bg-img py-5 px-4" style={{ backgroundImage: 'url(features1.png)', backgroundSize: 'cover', backgroundPosition: 'center center', minHeight: '450px' }}>
-                            <p className="text-uppercase text-decoration-underline">
+                            <p className="text-uppercase mt-5 text-decoration-underline">
                                 THE IT GUIDE TO
                             </p>
                             <h2 className='w-50'>
@@ -26,7 +26,7 @@ const BuyingLuxury = () => {
                     </div>
                     <div className="col-md-6 text-white">
                         <div className="bg-img py-5 px-4" style={{ backgroundImage: 'url(features2.png)', backgroundSize: 'cover', backgroundPosition: 'center center', minHeight: '450px' }}>
-                            <p className="text-uppercase text-decoration-underline">
+                            <p className="text-uppercase mt-5 text-decoration-underline">
                                 THE PERFECT PAIR
                             </p>
                             <h2 className='w-50'>

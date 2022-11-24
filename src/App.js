@@ -1,8 +1,9 @@
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
+import ErrorPage from './Components/Pages/404/ErrorPage';
 import Home from './Components/Pages/Home/Home';
-import Login from './Components/Pages/Home/Login/Login';
+import Login from './Components/Pages/Login/Login';
 import Register from './Components/Pages/Register/Register';
 import Main from './Main';
 
@@ -23,6 +24,10 @@ function App() {
         {
           path: '/register',
           element: <Register></Register>
+        },
+        {
+          path: '*',
+          element: <ErrorPage></ErrorPage>
         }
       ]
 

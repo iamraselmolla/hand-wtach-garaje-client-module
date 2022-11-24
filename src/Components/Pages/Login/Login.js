@@ -10,7 +10,7 @@ const Login = () => {
         <section className='py-5 text-center'>
             <div className="container py-4">
                 <div className="row">
-                    <div className="col-md-4 offset-md-4">
+                    <div className="col-md-6 offset-md-3">
                         <div className="px-4 theme_border py-5 rounded">
                             <h1 className="fw-bolder mb-3">
                                 Login
@@ -18,7 +18,7 @@ const Login = () => {
                             <Form className='text-start'>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" className='rounded-5' placeholder="Enter email" />
+                                    <Form.Control type="email" className='rounded-5' placeholder="example@gmail.com" />
 
                                 </Form.Group>
 
@@ -36,7 +36,7 @@ const Login = () => {
                                 <h4 className="mt-3 fw-bolder">
                                     Sign in using
                                 </h4>
-                                <Button className='w-100 fw-bolder btn-danger'><FaGoogle></FaGoogle> Google</Button>
+                                <Button variant="theme_bg" className='w-100 fw-bolder text-white'><FaGoogle></FaGoogle> Google</Button>
 
 
                             </div>

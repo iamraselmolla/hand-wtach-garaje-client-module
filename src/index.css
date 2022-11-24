@@ -14,7 +14,9 @@ code {
 .theme_color{
   color: #AF7F66;
 }
-.theme_bg{
+.theme_bg,
+.btn.btn-theme_bg
+{
   background-color: #AF7F66;
 }
 .theme_border{

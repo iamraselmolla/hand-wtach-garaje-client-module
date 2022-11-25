@@ -51,7 +51,7 @@ const Login = () => {
         e.preventDefault()
         login(e.target.email.value, e.target.password.value)
             .then(res => {
-                console.log(res.user)
+                navigate(from, { replace: true });
 
             })
             .catch(err => setError(err.message))

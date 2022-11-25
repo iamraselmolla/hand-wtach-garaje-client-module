@@ -23,7 +23,7 @@ const Steps = () => {
                         <span className="bg-info mt-4 mb-3 d-inline-block fw-bolder rounded-5 text-white px-3 py-2 bg-opacity-75">
                             Step 2
                         </span>
-                        <h5 className="mb-1 mt-4 fw-bolder mb-2">
+                        <h5 className="mb-1 fw-bolder mb-2">
                         Add to Wishlist
                         </h5>
                         <p className="mb-0">
@@ -32,10 +32,24 @@ const Steps = () => {
                     </div>
                     <div className="col-md-3">
                     <img src="1.png" alt="" /> <br/>
-                        <span className="bg-info mt-4 mb-3 d-inline-block fw-bolder rounded-5 text-white px-3 py-2 bg-opacity-75">
+                        <span className="bg-danger mt-4 mb-3 d-inline-block fw-bolder rounded-5 text-white px-3 py-2 bg-opacity-75">
                             Step 3
                         </span>
-                        <h5 className="mb-1 mt-4 fw-bolder mb-2">
+                        <h5 className="mb-1 fw-bolder mb-2">
+                        Fast Meet To Find Fast
+                        </h5>
+                        <p className="mb-0">
+                        Meet as soon as to find the best product for your choice
+
+                        </p>
+                    </div>
+                   
+                    <div className="col-md-3">
+                    <img src="1.png" alt="" /> <br/>
+                        <span className="bg-success mt-4 mb-3 d-inline-block fw-bolder rounded-5 text-white px-3 py-2 bg-opacity-75">
+                            Step 4
+                        </span>
+                        <h5 className="mb-1 fw-bolder mb-2">
                         Enjoy the product
                         </h5>
                         <p className="mb-0">
@@ -43,19 +57,7 @@ const Steps = () => {
 
                         </p>
                     </div>
-                    <div className="col-md-3">
-                    <img src="1.png" alt="" /> <br/>
-                        <span className="bg-success mt-4 mb-3 d-inline-block fw-bolder rounded-5 text-white px-3 py-2 bg-opacity-75">
-                            Step 4
-                        </span>
-                        <h5 className="mb-1 mt-4 fw-bolder mb-2">
-                        Login & Discover
-                        </h5>
-                        <p className="mb-0">
-                        Smart filtering and suggestions make it easy to find
-
-                        </p>
-                    </div>
+                   
                     
                 </div>
             </div>

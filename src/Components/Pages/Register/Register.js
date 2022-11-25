@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import toast from 'react-hot-toast';
 import { FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 
 const Register = () => {
@@ -12,7 +12,8 @@ const Register = () => {
     const googleAuth = new GoogleAuthProvider();
     const [error, setError] = useState('')
     const imageBbApiKey = process.env.REACT_APP_imageBBAPI;
-    const [setRegisterBtnDIsable, setBtnStatus] = useState(false)
+    const [setRegisterBtnDIsable, setBtnStatus] = useState(false);
+    const navigate = useNavigate();
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -49,6 +50,8 @@ const Register = () => {
                                 setError('')
                                 toast.success('Registration Successful')
                                 setBtnStatus(false)
+                                e.target.reset()
+                                navigate('/login')
                             })
                     })
                     .catch(err => console.log(err.message))

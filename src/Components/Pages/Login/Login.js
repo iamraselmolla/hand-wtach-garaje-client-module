@@ -1,24 +1,38 @@
 import { GoogleAuthProvider } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import toast from 'react-hot-toast';
 import { FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 
 
 const Login = () => {
     const googleAuth = new GoogleAuthProvider();
-    const {loginWithGoogle} = useContext(AuthContext);
-
+    const { loginWithGoogle, login } = useContext(AuthContext);
+    const [loginError, setError] = useState('')
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
+    // Google login
     const handleGoogleSign = () => {
         loginWithGoogle(googleAuth)
-        .then(res => {
-            console.log(res)
-            toast.success('Login with google successful')
-        })
-        .catch(err => console.log(err.message))
+            .then(res => {
+                console.log(res)
+                toast.success('Login with google successful')
+            })
+            .catch(err => setError(err.message))
+    }
+    // Email Login
+    const handleEmailLogin = (e) => {
+        e.preventDefault()
+        login(e.target.email.value, e.target.password.value)
+            .then(res => {
+                setError(null)
+                navigate(from, { replace: true });
+            })
+            .catch(err => setError(err.message))
     }
     return (
         <section className='py-5 text-center'>
@@ -29,21 +43,21 @@ const Login = () => {
                             <h1 className="fw-bolder mb-3">
                                 Login
                             </h1>
-                            <Form className='text-start'>
+                            <Form onSubmit={handleEmailLogin} className='text-start'>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" className='rounded-5' placeholder="example@gmail.com" />
+                                    <Form.Control name="email" type="email" className='rounded-5' placeholder="example@gmail.com" />
 
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control className='rounded-5' type="password" placeholder="Password" />
+                                    <Form.Control name="password" className='rounded-5' type="password" placeholder="Password" />
                                 </Form.Group>
                                 <button className="theme_bg outline-0 border-0 px-5 py-3 fw-bolder text-white rounded">
                                     Login
                                 </button>
-
+                                {loginError && <p className='text-danger fw-bolder'>{loginError}</p>}
                             </Form>
 
                             <div className="login-with-google">
@@ -51,7 +65,7 @@ const Login = () => {
                                     Sign in using
                                 </h4>
                                 <Button onClick={handleGoogleSign} variant="theme_bg" className='w-100 fw-bolder text-white'><FaGoogle></FaGoogle> Google</Button>
-
+                                
 
                             </div>
                             <div className="d-flex mt-2 justify-content-between">

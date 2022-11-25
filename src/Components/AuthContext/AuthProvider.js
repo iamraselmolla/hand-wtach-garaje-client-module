@@ -16,6 +16,7 @@ const AuthProvider = ({ children }) => {
     }
     // Social login (Google)
     const loginWithGoogle = (provider) => {
+        setLoading(true)
         return signInWithPopup(auth, provider)
     }
     // User login

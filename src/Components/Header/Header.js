@@ -8,15 +8,14 @@ import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../AuthContext/AuthProvider';
 
 const Header = () => {
-    const { user,logOut } = useContext(AuthContext);
-    console.log(user)
+    const { user, logOut } = useContext(AuthContext);
 
     const handlelogOut = () => {
         logOut()
-        .then(() => {
-            toast.success("Logout Successfully!")
-        })
-        .catch(() => { })
+            .then(() => {
+                toast.success("Logout Successfully!")
+            })
+            .catch(() => { })
     }
     return (
         <header className='navbar-light bg-light'>
@@ -27,28 +26,21 @@ const Header = () => {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
 
-                            <NavLink className="text-decoration-none fw-bolder text-black px-2" to="/">Home</NavLink>
-                            <NavLink className="text-decoration-none fw-bolder text-black px-2" to="/blog">Blog</NavLink>
+                            <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/">Home</NavLink>
+                            <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/blog">Blog</NavLink>
                             {!user &&
                                 <>
-                                    <NavLink className="text-decoration-none fw-bolder text-black px-2" to="/login">Login</NavLink>
-                                    <NavLink className="text-decoration-none fw-bolder text-black px-2" to="/register">Register</NavLink>
+                                    <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/login">Login</NavLink>
+                                    <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/register">Register</NavLink>
 
                                 </>
                             }
-                            {user&& <NavLink onClick={handlelogOut} className="text-decoration-none fw-bolder text-black px-2">Logout</NavLink>}
-                            {user && <img width="50" className='rounded-circle' src={user?.photoURL}/>}
-                            <NavDropdown title={`Hello ${user?.displayName || user?.email}`} id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.2">
-                                    Another action
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">
-                                    Separated link
-                                </NavDropdown.Item>
-                            </NavDropdown>
+                            {user && <img width="50" className='rounded-circle' src={user?.photoURL} />}
+                            {user && <NavDropdown className='fw-bolder' title={`Hello ${user?.displayName || user?.email}`} id="basic-nav-dropdown">
+                                <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/dashboard">Dashboard</Link>
+                                <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/profile">Profile</Link>
+                                <NavLink onClick={handlelogOut} className="text-decoration-none px-2 fw-bolder text-black px-2">Logout</NavLink>
+                            </NavDropdown>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

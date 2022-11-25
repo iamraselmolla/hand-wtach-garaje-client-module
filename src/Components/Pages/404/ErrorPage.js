@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 const ErrorPage = () => {
     return (
         <section className='text-center'>
-            <div className="container pt-4">
+            <div className="container">
                 <img className='img-fluid' src="404.png" alt="" />
             </div>
-            <div className="mt-4">
+            <div className="mt-4 pb-3">
                 <p className="fw-bolder">
                     The page your requested has moved or deleted!
                 </p>

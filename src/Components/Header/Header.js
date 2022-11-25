@@ -9,6 +9,7 @@ import { AuthContext } from '../AuthContext/AuthProvider';
 
 const Header = () => {
     const { user,logOut } = useContext(AuthContext);
+    console.log(user)
 
     const handlelogOut = () => {
         logOut()
@@ -27,6 +28,7 @@ const Header = () => {
                         <Nav className="ms-auto">
 
                             <NavLink className="text-decoration-none fw-bolder text-black px-2" to="/">Home</NavLink>
+                            <NavLink className="text-decoration-none fw-bolder text-black px-2" to="/blog">Blog</NavLink>
                             {!user &&
                                 <>
                                     <NavLink className="text-decoration-none fw-bolder text-black px-2" to="/login">Login</NavLink>
@@ -35,7 +37,8 @@ const Header = () => {
                                 </>
                             }
                             {user&& <NavLink onClick={handlelogOut} className="text-decoration-none fw-bolder text-black px-2">Logout</NavLink>}
-                            <NavDropdown title="Dashboard" id="basic-nav-dropdown">
+                            {user && <img width="50" className='rounded-circle' src={user?.photoURL}/>}
+                            <NavDropdown title={`Hello ${user?.displayName || user?.email}`} id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">
                                     Another action

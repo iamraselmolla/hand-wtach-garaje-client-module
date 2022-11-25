@@ -1,11 +1,25 @@
-import React from 'react';
+import { GoogleAuthProvider } from 'firebase/auth';
+import React, { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import toast from 'react-hot-toast';
 import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../AuthContext/AuthProvider';
 
 
 const Login = () => {
+    const googleAuth = new GoogleAuthProvider();
+    const {loginWithGoogle} = useContext(AuthContext);
+
+    const handleGoogleSign = () => {
+        loginWithGoogle(googleAuth)
+        .then(res => {
+            console.log(res)
+            toast.success('Login with google successful')
+        })
+        .catch(err => console.log(err.message))
+    }
     return (
         <section className='py-5 text-center'>
             <div className="container py-4">
@@ -36,7 +50,7 @@ const Login = () => {
                                 <h4 className="mt-3 fw-bolder">
                                     Sign in using
                                 </h4>
-                                <Button variant="theme_bg" className='w-100 fw-bolder text-white'><FaGoogle></FaGoogle> Google</Button>
+                                <Button onClick={handleGoogleSign} variant="theme_bg" className='w-100 fw-bolder text-white'><FaGoogle></FaGoogle> Google</Button>
 
 
                             </div>

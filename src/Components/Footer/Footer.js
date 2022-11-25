@@ -12,7 +12,6 @@ const Footer = () => {
                             <Link className='text-decoration-none text-white py-1  fw-bolder' to="/">Home</Link>
                             <Link className='text-decoration-none text-white py-1  fw-bolder' to="/login">Login</Link>
                             <Link className='text-decoration-none text-white py-1  fw-bolder' to="/register">Register</Link>
-
                         </div>
                     </div>
 

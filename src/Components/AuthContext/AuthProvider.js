@@ -15,8 +15,8 @@ const AuthProvider = ({ children }) => {
         return createUserWithEmailAndPassword(auth, email, password);
     }
     // Social login (Google)
-    const loginWithGoogle = (provicer) => {
-        return signInWithPopup(auth, provicer)
+    const loginWithGoogle = (provider) => {
+        return signInWithPopup(auth, provider)
     }
     // User login
     const login = (email, password) => {

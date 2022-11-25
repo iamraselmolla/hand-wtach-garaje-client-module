@@ -8,18 +8,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 
 const Register = () => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser,updateUserInfo } = useContext(AuthContext);
     const googleAuth = new GoogleAuthProvider();
     const [error, setError] = useState('')
     const imageBbApiKey = process.env.REACT_APP_imageBBAPI;
     const [setRegisterBtnDIsable, setBtnStatus] = useState(false);
     const navigate = useNavigate();
-
     const handleRegister = (e) => {
         e.preventDefault()
 
         createUser(e.target.email.value, e.target.password.value)
             .then(res => {
+                
                 setBtnStatus(true)
                 const accountType = e.target.sellerBuyer.value
                 const username = e.target.username.value;
@@ -34,6 +34,10 @@ const Register = () => {
                 })
                     .then(res => res.json())
                     .then(imageData => {
+                        const userData = {displayName: username , photoURL:  imageData.data.url}
+                        updateUserInfo(userData)
+                        .then(() => {})
+                        .catch(err => console.log(err.message))
                         const insertTime = new Date().getTime();
                         const profilepicture = imageData.data.url;
                         const allData = { accountType, username, email, profilepicture,signupby, insertTime }

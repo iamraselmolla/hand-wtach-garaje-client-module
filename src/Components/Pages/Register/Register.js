@@ -24,7 +24,7 @@ const Register = () => {
                 const accountType = e.target.sellerBuyer.value
                 const username = e.target.username.value;
                 const email = e.target.email.value;
-                const password = e.target.password.value;
+                const signupby = 'email'
                 const formData = new FormData();
                 const profilepictureName = e.target.profilepicture.files[0];
                 formData.append('image', profilepictureName)
@@ -36,7 +36,7 @@ const Register = () => {
                     .then(imageData => {
                         const insertTime = new Date().getTime();
                         const profilepicture = imageData.data.url;
-                        const allData = { accountType, username, email, password, profilepicture, insertTime }
+                        const allData = { accountType, username, email, profilepicture,signupby, insertTime }
                         
                         fetch('http://localhost:5000/users', {
                             method: 'POST',

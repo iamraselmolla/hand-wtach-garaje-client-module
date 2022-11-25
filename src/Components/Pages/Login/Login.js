@@ -19,8 +19,30 @@ const Login = () => {
     const handleGoogleSign = () => {
         loginWithGoogle(googleAuth)
             .then(res => {
-                console.log(res)
-                toast.success('Login with google successful')
+
+                const accountType = 'buyer'
+                const username = res.user.displayName || 'Not Provided from authentic site';
+                const email = res.user.email;
+                const insertTime = new Date().getTime();
+                const profilepicture = res.user.photoURL || 'Not provided from authentic site';
+                const signupby = 'google'
+                const allData = { accountType, username, email, profilepicture,signupby, insertTime }
+
+
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(allData)
+                })
+                    .then(res2 => res2.json())
+                    .then(data => {
+                        setError(null)
+                        navigate(from, { replace: true });
+                        toast.success('Login with Google Successful')
+                    })
+                    .catch(err => console.log(err.message))
             })
             .catch(err => setError(err.message))
     }
@@ -29,8 +51,8 @@ const Login = () => {
         e.preventDefault()
         login(e.target.email.value, e.target.password.value)
             .then(res => {
-                setError(null)
-                navigate(from, { replace: true });
+                console.log(res.user)
+
             })
             .catch(err => setError(err.message))
     }
@@ -65,7 +87,7 @@ const Login = () => {
                                     Sign in using
                                 </h4>
                                 <Button onClick={handleGoogleSign} variant="theme_bg" className='w-100 fw-bolder text-white'><FaGoogle></FaGoogle> Google</Button>
-                                
+
 
                             </div>
                             <div className="d-flex mt-2 justify-content-between">

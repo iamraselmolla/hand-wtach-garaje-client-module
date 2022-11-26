@@ -16,7 +16,7 @@ const AllAdmin = () => {
         , [user?.email])
     return (
         <>
-        <Table striped bordered hover>
+        <Table className="text-center" striped bordered hover>
             <thead>
                 <tr>
                     <th></th>
@@ -26,6 +26,7 @@ const AllAdmin = () => {
                     <th>Account Type</th>
                     <th>Signup by</th>
                     <th>Signup at</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>

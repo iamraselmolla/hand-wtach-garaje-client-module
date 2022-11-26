@@ -41,8 +41,12 @@ const AddAnItem = () => {
                                 <label className="fw-bolder">Main Price of Purchase</label>
                                 <input type="number" name="mainprice" className="form-control" id="examplepurchasemainprice" />
                             </div>
-                            <div className="mb-3 col-md-12">
-                                <label className="fw-bolder">Reason of Selling</label>
+                            <div className="mb-3 col-md-6">
+                                <label className="fw-bolder">Using Duration</label>
+                                <input name="useduration" type="text" className="form-control" id="exampleduration" />
+                            </div>
+                            <div className="mb-3 col-md-6">
+                                <label className="fw-bolder">Reason of Sale</label>
                                 <input name="reaseon" type="text" className="form-control" id="examplepurchase" />
                             </div>
                             <div className="mb-3 col-md-4">

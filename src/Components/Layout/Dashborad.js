@@ -16,7 +16,7 @@ const Dashborad = () => {
 
             <main className='container'>
                 <div className="py-5 row">
-                    <div className="col-md-3 dashboard-panel">
+                    <div className="col-md-2 dashboard-panel">
                        
                                     <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
                                         to="/dashboard/addanitem"
@@ -44,7 +44,7 @@ const Dashborad = () => {
                                     <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
                                         to="/dashboard/all-users"
                                     >
-                                        All  users
+                                        All  Users
                                     </NavLink>
                                     <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/all-booked-items">
                                     
@@ -64,7 +64,7 @@ const Dashborad = () => {
                                
                     
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-md-10">
                         <Outlet></Outlet>
                     </div>
                 </div>

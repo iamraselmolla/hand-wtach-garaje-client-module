@@ -5,6 +5,8 @@ import 'react-photo-view/dist/react-photo-view.css';
 
 
 const Account = ({ acc, index }) => {
+
+    const date = new Date(acc?.insertTime).toLocaleString()
     return (
         <tr>
             <td>{index + 1}</td>
@@ -21,7 +23,7 @@ const Account = ({ acc, index }) => {
             </td>
             <td>{acc?.accountType}</td>
             <td>{acc?.signupby}</td>
-            <td>{Date(acc?.insertTime)}</td>
+            <td>{date}</td>
         </tr>
     );
 };

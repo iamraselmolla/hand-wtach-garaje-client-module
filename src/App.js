@@ -16,6 +16,9 @@ import Allitems from './Components/Pages/AllItems/Allitems';
 import AllreportedItems from './Components/Pages/AllReportedItems/AllreportedItems';
 import AllbookedItems from './Components/Pages/AllBookedItems/AllbookedItems';
 import AllAddedItems from './Components/Pages/AllAddedItems/AllAddedItems';
+import AllAdmin from './Components/Pages/AllAdmin/AllAdmin';
+import Allusers from './Components/Pages/Allusers/Allusers';
+import Profile from './Components/Pages/Profile/Profile';
 
 
 function App() {
@@ -27,6 +30,14 @@ function App() {
         {
           path: '/',
           element: <Home></Home>
+        },
+        {
+          path: '/all-items',
+          element: <Allitems></Allitems>
+        },
+        {
+          path: '/profile',
+          element: <Profile></Profile>
         },
         {
           path: '/login',
@@ -68,8 +79,12 @@ function App() {
           element: <Allbuyers></Allbuyers>
         },
         {
-          path: '/dashboard/allitems',
-          element: <Allitems></Allitems>
+          path: '/dashboard/all-admin',
+          element: <AllAdmin></AllAdmin>
+        },
+        {
+          path: '/dashboard/all-users',
+          element: <Allusers></Allusers>
         },
         {
           path: '/dashboard/reported-items',

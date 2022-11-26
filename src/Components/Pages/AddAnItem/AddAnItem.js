@@ -3,7 +3,7 @@ import React from 'react';
 const AddAnItem = () => {
     return (
         <section>
-            <div className="container py-5">
+            <div className="container">
                
                 <div className="row">
                    

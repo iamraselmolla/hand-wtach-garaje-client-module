@@ -27,6 +27,7 @@ const Header = () => {
                         <Nav className="ms-auto">
 
                             <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/">Home</NavLink>
+                            <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/all-items">All Watches</NavLink>
                             <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/blog">Blog</NavLink>
                             {!user &&
                                 <>

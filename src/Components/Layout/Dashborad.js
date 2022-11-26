@@ -13,8 +13,8 @@ const Dashborad = () => {
         <section>
             <Header></Header>
 
-            <main>
-                <div className="container pt-5 row">
+            <main className='container'>
+                <div className="pt-5 row">
                     <div className="col-md-3">
                        
                                     <NavLink className="d-block fw-bolder text-decoration-none py-2"
@@ -37,6 +37,16 @@ const Dashborad = () => {
                                     <NavLink className="d-block fw-bolder text-decoration-none py-2" to="/dashboard/allitems">
                                     
                                                 All Items
+                                          
+                                    </NavLink>
+                                    <NavLink className="d-block fw-bolder text-decoration-none py-2" to="/dashboard/all-booked-items">
+                                    
+                                                All Booked Items
+                                          
+                                    </NavLink>
+                                    <NavLink className="d-block fw-bolder text-decoration-none py-2" to="/dashboard/all-added-items">
+                                    
+                                                All Added Items
                                           
                                     </NavLink>
                                     <NavLink className="d-block fw-bolder text-decoration-none py-2" to="/dashboard/reported-items">

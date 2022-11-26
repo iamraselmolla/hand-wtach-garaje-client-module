@@ -14,6 +14,8 @@ import Allsellers from './Components/Pages/Allsellers/Allsellers';
 import Allbuyers from './Components/Pages/Allbuyers/Allbuyers';
 import Allitems from './Components/Pages/AllItems/Allitems';
 import AllreportedItems from './Components/Pages/AllReportedItems/AllreportedItems';
+import AllbookedItems from './Components/Pages/AllBookedItems/AllbookedItems';
+import AllAddedItems from './Components/Pages/AllAddedItems/AllAddedItems';
 
 
 function App() {
@@ -72,6 +74,14 @@ function App() {
         {
           path: '/dashboard/reported-items',
           element: <AllreportedItems></AllreportedItems>
+        },
+        {
+          path: '/dashboard/all-booked-items',
+          element: <AllbookedItems></AllbookedItems>
+        },
+        {
+          path: '/dashboard/all-added-items',
+          element: <AllAddedItems></AllAddedItems>
         },
       ]
     }

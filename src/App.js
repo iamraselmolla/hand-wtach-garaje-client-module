@@ -1,7 +1,7 @@
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
-import AddAnItem from './Components/AddAnItem/AddAnItem';
+import AddAnItem from './Components/Pages/AddAnItem/AddAnItem';
 import Dashborad from './Components/Layout/Dashborad';
 import Main from './Components/Layout/Main';
 import ErrorPage from './Components/Pages/404/ErrorPage';
@@ -10,6 +10,10 @@ import Home from './Components/Pages/Home/Home';
 import Login from './Components/Pages/Login/Login';
 import Register from './Components/Pages/Register/Register';
 import PrivateRoute from './Components/Routes/PrivateRoute';
+import Allsellers from './Components/Pages/Allsellers/Allsellers';
+import Allbuyers from './Components/Pages/Allbuyers/Allbuyers';
+import Allitems from './Components/Pages/AllItems/Allitems';
+import AllreportedItems from './Components/Pages/AllReportedItems/AllreportedItems';
 
 
 function App() {
@@ -48,8 +52,27 @@ function App() {
         {
           path: '/dashboard',
           // element: <Dashborad></Dashborad>
-          element: <AddAnItem></AddAnItem>
-        }
+        },
+        {
+          path: '/dashboard/addanitem',
+          element:<AddAnItem></AddAnItem>
+        },
+        {
+          path: '/dashboard/allsellers',
+          element: <Allsellers></Allsellers>
+        },
+        {
+          path: '/dashboard/allbuyers',
+          element: <Allbuyers></Allbuyers>
+        },
+        {
+          path: '/dashboard/allitems',
+          element: <Allitems></Allitems>
+        },
+        {
+          path: '/dashboard/reported-items',
+          element: <AllreportedItems></AllreportedItems>
+        },
       ]
     }
   ])

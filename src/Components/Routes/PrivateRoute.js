@@ -7,7 +7,7 @@ const PrivateRoute = ({children}) => {
     const location = useLocation();
     if(loading){
         return (<div className="text-center">
-        <div className="spinner-border" role="status">
+        <div style={{position: 'absolute', top: '48%', left: '48%'}} className="spinner-border" role="status">
         </div>
       </div>)
     }

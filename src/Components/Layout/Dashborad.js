@@ -19,7 +19,7 @@ const Dashborad = () => {
                     <div className="col-md-2 dashboard-panel">
                        
                                     <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
-                                        to="/dashboard/addanitem"
+                                        to="/dashboard/add-an-item"
                                     >
                                         Add an Item
                                     </NavLink>

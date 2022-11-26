@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 
 const Register = () => {
-    const { createUser,updateUserInfo } = useContext(AuthContext);
+    const { createUser, updateUserInfo } = useContext(AuthContext);
     const googleAuth = new GoogleAuthProvider();
     const [error, setError] = useState('')
     const imageBbApiKey = process.env.REACT_APP_imageBBAPI;
@@ -19,7 +19,7 @@ const Register = () => {
 
         createUser(e.target.email.value, e.target.password.value)
             .then(res => {
-                
+
                 setBtnStatus(true)
                 const accountType = e.target.sellerBuyer.value
                 const username = e.target.username.value;
@@ -34,14 +34,14 @@ const Register = () => {
                 })
                     .then(res => res.json())
                     .then(imageData => {
-                        const userData = {displayName: username , photoURL:  imageData.data.url}
+                        const userData = { displayName: username, photoURL: imageData.data.url }
                         updateUserInfo(userData)
-                        .then(() => {})
-                        .catch(err => console.log(err.message))
+                            .then(() => { })
+                            .catch(err => console.log(err.message))
                         const insertTime = new Date().getTime();
                         const profilepicture = imageData.data.url;
-                        const allData = { accountType, username, email, profilepicture,signupby, insertTime }
-                        
+                        const allData = { accountType, username, email, profilepicture, signupby, insertTime }
+
                         fetch('http://localhost:5000/users', {
                             method: 'POST',
                             headers: {
@@ -106,10 +106,13 @@ const Register = () => {
                                     <Form.Control name="profilepicture" className='rounded-5' type="file" placeholder="Profile Picture" />
                                 </Form.Group>
 
-                                <button className="theme_bg outline-0 border-0 px-5 py-3 fw-bolder text-white rounded">
+                                <button disabled={setRegisterBtnDIsable} className="theme_bg outline-0 border-0 px-5 py-3 fw-bolder text-white rounded">
                                     Register
                                 </button>
-                                {setRegisterBtnDIsable && <p>.......</p>}
+                                {setRegisterBtnDIsable && <div className="text-center">
+                                    <div className="spinner-border" role="status">
+                                    </div>
+                                </div>}
                                 {error && <p className='text-danger fw-bold'>{error}</p>}
 
                             </Form>

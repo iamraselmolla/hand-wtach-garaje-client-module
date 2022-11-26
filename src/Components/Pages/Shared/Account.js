@@ -16,7 +16,7 @@ const Account = ({ acc, index }) => {
                 <PhotoProvider>
                     <div className="foo">
                         <PhotoView src={acc?.profilepicture}>
-                            <img src={acc?.profilepicture} alt="" />
+                            <img className='img-fluid rounded-circle' src={acc?.profilepicture} alt="" />
                         </PhotoView>
                     </div>
                 </PhotoProvider>

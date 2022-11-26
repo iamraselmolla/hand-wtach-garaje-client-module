@@ -67,7 +67,7 @@ function App() {
           // element: <Dashborad></Dashborad>
         },
         {
-          path: '/dashboard/addanitem',
+          path: '/dashboard/add-an-item',
           element:<AddAnItem></AddAnItem>
         },
         {

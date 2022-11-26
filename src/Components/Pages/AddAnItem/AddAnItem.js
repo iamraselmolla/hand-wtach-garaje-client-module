@@ -45,7 +45,12 @@ const AddAnItem = () => {
                 }
                 const category = e.target.category.value;
                 const condition = e.target.condition.value;
-                const repairOrDamage = e.target.repairdamage.value;
+                let repairOrDamage;
+                if(e.target.repairdamage.value === 'yes'){
+                    repairOrDamage = true
+                }else(
+                    repairOrDamage = false
+                )
                 const userEmail = user.email;
                 const userName = e.target.ownername.value;
                 const userProfilePicture = user.photoURL;

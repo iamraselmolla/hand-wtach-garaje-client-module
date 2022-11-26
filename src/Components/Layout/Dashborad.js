@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../Header/Header';
 import { Outlet } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import { Link, NavLink } from 'react-router-dom'
 import AddAnItem from '../Pages/AddAnItem/AddAnItem';
 import './Dashboard.css'
+import { AuthContext } from '../AuthContext/AuthProvider';
 
 
 const Dashborad = () => {
+    const {accountType} = useContext(AuthContext);
+    console.log(accountType)
        
       let activeClassName = "underline";
     return (

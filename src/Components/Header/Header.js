@@ -21,7 +21,7 @@ const Header = () => {
         <header className='navbar-light bg-light'>
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Link to="/"><Navbar.Brand> <img width="60" src="logo.png" alt="logo" /> </Navbar.Brand></Link>
+                    <Link to="/"><Navbar.Brand> <img width="60" src="https://i.ibb.co/hFhmqHh/logo.png" alt="logo" /> </Navbar.Brand></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
@@ -36,7 +36,7 @@ const Header = () => {
 
                                 </>
                             }
-                            {user && <img width="50" className='rounded-circle' src={user?.photoURL} />}
+                            {user && <img width="60" className='rounded-circle' src={user?.photoURL} />}
                             {user && <NavDropdown className='fw-bolder' title={`Hello ${user?.displayName || user?.email}`} id="basic-nav-dropdown">
                                 <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/dashboard">Dashboard</Link>
                                 <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/profile">Profile</Link>

@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query'
 import Items from '../Shared/Items';
+import { AuthContext } from '../../AuthContext/AuthProvider';
 
 const Allitems = () => {
+    const {user} = useContext(AuthContext)
     const [allWatches, setWatches] = useState([])
     const [showLoder, setLoader] = useState(false)
     // const {allWatches, isLoading,refetch } = useQuery({
@@ -25,9 +27,9 @@ const Allitems = () => {
             setLoader(false)
         } )
         .catch(err => console.log(err))
-    },[]);
+    },[user?.email]);
     if(showLoder){
-        return alert()
+        return <p>Loadin....</p>
     }
    
 
@@ -40,7 +42,7 @@ const Allitems = () => {
                     </h1>
                 </div>
                 <div className="row">
-                    {allWatches?.map(watch => <div className="col-md-4 my-2 "><Items key={watch._id} watch={watch}></Items></div> )}
+                    {allWatches?.map(watch => <div key={watch?._id} className="col-md-4 my-2 "><Items watch={watch}></Items></div> )}
                 </div>
             </div>
         </section>

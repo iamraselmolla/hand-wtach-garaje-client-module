@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import app from '../firebase/firebase-init';
-import { createUserWithEmailAndPassword,updateProfile, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 
 
 export const AuthContext = createContext();
@@ -32,22 +32,17 @@ const AuthProvider = ({ children }) => {
     }
     // Update user info
     const updateUserInfo = (userinfo) => {
-       return updateProfile(auth.currentUser, userinfo)
+        return updateProfile(auth.currentUser, userinfo)
     }
     // FInd loggedin account type
     useEffect(() => {
-        if(user?.email){
-            fetch(`http://localhost:5000/users?email=${user?.email}`)
-        .then(res =>  {
-            return res.json()
-        })
-        .then(data => {
-            return setAccountType(data)
 
-        })
-        .catch(err => console.log(err.message))
-        }
-    },[user?.email])
+        fetch(`http://localhost:5000/users?email=${user?.email}`)
+            .then(res => res.json())
+            .then(data => setAccountType(data))
+            .catch(err => console.log(err))
+
+    }, [user?.email])
     // On State changed
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -61,7 +56,7 @@ const AuthProvider = ({ children }) => {
     }, [])
 
 
-    const authInfo = { createUser,user,loading,loginWithGoogle,updateUserInfo, login, logOut ,accountType}
+    const authInfo = { createUser, user, loading, loginWithGoogle, updateUserInfo, login, logOut, accountType }
     return (
         <div>
             <AuthContext.Provider value={authInfo}>

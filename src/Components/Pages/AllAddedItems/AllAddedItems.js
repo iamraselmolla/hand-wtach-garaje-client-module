@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../AuthContext/AuthProvider';
+import Items from '../Shared/Items';
 
 const AllAddedItems = () => {
+    const { user } = useContext(AuthContext)
+    const [addedItems, setAddedItems] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/added-items?email=${user?.email}`)
+        .then(res=> res.json())
+        .then( data => setAddedItems(data))
+        .catch(err => console.log(err))
+    }, [user?.email])
+    // const 
     return (
-        <div>
-            
-        </div>
+        <section>
+            <div className="container">
+                <div className="row">
+                    <h1 className="theme_color fw-bolder text-center mb-4">
+                        You added {addedItems?.length} {addedItems?.length > 1 ? 'Watches' : 'Watch'}
+                    </h1>
+                </div>
+                <div className="row">
+                    {addedItems && addedItems.map(itemSingle => <div key={itemSingle?._id} className="col-md-4"><Items watch={itemSingle}></Items></div> )}
+                </div>
+            </div>
+        </section>
     );
 };
 

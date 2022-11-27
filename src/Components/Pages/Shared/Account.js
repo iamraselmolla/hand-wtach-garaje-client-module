@@ -19,6 +19,9 @@ const Account = ({ acc, index }) => {
       }
     }
     const handleDeleteUser = (id) => {
+        if(acc?.signupby === 'google'){
+            return toast.error('You cannot delete a google user. You only can block')
+        }
         if(window.confirm(`Do you want to delete this user ${acc?.username}`)){
             fetch(`http://localhost:5000/accounts/verify/${id}`,{
                 method: 'DELETE'

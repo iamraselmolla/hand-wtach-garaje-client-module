@@ -23,7 +23,7 @@ const AllAddedItems = () => {
                     </h1>
                 </div>
                 <div className="row">
-                    {addedItems && addedItems.map(itemSingle => <div key={itemSingle?._id} className="col-md-4"><Items setReLoader={setReLoader} reload={reload} watch={itemSingle}></Items></div> )}
+                    {addedItems && addedItems?.map(itemSingle => <div key={itemSingle?._id} className="col-md-6"><Items setReLoader={setReLoader} reload={reload} watch={itemSingle}></Items></div> )}
                 </div>
             </div>
         </section>

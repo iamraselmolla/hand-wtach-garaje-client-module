@@ -9,8 +9,7 @@ import { AuthContext } from '../AuthContext/AuthProvider';
 
 
 const Dashborad = () => {
-    const {accountType} = useContext(AuthContext);
-       
+    const {accountType} = useContext(AuthContext);       
       let activeClassName = "underline";
     return (
         <section>

@@ -1,0 +1,4 @@
+1. make item again unsold and unadvertsied
+2. need to add admin power make anyone buyer, seller or admin
+3. need to add all block user method to identify blokced users
+4. need to add reported item showing for buyer too

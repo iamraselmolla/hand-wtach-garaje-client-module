@@ -1,3 +1,7 @@
 .action_div a#basic-nav-dropdown::after{
     display: none;
 }
+.action_div .dropdown-menu{
+    background-color: none;
+    border: none;
+}

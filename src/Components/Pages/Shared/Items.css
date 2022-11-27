@@ -1,0 +1,3 @@
+.action_div a#basic-nav-dropdown::after{
+    display: none;
+}

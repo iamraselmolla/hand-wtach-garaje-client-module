@@ -6,7 +6,6 @@ import { AuthContext } from '../../AuthContext/AuthProvider';
 const Allitems = () => {
     const {user} = useContext(AuthContext)
     const [allWatches, setWatches] = useState([])
-    const [showLoder, setLoader] = useState(false)
     // const {allWatches, isLoading,refetch } = useQuery({
     //     queryKey: ['all-items'],
     //     queryFn: async () => {
@@ -22,15 +21,11 @@ const Allitems = () => {
             return res.json()
         })
         .then(data => {
-            setLoader(true)
             setWatches(data)
-            setLoader(false)
         } )
         .catch(err => console.log(err))
     },[user?.email]);
-    if(showLoder){
-        return <p>Loadin....</p>
-    }
+  
    
 
     return (

@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { NavDropdown, NavLink } from 'react-bootstrap';
 import { TiTick } from "react-icons/ti";
+import { FaAd, FaTrashAlt } from "react-icons/fa";
 import { PhotoProvider, PhotoView } from 'react-photo-view';
+import { Link } from 'react-router-dom';
+import './Items.css'
+import toast from 'react-hot-toast';
+import { useQuery } from '@tanstack/react-query';
 
-const Items = ({ watch }) => {
+const Items = ({ watch,setReLoader, reload }) => {
     const { _id, name, advertise, category, category_id, condition, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, mainprice, repairOrDamage, sold, userEmail, userName, userProfilePicture } = watch;
-    console.log(userProfilePicture)
+
+
+
+    const handleSoldOut = (id) => {
+        fetch(`http://localhost:5000/items/sold-out/${id}`, {
+            method: 'PUT'
+        })
+        .then(res => res.json())
+        .then(data => {
+                toast.success(`${name} has been marked as sold out`)
+                setReLoader(!reload)
+        })
+        .catch(err => console.log(err))
+    }
+
     return (
-        <div className='item theme_border'>
+        <div className='item theme_border position-relative'>
             <PhotoProvider>
                 <div className="foo">
                     <PhotoView src={itemImage}>
@@ -30,10 +50,10 @@ const Items = ({ watch }) => {
                         {repairOrDamage ? 'Repaired' : 'Not Repaired'}
                     </div>
                     <div className="theme_border_2 px-2 py-1 rounded fw-bold">
-                       Used For: {duration} Month
+                        Used For: {duration} Month
                     </div>
                     <div className="theme_border_2 px-2 py-1 rounded fw-bold">
-                       Main Purchase Time: {pruchingtime}
+                        Main Purchase Time: {pruchingtime}
                     </div>
                 </div>
                 <div className="d-flex align-items-center mt-3">
@@ -53,7 +73,7 @@ const Items = ({ watch }) => {
                     </div>
                 </div>
                 <div className="fw-bolder text-muted">
-                   <smal>Posted on: {new Date(insertTime).toLocaleString()}</smal>
+                    <small>Posted on: {new Date(insertTime).toLocaleString()}</small>
                 </div>
                 <h3 className="mb-0 mt-3">
                     {name} <TiTick className='rounded-circle bg-primary fs-6 text-white'></TiTick>
@@ -73,6 +93,13 @@ const Items = ({ watch }) => {
                 <p className="text-muted mb-1">
                     <span className='fw-bolder text-black'>Reason of Selling: </span> {reason}
                 </p>
+                <NavDropdown className='fw-bolder action_div mt-2 position-absolute top-0 fs-3 fw-bold' title="..." id="basic-nav-dropdown">
+                    <div className="p-2">
+                        <img onClick={() => handleSoldOut(_id)} title="mark as Sold out" style={{ cursor: 'pointer' }} width="40" className='me-2' src="https://i.ibb.co/tqdbw59/pngtree-sold-out-png-image-4169086-copy.png" />
+                        <FaAd title="Ad this Watch" style={{ cursor: 'pointer' }} className='text-primary fs-1 me-2'></FaAd>
+                        <FaTrashAlt title="Delete This Watch" style={{ cursor: 'pointer' }} className='text-danger fs-1'></FaTrashAlt>
+                    </div>
+                </NavDropdown>
 
             </div>
         </div>

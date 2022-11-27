@@ -5,13 +5,14 @@ import Items from '../Shared/Items';
 const AllAddedItems = () => {
     const { user } = useContext(AuthContext)
     const [addedItems, setAddedItems] = useState([]);
+    const [reload, setReLoader]= useState(false)
 
     useEffect(() => {
         fetch(`http://localhost:5000/added-items?email=${user?.email}`)
         .then(res=> res.json())
         .then( data => setAddedItems(data))
         .catch(err => console.log(err))
-    }, [user?.email])
+    }, [user?.email,reload])
     // const 
     return (
         <section>
@@ -22,7 +23,7 @@ const AllAddedItems = () => {
                     </h1>
                 </div>
                 <div className="row">
-                    {addedItems && addedItems.map(itemSingle => <div key={itemSingle?._id} className="col-md-4"><Items watch={itemSingle}></Items></div> )}
+                    {addedItems && addedItems.map(itemSingle => <div key={itemSingle?._id} className="col-md-4"><Items setReLoader={setReLoader} reload={reload} watch={itemSingle}></Items></div> )}
                 </div>
             </div>
         </section>

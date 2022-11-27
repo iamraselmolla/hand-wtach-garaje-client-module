@@ -18,7 +18,17 @@ const Account = ({ acc, index }) => {
         })
       }
     }
-
+    const handleDeleteUser = (id) => {
+        if(window.confirm(`Do you want to delete this user ${acc?.username}`)){
+            fetch(`http://localhost:5000/accounts/verify/${id}`,{
+                method: 'DELETE'
+            })
+            .then(res => res.json())
+            .then(data => {
+                toast.success(`${acc?.username} has been deleted`)
+            })
+        }
+    }
     const date = new Date(acc?.insertTime).toLocaleString()
     return (
         <tr>
@@ -38,7 +48,7 @@ const Account = ({ acc, index }) => {
             <td>{acc?.signupby === 'google' ? <FaGoogle></FaGoogle> : <FaEnvelope></FaEnvelope>}</td>
             <td>{date}</td>
             <td className='d-flex align-items-center'>{acc?.verified ? <span className="bg-success bg-opacity-50 px-1 text-white rounded">Verified</span> :<span onClick={() => handleVeiryfy(acc?._id)} style={{cursor: 'pointer'}} className="bg-info bg-opacity-50 px-1 text-white rounded">verify</span>}</td>
-            <td><FaTrash title="Delete User" className="text-danger"></FaTrash> <img width="20px" title="Block User" src="https://i.ibb.co/xJBGWFz/blockuser.png" alt="" /> </td>
+            <td><FaTrash onClick={() => handleDeleteUser(acc?._id)} title="Delete User" className="text-danger"></FaTrash> <img width="20px" title="Block User" src="https://i.ibb.co/xJBGWFz/blockuser.png" alt="" /> </td>
         </tr>
     );
 };

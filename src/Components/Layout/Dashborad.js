@@ -10,14 +10,13 @@ import { AuthContext } from '../AuthContext/AuthProvider';
 
 const Dashborad = () => {
     const {accountType} = useContext(AuthContext);
-    console.log(accountType)
        
       let activeClassName = "underline";
     return (
         <section>
             <Header></Header>
 
-            <main className='container'>
+            <main className='container-fluid'>
                 <div className="py-5 row">
                     <div className="col-md-2 dashboard-panel">
                        
@@ -45,6 +44,11 @@ const Dashborad = () => {
                                         All  Admin
                                     </NavLink>
                                     <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
+                                        to="/dashboard/all-blocked-users"
+                                    >
+                                        All  Blocked Users
+                                    </NavLink>
+                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
                                         to="/dashboard/all-users"
                                     >
                                         All  Users
@@ -52,6 +56,11 @@ const Dashborad = () => {
                                     <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/all-booked-items">
                                     
                                                 All Booked Items
+                                          
+                                    </NavLink>
+                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/all-sold-items">
+                                    
+                                                All Sold Items
                                           
                                     </NavLink>
                                     <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/all-added-items">

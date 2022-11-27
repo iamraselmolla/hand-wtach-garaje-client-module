@@ -19,6 +19,8 @@ import AllAddedItems from './Components/Pages/AllAddedItems/AllAddedItems';
 import AllAdmin from './Components/Pages/AllAdmin/AllAdmin';
 import Allusers from './Components/Pages/Allusers/Allusers';
 import Profile from './Components/Pages/Profile/Profile';
+import AllSoldItems from './Components/Pages/AllsoldItems/AllSoldItems';
+import AllBlockedUsers from './Components/Pages/AllBlockedUser/AllBlockedUsers';
 
 
 function App() {
@@ -81,6 +83,14 @@ function App() {
         {
           path: '/dashboard/all-admin',
           element: <AllAdmin></AllAdmin>
+        },
+        {
+          path: '/dashboard/all-sold-items',
+          element: <AllSoldItems></AllSoldItems>
+        },
+        {
+          path: '/dashboard/all-blocked-users',
+          element: <AllBlockedUsers></AllBlockedUsers>
         },
         {
           path: '/dashboard/all-users',

@@ -31,6 +31,7 @@ const AddAnItem = () => {
                 const description = e.target.description.value;
                 const pruchingtime = e.target.pruchingtime.value;
                 const duration = e.target.duration.value;
+                const mainprice = e.target.mainprice.value;
                 const reason = e.target.reason.value;
                 const itemImage = imageData.data.url;
                 let category_id;
@@ -56,8 +57,9 @@ const AddAnItem = () => {
                 const userProfilePicture = user.photoURL;
                 const insertTime = new Date().getTime();
                 const advertise = false;
+                const verified = false;
                 const sold = false;
-                const allDataInfo = { name, price, number, location, description, pruchingtime, duration, reason, itemImage, category, condition, repairOrDamage, userEmail, userName, userProfilePicture, insertTime, category_id,advertise, sold };
+                const allDataInfo = { name, price,mainprice,verified, number, location, description, pruchingtime, duration, reason, itemImage, category, condition, repairOrDamage, userEmail, userName, userProfilePicture, insertTime, category_id,advertise, sold };
                 fetch('http://localhost:5000/watches', {
                     method: 'POST',
                     headers: {

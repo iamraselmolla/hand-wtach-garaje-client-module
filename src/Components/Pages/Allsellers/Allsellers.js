@@ -24,6 +24,7 @@ const Allsellers = () => {
                     <th>Account Type</th>
                     <th>Signup by</th>
                     <th>Signup at</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>

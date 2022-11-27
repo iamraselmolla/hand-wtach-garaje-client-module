@@ -11,7 +11,7 @@ const Allusers = () => {
             .then(res => res.json())
             .then(data => setAccounts(data))
             .catch(err => console.log(err.message))
-    }, [user?.email])
+    }, [user?.email,accounts])
     return (
         <Table className="text-center" striped bordered hover>
             <thead>
@@ -23,6 +23,7 @@ const Allusers = () => {
                     <th>Account Type</th>
                     <th>Signup by</th>
                     <th>Signup at</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>

@@ -6,7 +6,7 @@ const FeaturesImg = () => {
     return (
        <section>
         <div className="container-fluid py-5">
-            <div className="row mt-5">
+            <div className="row pt-5">
                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl">
                      <PhotoProvider>
                      <div className="foo">

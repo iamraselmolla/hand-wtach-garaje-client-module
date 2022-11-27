@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import SingleCategory from '../Shared/SingleCategory';
 
 const ProductsCategoris = () => {
-    const {data: categories = [], isLoading, fetch} = useQuery({
-        queryKey: ['categories'],
+    const {data: categories = [], isLoading, refetch} = useQuery({
+        queryKey: ['categoriess'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/categories');
-            const data = await res.json()
+            const data = await res.json();
             return data;
         }
     })
@@ -24,16 +25,8 @@ const ProductsCategoris = () => {
                         We are experts in finding the best watches from world-renowned brands including Rolex, Breitling, Bell & Ross, and many other brands.
                     </p>
                 </div>
-                <div className="row">
-                    <div className="col-md-4">
-
-                    </div>
-                    <div className="col-md-4">
-
-                    </div>
-                    <div className="col-md-4">
-
-                    </div>
+                <div className="row mt-4">
+                   {categories?.map(category => <div key={category?._id} className="col-md-4 d-flex text-center flex-column align-items-center"> <SingleCategory dataCategory={category}></SingleCategory> </div> )}
                 </div>
             </div>
         </section>

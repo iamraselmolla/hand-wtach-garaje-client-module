@@ -2,7 +2,7 @@ import React from 'react';
 
 const BrandsLogo = () => {
     return (
-        <section className="container py-3">
+        <section className="container py-5">
             <div className="row">
                 <div className="d-flex gap-lg-5 gap-sm-1 justify-content-between flex-wrap ">
                     <img width="150" className='img-fluid my-2' src="l1.png" alt=""/>

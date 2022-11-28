@@ -1,29 +1,37 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 import Items from '../Shared/Items';
 
 const AllAddedItems = () => {
     const { user } = useContext(AuthContext)
-    const [addedItems, setAddedItems] = useState([]);
-    const [reload, setReLoader]= useState(false)
+    const [allData, setAllData]= useState([])
+    
+    // const {allDataItems : addedItems =[], isLoading, refetch} = useQuery({
+    //     queryKey: ['added-items'],
+    //     queryFn: async () =>{
+    //             const resData = await fetch(`http://localhost:5000/added-items?email=${user?.email}`);
+    //             const allDataItems = await resData.json();
+    //             return allDataItems;
+
+    //     }
+    // });
 
     useEffect(() => {
-        fetch(`http://localhost:5000/added-items?email=${user?.email}`)
-        .then(res=> res.json())
-        .then( data => setAddedItems(data))
-        .catch(err => console.log(err))
-    }, [user?.email,reload])
-    // const 
+            fetch(`http://localhost:5000/added-items?email=${user?.email}`)
+            .then(res=> res.json())
+            .then(data => setAllData(data))
+    }, [user?.email, allData])
     return (
         <section>
             <div className="container">
                 <div className="row">
                     <h1 className="theme_color fw-bolder text-center mb-4">
-                        You added {addedItems?.length} {addedItems?.length > 1 ? 'Watches' : 'Watch'}
+                        You added {allData?.length} {allData?.length > 1 ? 'Watches' : 'Watch'}
                     </h1>
                 </div>
                 <div className="row">
-                    {addedItems && addedItems?.map(itemSingle => <div key={itemSingle?._id} className="col-md-6"><Items setReLoader={setReLoader} reload={reload} watch={itemSingle}></Items></div> )}
+                    {allData && allData?.map(itemSingle => <div key={itemSingle?._id} className="col-md-6"><Items  watch={itemSingle}></Items></div> )}
                 </div>
             </div>
         </section>

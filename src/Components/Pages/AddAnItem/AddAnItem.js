@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 
 const AddAnItem = () => {
@@ -7,7 +8,7 @@ const AddAnItem = () => {
     const [error, setError] = useState('')
     const [itemUploading, setLoadingStatus] = useState(false)
     const imageBbApiKey = process.env.REACT_APP_imageBBAPI;
-    const [setRegisterBtnDIsable, setBtnStatus] = useState(false);
+    const navigate = useNavigate()
 
     const handleProductAdd = e => {
         e.preventDefault();
@@ -74,6 +75,7 @@ const AddAnItem = () => {
                             setError(null)
                             toast.success('Item added successful')
                             setLoadingStatus(false);
+                            navigate('/dashboard/all-added-items')
                         }
                     })
                     .catch(err => setError(err.message))

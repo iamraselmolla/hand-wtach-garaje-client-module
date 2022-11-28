@@ -12,8 +12,8 @@ import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 
 
-const Items = ({ watch,handleShow, refetch,setModalData }) => {
-    
+const Items = ({ watch, handleShow, refetch, setModalData }) => {
+
     const { user, accountType } = useContext(AuthContext)
     const { _id, name, advertise, category, category_id, condition, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, mainprice, repairOrDamage, sold, userEmail, userName, userProfilePicture, reported } = watch;
 
@@ -66,6 +66,27 @@ const Items = ({ watch,handleShow, refetch,setModalData }) => {
             })
             .catch(err => console.log(err))
     }
+    
+    const handleDeleteItem = (id) => {
+        if(window.confirm(`DO you want to delete ${name} permanently`)){
+
+
+            fetch(`http://localhost:5000/delete-items/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    toast.success(`${name} has been deleted Permanently`)
+                    console.log(data)
+                    
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
     // Handle booking
     const handleBook = () => {
         if (user?.email === userEmail) {
@@ -149,11 +170,11 @@ const Items = ({ watch,handleShow, refetch,setModalData }) => {
                 <p className="text-muted mb-1">
                     <span className='fw-bolder text-black'>Reason of Selling: </span> {reason}
                 </p>
-                {!sold || !advertise || watch ? <NavDropdown className='fw-bolder action_div mt-2 position-absolute top-0 fs-3 fw-bold' title="..." id="basic-nav-dropdown">
+                {watch ? <NavDropdown className='fw-bolder action_div mt-2 position-absolute top-0 fs-3 fw-bold' title="..." id="basic-nav-dropdown">
                     <div className="p-2">
                         {!sold && user?.email === userEmail && <img onClick={() => handleSoldOut(_id)} title="mark as Sold out" style={{ cursor: 'pointer' }} width="40" className='me-2' src="https://i.ibb.co/tqdbw59/pngtree-sold-out-png-image-4169086-copy.png" />}
                         {!advertise && user?.email === userEmail && <FaAd onClick={() => handleAdvertise(_id)} title="Ad this Watch" style={{ cursor: 'pointer' }} className='text-primary fs-1 me-2'></FaAd>}
-                        {user?.email === userEmail && accountType?.accountType === 'admin' && <FaTrashAlt title="Delete This Watch" style={{ cursor: 'pointer' }} className='text-danger fs-1'></FaTrashAlt>}
+                        {user?.email === userEmail && <FaTrashAlt title="Delete This Watch" style={{ cursor: 'pointer' }} onClick={() => handleDeleteItem(_id)} className='text-danger fs-1'></FaTrashAlt>}
                         {user?.email !== userEmail && accountType?.accountType === 'buyer' && !reported && <GoReport title="Report This Watch" onClick={() => handleReporting(_id)} style={{ cursor: 'pointer' }} className='text-danger fs-1'></GoReport>}
                         {user?.email !== userEmail && accountType?.accountType === 'buyer' && <BiAddToQueue title="Add to wishlist" style={{ cursor: 'pointer' }} className='text-danger ms-2 fs-1'></BiAddToQueue>}
                         {accountType?.accountType === 'admin' && reported && <BiCheckShield onClick={() => handleSolved(_id)} title="Mark as solved" style={{ cursor: 'pointer' }} className='text-danger ms-2 fs-1'></BiCheckShield>}

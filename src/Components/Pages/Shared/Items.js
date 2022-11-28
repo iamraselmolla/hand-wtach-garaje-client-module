@@ -37,13 +37,20 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
         })
             .then(res => res.json())
             .then(data => {
-                toast.success(`${name} has been marked as Advertising Wacth`)
+                toast.success(`${name} has been marked as Advertising Wacth`);
+                refetch()
 
             })
             .catch(err => console.log(err))
     }
     // Handle Reporting
     const handleReporting = (id) => {
+        if(!user){
+            return toast.error('You need to login an  account to report an item')
+        }
+        if(accountType?.accountType !== 'buyer'){
+            return toast.error('You need to login a buyer account to report an item')
+        }
         fetch(`http://localhost:5000/items/reported/${id}`, {
             method: 'PUT'
         })
@@ -66,9 +73,9 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
             })
             .catch(err => console.log(err))
     }
-    
+
     const handleDeleteItem = (id) => {
-        if(window.confirm(`DO you want to delete ${name} permanently`)){
+        if (window.confirm(`DO you want to delete ${name} permanently`)) {
 
 
             fetch(`http://localhost:5000/delete-items/${id}`, {
@@ -81,7 +88,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
                 .then(data => {
                     toast.success(`${name} has been deleted Permanently`)
                     console.log(data)
-                    
+
                 })
                 .catch(err => console.log(err))
         }
@@ -100,7 +107,19 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
     }
 
     return (
-        <div className={`item theme_border position-relative ${reported ? 'bg-danger bg-opacity-25' : ''}`}>
+        <div className={`item theme_border position-relative}`}>
+            {/* {reported &&
+                <div style={{
+                    width: '60px',
+                    height: '60px',
+                    lineHeight: '60px',
+                    textAlign: 'center',
+                    fontSize: '10px',
+                    right: '0%'
+                }} className="bg-danger text-white rounded-circle position-absolute fw-bolder">
+            <small>REPORTED</small>
+        </div>
+           } */}
             <PhotoProvider>
                 <div className="foo text-center">
                     <PhotoView src={itemImage}>
@@ -109,7 +128,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
                 </div>
             </PhotoProvider>
 
-            <div className="p-3 rounded-bottom">
+            <div className={`p-3 rounded-bottom ${reported && 'bg-danger text-white'}`}>
                 <div className="d-flex flex-wrap justify-content-between gap-2">
                     <div className="theme_border_2 px-2 py-1 rounded fw-bold">
                         {category} Watch
@@ -170,21 +189,31 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
                 <p className="text-muted mb-1">
                     <span className='fw-bolder text-black'>Reason of Selling: </span> {reason}
                 </p>
-                {watch ? <NavDropdown className='fw-bolder action_div mt-2 position-absolute top-0 fs-3 fw-bold' title="..." id="basic-nav-dropdown">
-                    <div className="p-2">
-                        {!sold && user?.email === userEmail && <img onClick={() => handleSoldOut(_id)} title="mark as Sold out" style={{ cursor: 'pointer' }} width="40" className='me-2' src="https://i.ibb.co/tqdbw59/pngtree-sold-out-png-image-4169086-copy.png" />}
-                        {!advertise && user?.email === userEmail && <FaAd onClick={() => handleAdvertise(_id)} title="Ad this Watch" style={{ cursor: 'pointer' }} className='text-primary fs-1 me-2'></FaAd>}
-                        {user?.email === userEmail && <FaTrashAlt title="Delete This Watch" style={{ cursor: 'pointer' }} onClick={() => handleDeleteItem(_id)} className='text-danger fs-1'></FaTrashAlt>}
-                        {user?.email !== userEmail && accountType?.accountType === 'buyer' && !reported && <GoReport title="Report This Watch" onClick={() => handleReporting(_id)} style={{ cursor: 'pointer' }} className='text-danger fs-1'></GoReport>}
-                        {user?.email !== userEmail && accountType?.accountType === 'buyer' && <BiAddToQueue title="Add to wishlist" style={{ cursor: 'pointer' }} className='text-danger ms-2 fs-1'></BiAddToQueue>}
-                        {accountType?.accountType === 'admin' && reported && <BiCheckShield onClick={() => handleSolved(_id)} title="Mark as solved" style={{ cursor: 'pointer' }} className='text-danger ms-2 fs-1'></BiCheckShield>}
-                    </div>
-                </NavDropdown> : ''}
+                {/* {watch ? <NavDropdown className='fw-bolder action_div mt-2 position-absolute top-0 fs-3 fw-bold' title="..." id="basic-nav-dropdown"> */}
+                <div className="p-2 d-flex justify-content-evenly">
+                    {!sold && user?.email === userEmail &&
+                        <img onClick={() => handleSoldOut(_id)} title="mark as Sold out" style={{ cursor: 'pointer' }} width="40" className='me-2' src="https://i.ibb.co/tqdbw59/pngtree-sold-out-png-image-4169086-copy.png" />
+                    }
+                    {!advertise && user?.email === userEmail &&
+                        <FaAd onClick={() => handleAdvertise(_id)} title="Ad this Watch" style={{ cursor: 'pointer' }} className='text-primary fs-1 me-2'></FaAd>
+                    }
+                    {user?.email === userEmail && 
+                    <FaTrashAlt title="Delete This Watch" style={{ cursor: 'pointer' }} onClick={() => handleDeleteItem(_id)} className='text-danger fs-1'></FaTrashAlt>
+                     }
+                    {/* {user?.email && user !== userEmail && accountType?.accountType === 'buyer' && !reported &&  */}
+                    <GoReport title="Report This Watch" onClick={() => handleReporting(_id)} style={{ cursor: 'pointer' }} className='text-danger fs-1'></GoReport>
+                    {/* } */}
+                    {/* {user?.email !== userEmail && user && accountType?.accountType === 'buyer' &&  */}
+                    <BiAddToQueue title="Add to wishlist" style={{ cursor: 'pointer' }} className='text-danger ms-2 fs-1'></BiAddToQueue>
+                    {/* } */}
+                    {/* {accountType?.accountType === 'admin' && reported && <BiCheckShield onClick={() => handleSolved(_id)} title="Mark as solved" style={{ cursor: 'pointer' }} className='text-danger ms-2 fs-1'></BiCheckShield>} */}
+                </div>
+                {/* </NavDropdown> : ''} */}
 
                 {<button onClick={handleBook} className="theme_bg  border-0 w-100 text-white fw-bolder py-2 rounded px-3 text-center w-100">  Book Now  </button>}
 
             </div>
-        </div>
+        </div >
     );
 };
 

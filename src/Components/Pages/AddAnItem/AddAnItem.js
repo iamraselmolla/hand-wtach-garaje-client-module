@@ -95,7 +95,7 @@ const AddAnItem = () => {
 
                     <div className="col-md-12 theme_border p-4 rounded">
                         <h2 className="fw-bolder text-center mb-4">
-                            Add an Watch
+                            Add A Watch
                         </h2>
                         <form onSubmit={handleProductAdd} className='row'>
                             <div className="mb-3 col-md-6">

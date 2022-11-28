@@ -17,7 +17,7 @@ const AllreportedItems = () => {
         <section>
             <div className="container">
                 <div className="row">
-                    {reportedItems?.map(s => <div key={s?._id} className="col-md-6"> <Items watch={s}></Items> </div>)}
+                    {reportedItems?.map(s => <div key={s?._id} className="col-md-6 position-relative"> <Items watch={s}></Items> </div>)}
                 </div>
             </div>
         </section>

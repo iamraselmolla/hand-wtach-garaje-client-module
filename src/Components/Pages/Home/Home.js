@@ -10,7 +10,7 @@ import ProductsCategoris from './ProductsCategoris';
 import Steps from './Steps';
 
 const Home = () => {
-    const { data : advertidesProducts = [] } = useQuery({
+    const { data : advertidesProducts = [], refetch } = useQuery({
         queryKey: ['advertised-items'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/advertised-items?limit=3');

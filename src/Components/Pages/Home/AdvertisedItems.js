@@ -12,10 +12,10 @@ const AdvertisedItems = (allData) => {
     const { user, accountType } = useContext(AuthContext)
     const [show, setShow] = useState(false);
     const [modalData, setModalData] = useState(null);
-    const navigate = useNavigate()
-
+    
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const navigate = useNavigate()
 
     const handleBooking = (e) => {
         e.preventDefault();
@@ -92,11 +92,11 @@ const AdvertisedItems = (allData) => {
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Customer Number</Form.Label>
-                                <Form.Control name="phonenumber" type="number" placeholder="Your Number" />
+                                <Form.Control required name="phonenumber" type="number" placeholder="Your Number" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Meeting Location</Form.Label>
-                                <Form.Control name="meetlocation" type="text" placeholder="Safe Meeting Location" />
+                                <Form.Control required name="meetlocation" type="text" placeholder="Safe Meeting Location" />
                             </Form.Group>
 
                             <button style={{ cursor: 'pointer' }} className="theme_bg border-0 text-white text-center w-100 fw-bolder px-3 py-2 rounded">

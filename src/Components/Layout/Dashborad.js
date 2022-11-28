@@ -57,9 +57,9 @@ const Dashborad = () => {
                                                 All Booked Items
                                           
                                     </NavLink>
-                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/all-sold-items">
+                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/my-shopping/">
                                     
-                                                All Sold Items
+                                                My Shopping
                                           
                                     </NavLink>
                                     <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/all-added-items">

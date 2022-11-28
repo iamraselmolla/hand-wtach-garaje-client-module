@@ -13,8 +13,8 @@ const Allbuyers = () => {
             .then(data => setAccounts(data))
             .catch(err => console.log(err.message))
     }
-
-        , [user?.email])
+    , [user?.email])
+    
     return (
         <>
             <Table className="text-center" striped bordered hover>

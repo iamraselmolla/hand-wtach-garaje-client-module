@@ -5,7 +5,7 @@ import { GoReport } from "react-icons/go";
 import { BiAddToQueue, BiCheckShield } from "react-icons/bi";
 import { FaAd, FaTrashAlt } from "react-icons/fa";
 import { PhotoProvider, PhotoView } from 'react-photo-view';
-import { Link } from 'react-router-dom';
+import { json, Link } from 'react-router-dom';
 import './Items.css'
 import toast from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
@@ -51,8 +51,14 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
         if(accountType?.accountType !== 'buyer'){
             return toast.error('You need to login a buyer account to report an item')
         }
+        const reportedTime = new Date().getTime();
+
         fetch(`http://localhost:5000/items/reported/${id}`, {
-            method: 'PUT'
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({reportedTime})
         })
             .then(res => res.json())
             .then(data => {
@@ -102,24 +108,16 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
         if (!user?.email) {
             return toast.error('Please login first to book this item')
         }
+        if(sold){
+            return toast.error('This item is already sold')
+        }
         handleShow();
         setModalData(watch)
     }
 
     return (
         <div className={`item theme_border position-relative}`}>
-            {/* {reported &&
-                <div style={{
-                    width: '60px',
-                    height: '60px',
-                    lineHeight: '60px',
-                    textAlign: 'center',
-                    fontSize: '10px',
-                    right: '0%'
-                }} className="bg-danger text-white rounded-circle position-absolute fw-bolder">
-            <small>REPORTED</small>
-        </div>
-           } */}
+           
             <PhotoProvider>
                 <div className="foo text-center">
                     <PhotoView src={itemImage}>
@@ -128,7 +126,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
                 </div>
             </PhotoProvider>
 
-            <div className={`p-3 rounded-bottom ${reported && 'bg-danger text-white'}`}>
+            <div className={`p-3 rounded-bottom`}>
                 <div className="d-flex flex-wrap justify-content-between gap-2">
                     <div className="theme_border_2 px-2 py-1 rounded fw-bold">
                         {category} Watch
@@ -201,10 +199,10 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
                     <FaTrashAlt title="Delete This Watch" style={{ cursor: 'pointer' }} onClick={() => handleDeleteItem(_id)} className='text-danger fs-1'></FaTrashAlt>
                      }
                     {/* {user?.email && user !== userEmail && accountType?.accountType === 'buyer' && !reported &&  */}
-                    <GoReport title="Report This Watch" onClick={() => handleReporting(_id)} style={{ cursor: 'pointer' }} className='text-danger fs-1'></GoReport>
+                    <GoReport title="Report This Watch" onClick={() => handleReporting(_id)} style={{ cursor: 'pointer' }} className={`text-danger fs-1 ${reported && 'text-white'}`}></GoReport>
                     {/* } */}
                     {/* {user?.email !== userEmail && user && accountType?.accountType === 'buyer' &&  */}
-                    <BiAddToQueue title="Add to wishlist" style={{ cursor: 'pointer' }} className='text-danger ms-2 fs-1'></BiAddToQueue>
+                    <BiAddToQueue title="Add to wishlist" style={{ cursor: 'pointer' }} className={`text-danger fs-1 ${reported && 'text-white'}`}></BiAddToQueue>
                     {/* } */}
                     {/* {accountType?.accountType === 'admin' && reported && <BiCheckShield onClick={() => handleSolved(_id)} title="Mark as solved" style={{ cursor: 'pointer' }} className='text-danger ms-2 fs-1'></BiCheckShield>} */}
                 </div>

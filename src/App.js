@@ -19,9 +19,11 @@ import AllAddedItems from './Components/Pages/AllAddedItems/AllAddedItems';
 import AllAdmin from './Components/Pages/AllAdmin/AllAdmin';
 import Allusers from './Components/Pages/Allusers/Allusers';
 import Profile from './Components/Pages/Profile/Profile';
-import AllSoldItems from './Components/Pages/AllsoldItems/AllSoldItems';
+import MyShopping from './Components/Pages/MyShopping/MyShopping';
 import AllBlockedUsers from './Components/Pages/AllBlockedUser/AllBlockedUsers';
 import Categories from './Components/Pages/Categories/Categories';
+import PaymentItem from './Components/Pages/Pay/PaymentItem';
+import Verification from './Components/Pages/Verification/Verification';
 
 
 function App() {
@@ -51,6 +53,10 @@ function App() {
           element: <Blog></Blog>
         },
         {
+          path: '/verification',
+          element: <Verification></Verification>
+        },
+        {
           path: '/categories/:id',
           loader: ({params}) => {
             return fetch(`http://localhost:5000/categories/${params.id}`)
@@ -60,6 +66,13 @@ function App() {
         {
           path: '/register',
           element: <Register></Register>
+        },
+        {
+          path: '/pay/:id',
+          element: <PaymentItem></PaymentItem>,
+          loader: ({params}) => {
+            return fetch(`http://localhost:5000/pay/${params.id}`)
+          }
         },
         {
           path: '*',
@@ -93,8 +106,8 @@ function App() {
           element: <AllAdmin></AllAdmin>
         },
         {
-          path: '/dashboard/all-sold-items',
-          element: <AllSoldItems></AllSoldItems>
+          path: '/dashboard/my-shopping/',
+          element: <MyShopping></MyShopping>
         },
         {
           path: '/dashboard/all-blocked-users',

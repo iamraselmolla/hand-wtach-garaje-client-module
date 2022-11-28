@@ -21,6 +21,7 @@ import Allusers from './Components/Pages/Allusers/Allusers';
 import Profile from './Components/Pages/Profile/Profile';
 import AllSoldItems from './Components/Pages/AllsoldItems/AllSoldItems';
 import AllBlockedUsers from './Components/Pages/AllBlockedUser/AllBlockedUsers';
+import Categories from './Components/Pages/Categories/Categories';
 
 
 function App() {
@@ -48,6 +49,13 @@ function App() {
         {
           path: '/blog',
           element: <Blog></Blog>
+        },
+        {
+          path: '/categories/:id',
+          loader: ({params}) => {
+            return fetch(`http://localhost:5000/categories/${params.id}`)
+          },
+          element: <Categories></Categories>
         },
         {
           path: '/register',

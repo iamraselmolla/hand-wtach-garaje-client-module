@@ -9,7 +9,7 @@ import { AuthContext } from '../AuthContext/AuthProvider';
 
 
 const Dashborad = () => {
-    const {accountType} = useContext(AuthContext);       
+    const {typeOfAccount} = useContext(AuthContext);       
       let activeClassName = "underline";
     return (
         <section>
@@ -19,59 +19,70 @@ const Dashborad = () => {
                 <div className="py-5 row">
                     <div className="col-md-2 dashboard-panel">
                        
-                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
+                                   {typeOfAccount === 'admin' && <Link className="d-block fw-bolder text-decoration-none py-2 px-2"
+                                        to="/dashboard/activity"
+                                    >
+                                       Admin Dashboard
+                                    </Link>}
+                                   {typeOfAccount !== 'admin' && <Link className="d-block fw-bolder text-decoration-none py-2 px-2"
+                                        to="/dashboard"
+                                    >
+                                        Dashboard
+                                    </Link>}
+                       
+                                   {typeOfAccount  === 'seller' &&  <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
                                         to="/dashboard/add-an-item"
                                     >
                                         Add an Item
-                                    </NavLink>
+                                    </NavLink>}
                                
                                    
                                
-                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/allbuyers">
+                                   {typeOfAccount === 'admin' &&  <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/allbuyers">
                                                 All Buyers
                                             
                                         
-                                    </NavLink>
-                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
+                                    </NavLink>}
+                                    {typeOfAccount === 'admin' && <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
                                         to="/dashboard/allsellers"
                                     >
                                         All  Sellers
-                                    </NavLink>
-                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
+                                    </NavLink>}
+                                    {typeOfAccount === 'admin' &&  <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
                                         to="/dashboard/all-admin"
                                     >
                                         All  Admin
-                                    </NavLink>
-                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
+                                    </NavLink>}
+                                    {typeOfAccount === 'admin' &&  <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
                                         to="/dashboard/all-blocked-users"
                                     >
                                         All  Blocked Users
-                                    </NavLink>
-                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
+                                        </NavLink>}
+                                        {typeOfAccount === 'admin' &&  <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
                                         to="/dashboard/all-users"
                                     >
                                         All  Users
-                                    </NavLink>
-                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/all-booked-items">
+                                    </NavLink>}
+                                    {typeOfAccount === 'buyer' &&  <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/all-booked-items">
                                     
                                                 All Booked Items
                                           
-                                    </NavLink>
-                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/my-shopping/">
+                                    </NavLink>}
+                                    {typeOfAccount === 'buyer' && <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/my-shopping/">
                                     
                                                 My Shopping
                                           
-                                    </NavLink>
-                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/all-added-items">
+                                    </NavLink>}
+                                    {typeOfAccount === 'seller' &&  <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/all-added-items">
                                     
                                                 All Added Items
                                           
-                                    </NavLink>
-                                    <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/reported-items">
+                                    </NavLink>}
+                                    {typeOfAccount === 'admin' && <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2" to="/dashboard/reported-items">
                                        
                                                 All Reported Items
                                             
-                                    </NavLink>
+                                    </NavLink>}
                                
                     
                     </div>

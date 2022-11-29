@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Banner = () => {
     return (
@@ -18,9 +19,9 @@ const Banner = () => {
                         We have the expertise to checke any watch, including
                         vintage watches and antique pocket watches or any international famous smart watch brand.
                     </p>
-                    <button className="theme_bg outline-0 border-0 px-5 py-3 fw-bolder text-white rounded">
+                    <Link to="/all-items"><button className="theme_bg outline-0 border-0 px-5 py-3 fw-bolder text-white rounded">
                         Check Now
-                    </button>
+                    </button></Link>
                     <div className="watch-list mt-4">
                         <img width="50" src="2.png" alt=""  />
                         <img width="50" src="3.png" alt=""  />

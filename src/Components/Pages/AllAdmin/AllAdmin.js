@@ -8,7 +8,11 @@ const AllAdmin = () => {
     const [accounts, setAccounts] = useState([]);
     const [accountReload, setAccountReload] = useState(false)
     useEffect(() => {
-        fetch('http://localhost:5000/accounts?account=admin')
+        fetch('https://assignment-12-server-gray.vercel.app/accounts?account=admin',{
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access-token')}`
+            } 
+        })
             .then(res => res.json())
             .then(data => setAccounts(data))
             .catch(err => console.log(err.message))

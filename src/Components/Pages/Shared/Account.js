@@ -8,8 +8,8 @@ import { AuthContext } from '../../AuthContext/AuthProvider';
 
 const Account = ({ acc, index,accountReload,setAccountReload }) => {
     const handleVeiryfy = (id) => {
-      if(window.confirm(`Do you want to verify  account ${acc?.username}`)){
-        fetch(`http://localhost:5000/accounts/verify/${id}`,{
+      if(window.confirm(`Do you want to verify ${acc?.username}`)){
+        fetch(`https://assignment-12-server-gray.vercel.app/accounts/verify/${id}`,{
             method: 'PUT'
         })
         .then(res => res.json())
@@ -23,11 +23,11 @@ const Account = ({ acc, index,accountReload,setAccountReload }) => {
         if(acc?.accountType === 'admin'){
             return toast.error('You can\'t delete an admin')
         }
-        if(acc?.signupby === 'google'){
-            return toast.error('You cannot delete a google user. You only can block')
-        }
+        // if(acc?.signupby === 'google'){
+        //     return toast.error('You cannot delete a google user. You only can block')
+        // }
         if(window.confirm(`Do you want to delete this user ${acc?.username}`)){
-            fetch(`http://localhost:5000/accounts/verify/${id}`,{
+            fetch(`https://assignment-12-server-gray.vercel.app/accounts/verify/${id}`,{
                 method: 'DELETE'
             })
             .then(res => res.json())

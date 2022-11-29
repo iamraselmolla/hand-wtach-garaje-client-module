@@ -7,10 +7,14 @@ import Account from '../Shared/Account';
 
 const Allbuyers = () => {
     const { user } = useContext(AuthContext)
-    const [accounts, setAccounts] = useState([]);
     const [accountReload, setAccountReload] = useState(false)
+    const [accounts, setAccounts] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/accounts?account=buyer')
+        fetch('https://assignment-12-server-gray.vercel.app/accounts?account=buyer', {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('access-token')}`
+            } 
+        })
     .then(res => res.json())
     .then(accounts => setAccounts(accounts))
     .catch(err => console.log(err.message));
@@ -32,7 +36,7 @@ const Allbuyers = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {accounts?.map((acc, i) => <Account accountReload={accountReload} setAccountReload={setAccountReload} index={i} acc={acc} key={acc._id}></Account>)}
+                    {accounts && accounts?.map((acc, i) => <Account accountReload={accountReload} setAccountReload={setAccountReload} index={i} acc={acc} key={acc._id}></Account>)}
 
                 </tbody>
             </Table>

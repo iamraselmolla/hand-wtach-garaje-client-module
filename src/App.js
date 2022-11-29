@@ -24,6 +24,10 @@ import AllBlockedUsers from './Components/Pages/AllBlockedUser/AllBlockedUsers';
 import Categories from './Components/Pages/Categories/Categories';
 import PaymentItem from './Components/Pages/Pay/PaymentItem';
 import Verification from './Components/Pages/Verification/Verification';
+import UserDashBoard from './Components/Pages/Dashboard/UserDashboard';
+import AdminRoute from './Components/Routes/AdminRoute';
+import SellerRoute from './Components/Routes/SellerRoute';
+import BuyerRoute from './Components/Routes/BuyerRoute';
 
 
 function App() {
@@ -59,7 +63,7 @@ function App() {
         {
           path: '/categories/:id',
           loader: ({params}) => {
-            return fetch(`http://localhost:5000/categories/${params.id}`)
+            return fetch(`https://assignment-12-server-gray.vercel.app/categories/${params.id}`)
           },
           element: <Categories></Categories>
         },
@@ -71,7 +75,7 @@ function App() {
           path: '/pay/:id',
           element: <PaymentItem></PaymentItem>,
           loader: ({params}) => {
-            return fetch(`http://localhost:5000/pay/${params.id}`)
+            return fetch(`https://assignment-12-server-gray.vercel.app/pay/${params.id}`)
           }
         },
         {
@@ -86,8 +90,8 @@ function App() {
       element: <PrivateRoute><Dashborad></Dashborad></PrivateRoute>,
       children: [
         {
-          path: '/dashboard',
-          // element: <Dashborad></Dashborad>
+          path: '/dashboard/activity',
+          element: <AdminRoute><UserDashBoard></UserDashBoard></AdminRoute>
         },
         {
           path: '/dashboard/add-an-item',
@@ -95,39 +99,39 @@ function App() {
         },
         {
           path: '/dashboard/allsellers',
-          element: <Allsellers></Allsellers>
+          element: <AdminRoute><Allsellers></Allsellers></AdminRoute>
         },
         {
           path: '/dashboard/allbuyers',
-          element: <Allbuyers></Allbuyers>
+          element: <AdminRoute><Allbuyers></Allbuyers></AdminRoute>
         },
         {
           path: '/dashboard/all-admin',
-          element: <AllAdmin></AllAdmin>
+          element: <AdminRoute><AllAdmin></AllAdmin></AdminRoute>
         },
         {
           path: '/dashboard/my-shopping/',
-          element: <MyShopping></MyShopping>
+          element: <BuyerRoute><MyShopping></MyShopping></BuyerRoute>
         },
         {
           path: '/dashboard/all-blocked-users',
-          element: <AllBlockedUsers></AllBlockedUsers>
+          element: <AdminRoute><AllBlockedUsers></AllBlockedUsers></AdminRoute>
         },
         {
           path: '/dashboard/all-users',
-          element: <Allusers></Allusers>
+          element: <AdminRoute><Allusers></Allusers></AdminRoute>
         },
         {
           path: '/dashboard/reported-items',
-          element: <AllreportedItems></AllreportedItems>
+          element: <AdminRoute><AllreportedItems></AllreportedItems></AdminRoute>
         },
         {
           path: '/dashboard/all-booked-items',
-          element: <AllbookedItems></AllbookedItems>
+          element: <BuyerRoute><AllbookedItems></AllbookedItems></BuyerRoute>
         },
         {
           path: '/dashboard/all-added-items',
-          element: <AllAddedItems></AllAddedItems>
+          element: <SellerRoute><AllAddedItems></AllAddedItems></SellerRoute>
         },
       ]
     }

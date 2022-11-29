@@ -21,7 +21,7 @@ const [accountStatus, setAccountStatus] = useState(false)
 console.log(accountType)
     // Mark watch sold Out
     const handleSoldOut = (id) => {
-        fetch(`http://localhost:5000/items/sold-out/${id}`, {
+        fetch(`https://assignment-12-server-gray.vercel.app/items/sold-out/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -33,9 +33,8 @@ console.log(accountType)
     }
     const getAxiosData = async () => {
         try {
-            const resposne = await axios(`http://localhost:5000/check-verify?email=${user?.email}`);
-            setAccountStatus(resposne.data)
-            console.log(accountStatus)
+            const resposne = await axios(`https://assignment-12-server-gray.vercel.app/check-verify?email=${userEmail}`);
+            setAccountStatus(resposne?.data)
         }
         catch (error) {
             console.log(error)
@@ -45,7 +44,7 @@ console.log(accountType)
     // useEffect(()=> {}, [user?.email])
     
     // const handleItemAvailable = (id) => {
-    //     fetch(`http://localhost:5000/items/available/${id}`, {
+    //     fetch(`https://assignment-12-server-gray.vercel.app/items/available/${id}`, {
     //         method: 'PUT'
     //     })
     //         .then(res => res.json())
@@ -57,7 +56,7 @@ console.log(accountType)
     // }
     // Mark watch Advertise
     const handleAdvertise = (id) => {
-        fetch(`http://localhost:5000/items/advertised/${id}`, {
+        fetch(`https://assignment-12-server-gray.vercel.app/items/advertised/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -70,6 +69,9 @@ console.log(accountType)
     }
     // Handle Reporting
     const handleReporting = (id) => {
+        if(reported){
+            return toast.error('Already reported')
+        }
         if(!user){
             return toast.error('You need to login an  account to report an item')
         }
@@ -78,7 +80,7 @@ console.log(accountType)
         }
         const reportedTime = new Date().getTime();
 
-        fetch(`http://localhost:5000/items/reported/${id}`, {
+        fetch(`https://assignment-12-server-gray.vercel.app/items/reported/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -94,7 +96,7 @@ console.log(accountType)
     }
     // Handle Solving
     const handleSolved = (id) => {
-        fetch(`http://localhost:5000/items/reported-solved/${id}`, {
+        fetch(`https://assignment-12-server-gray.vercel.app/items/reported-solved/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -110,7 +112,7 @@ console.log(accountType)
         if (window.confirm(`DO you want to delete ${name} permanently`)) {
 
 
-            fetch(`http://localhost:5000/delete-items/${id}`, {
+            fetch(`https://assignment-12-server-gray.vercel.app/delete-items/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json'

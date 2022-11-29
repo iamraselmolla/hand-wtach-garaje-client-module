@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 
 const Register = () => {
-    const { createUser, updateUserInfo } = useContext(AuthContext);
+    const { createUser, updateUserInfo, logOut } = useContext(AuthContext);
     const googleAuth = new GoogleAuthProvider();
     const [error, setError] = useState('')
     const imageBbApiKey = process.env.REACT_APP_imageBBAPI;
@@ -19,6 +19,8 @@ const Register = () => {
 
         createUser(e.target.email.value, e.target.password.value)
             .then(res => {
+                console.log();
+                const currentUser = { email: res.user?.email }
 
                 setBtnStatus(true)
                 const accountType = e.target.sellerBuyer.value
@@ -42,7 +44,7 @@ const Register = () => {
                         const profilepicture = imageData.data.url;
                         const allData = { accountType, username, email, profilepicture, signupby, insertTime }
 
-                        fetch('http://localhost:5000/users', {
+                        fetch('https://assignment-12-server-gray.vercel.app/users', {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'
@@ -55,7 +57,26 @@ const Register = () => {
                                 toast.success('Registration Successful')
                                 setBtnStatus(false)
                                 e.target.reset()
-                                navigate('/login')
+                                navigate('/login');
+                                fetch('https://assignment-12-server-gray.vercel.app/jwt', {
+                                    method: 'POST',
+                                    headers: {
+                                        'content-type': 'application/json'
+                                    },
+                                    body: JSON.stringify(currentUser)
+                                })
+                                    .then(res => {
+                
+                                        if (res.status === 401 || res.status === 403) {
+                                            return logOut();
+                                        }
+                                        return res.json();
+                                    })
+                                    .then(data => {
+                                        localStorage.setItem('access-token', data?.token)
+                
+                                        toast.success(`Hello ${username}, You are logged in here successfully`)
+                                    })
                             })
                     })
                     .catch(err => console.log(err.message))

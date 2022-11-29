@@ -8,7 +8,7 @@ const AllbookedItems = () => {
     const { user } = useContext(AuthContext)
     const [bookedData, setBookedData] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/booked?email=${user?.email}`)
+        fetch(`https://assignment-12-server-gray.vercel.app/booked?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setBookedData(data))
             .catch(err => console.log(err.message))

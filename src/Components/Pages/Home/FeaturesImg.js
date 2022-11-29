@@ -11,7 +11,7 @@ const FeaturesImg = () => {
                      <PhotoProvider>
                      <div className="foo">
                         <PhotoView src="11.jpg">
-                    <img src="11.jpg" alt="" className='img-fluid'/>
+                    <img src="11.jpg" alt="" className='img-fluid mt-4'/>
                     </PhotoView>
                     </div>
                 </PhotoProvider>

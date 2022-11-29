@@ -33,7 +33,7 @@ const AdvertisedItems = (allData) => {
         const insertTime = new Date().getTime();
         const allData = { number, location, category, category_id, email, name, img, productname, price, product_id, paid, insertTime }
         console.log(allData);
-        fetch('http://localhost:5000/booked', {
+        fetch('https://assignment-12-server-gray.vercel.app/booked', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -49,8 +49,8 @@ const AdvertisedItems = (allData) => {
 
     }
     return (
-        <section className="container-fluid py-5">
-            <div className="row pt-5">
+        <section className="container-fluid py-5 mx-auto">
+            <div className="row pt-2">
                 <div className="col mb-4 text-center">
                     <h5 className="mb-0 theme_color">
                         Advertised Wacthes

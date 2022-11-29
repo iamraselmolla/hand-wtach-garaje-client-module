@@ -1,7 +1,5 @@
-1. make item again unsold and unadvertsied
 2. need to add admin power make anyone buyer, seller or admin
 3. need to add all block user method to identify blokced users
-4. need to add reported item showing for buyer too
-5. gogole login button hover
-6. need to update verfieid in the monent in all buyer/seller/admin
-7. need to show user verified sign
+6. need to add all selling item and displaying it under admin dashboard template
+need to show all advertised product in admin dashboard
+need to add block user and need to show under admin dashboard

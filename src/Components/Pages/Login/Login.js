@@ -10,7 +10,7 @@ import { AuthContext } from '../../AuthContext/AuthProvider';
 
 const Login = () => {
     const googleAuth = new GoogleAuthProvider();
-    const { loginWithGoogle, login } = useContext(AuthContext);
+    const { loginWithGoogle, login, logOut } = useContext(AuthContext);
     const [loginError, setError] = useState('')
     const location = useLocation();
     const navigate = useNavigate();
@@ -19,30 +19,48 @@ const Login = () => {
     const handleGoogleSign = () => {
         loginWithGoogle(googleAuth)
             .then(res => {
-
+                const currentUser = { email: res.user?.email }
                 const accountType = 'buyer'
                 const username = res.user.displayName || 'Not Provided from authentic site';
                 const email = res.user.email;
                 const insertTime = new Date().getTime();
                 const profilepicture = res.user.photoURL || 'Not provided from authentic site';
                 const signupby = 'google'
-                const allData = { accountType, username, email, profilepicture,signupby, insertTime }
-
-
-                fetch('http://localhost:5000/users', {
+                const allData = { accountType, username, email, profilepicture, signupby, insertTime }
+                fetch('https://assignment-12-server-gray.vercel.app/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
                     },
-                    body: JSON.stringify(allData)
+                    body: JSON.stringify(currentUser)
                 })
-                    .then(res2 => res2.json())
+                    .then(res => {
+
+                        if (res.status === 401 || res.status === 403) {
+                            return logOut();
+                        }
+                        return res.json();
+                    })
                     .then(data => {
+                        localStorage.setItem('access-token', data?.token)
+                        toast.success(`Hello ${username}, You are logged in here successfully`)
                         setError(null)
                         navigate(from, { replace: true });
-                        toast.success('Login with Google Successful')
+                        fetch('https://assignment-12-server-gray.vercel.app/users', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(allData)
+                        })
+                            .then(res2 => res2.json())
+                            .then(data => {
+
+                            })
+
                     })
-                    .catch(err => console.log(err.message))
+
+
             })
             .catch(err => setError(err.message))
     }
@@ -51,8 +69,29 @@ const Login = () => {
         e.preventDefault()
         login(e.target.email.value, e.target.password.value)
             .then(res => {
-                navigate(from, { replace: true });
+                const currentUser = { email: res.user?.email }
+                const username = res?.user?.displayName
 
+                fetch('https://assignment-12-server-gray.vercel.app/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => {
+
+                        if (res.status === 401 || res.status === 403) {
+                            return logOut();
+                        }
+                        return res.json();
+                    })
+                    .then(data => {
+                        localStorage.setItem('access-token', data?.token)
+                        navigate(from, { replace: true });
+
+                        toast.success(`Hello ${username}, You are logged in here successfully`)
+                    })
             })
             .catch(err => setError(err.message))
     }

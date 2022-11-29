@@ -61,7 +61,7 @@ const AddAnItem = () => {
                 const verified = false;
                 const sold = false;
                 const allDataInfo = { name, price,mainprice,verified, number, location, description, pruchingtime, duration, reason, itemImage, category, condition, repairOrDamage, userEmail, userName, userProfilePicture, insertTime, category_id,advertise, sold };
-                fetch('http://localhost:5000/watches', {
+                fetch('https://assignment-12-server-gray.vercel.app/watches', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

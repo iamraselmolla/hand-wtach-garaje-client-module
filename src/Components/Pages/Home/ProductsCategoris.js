@@ -6,7 +6,7 @@ const ProductsCategoris = () => {
     const {data: categories = [], isLoading, refetch} = useQuery({
         queryKey: ['categoriess'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categories');
+            const res = await fetch('https://assignment-12-server-gray.vercel.app/categories');
             const data = await res.json();
             return data;
         }
@@ -26,7 +26,7 @@ const ProductsCategoris = () => {
                     </p>
                 </div>
                 <div className="row mt-4">
-                   {categories?.map(category => <div key={category?._id} className="col-md-4 d-flex text-center flex-column align-items-center"> <SingleCategory dataCategory={category}></SingleCategory> </div> )}
+                   {categories?.map(category => <div key={category?._id} className="col-md-4 my-2 d-flex text-center flex-column align-items-center"> <SingleCategory dataCategory={category}></SingleCategory> </div> )}
                 </div>
             </div>
         </section>

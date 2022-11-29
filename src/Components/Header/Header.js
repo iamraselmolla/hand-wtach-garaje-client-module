@@ -13,10 +13,13 @@ const Header = () => {
     const handlelogOut = () => {
         logOut()
             .then(() => {
-                toast.success("Logout Successfully!")
+                localStorage.removeItem('access-token')
+                toast.error(`Hello ${user?.displayName}! You successfully log out`)
+
             })
             .catch(() => { })
     }
+    
     return (
         <header className='navbar-light bg-light'>
             <Navbar bg="light" expand="lg">
@@ -26,14 +29,14 @@ const Header = () => {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
 
-                            <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/">Home</NavLink>
-                            <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/verification">Verify Your Payment</NavLink>
-                            <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/all-items">All Watches</NavLink>
-                            <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/blog">Blog</NavLink>
+                            <NavLink className="text-decoration-none fw-bolder text-black px-3 py-3" to="/">Home</NavLink>
+                            <NavLink className="text-decoration-none fw-bolder text-black px-3 py-3" to="/all-items">All Watches</NavLink>
+                            <NavLink className="text-decoration-none fw-bolder text-black px-3 py-3" to="/verification">Verify Your Payment</NavLink>
+                            <NavLink className="text-decoration-none fw-bolder text-black px-3 py-3" to="/blog">Blog</NavLink>
                             {!user &&
                                 <>
-                                    <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/login">Login</NavLink>
-                                    <NavLink className="text-decoration-none fw-bolder text-black px-2 py-3" to="/register">Register</NavLink>
+                                    <NavLink className="text-decoration-none fw-bolder text-black px-3 py-3" to="/login">Login</NavLink>
+                                    <NavLink className="text-decoration-none fw-bolder text-black px-3 py-3" to="/register">Register</NavLink>
 
                                 </>
                             }
@@ -41,7 +44,7 @@ const Header = () => {
                             {user && <NavDropdown className='fw-bolder mt-2' title={`Hello ${user?.displayName || user?.email}`} id="basic-nav-dropdown">
                                 <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/dashboard">Dashboard</Link>
                                 <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/profile">Profile</Link>
-                                <NavLink onClick={handlelogOut} className="text-decoration-none px-2 fw-bolder text-black px-2">Logout</NavLink>
+                                <NavLink onClick={handlelogOut} className="text-decoration-none px-2 fw-bolder text-black px-3">Logout</NavLink>
                             </NavDropdown>}
                         </Nav>
                     </Navbar.Collapse>

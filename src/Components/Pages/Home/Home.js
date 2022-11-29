@@ -22,7 +22,7 @@ const Home = () => {
         <>
             <Banner></Banner>
             <Steps></Steps>
-            {advertidesProducts?.length > 1 &&  <AdvertisedItems allData={advertidesProducts}></AdvertisedItems>}
+            {advertidesProducts?.length > 0 &&  <AdvertisedItems allData={advertidesProducts}></AdvertisedItems>}
             <BuyingLuxury></BuyingLuxury>
             <ProductsCategoris></ProductsCategoris>
             <FeaturesImg></FeaturesImg>

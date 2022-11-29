@@ -6,16 +6,7 @@ import Items from '../Shared/Items';
 const AllAddedItems = () => {
     const { user } = useContext(AuthContext)
     const [allData, setAllData]= useState([])
-    
-    // const {allDataItems : addedItems =[], isLoading, refetch} = useQuery({
-    //     queryKey: ['added-items'],
-    //     queryFn: async () =>{
-    //             const resData = await fetch(`http://localhost:5000/added-items?email=${user?.email}`);
-    //             const allDataItems = await resData.json();
-    //             return allDataItems;
 
-    //     }
-    // });
 
     useEffect(() => {
             fetch(`http://localhost:5000/added-items?email=${user?.email}`)

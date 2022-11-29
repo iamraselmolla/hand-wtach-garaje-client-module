@@ -6,6 +6,7 @@ import Table from 'react-bootstrap/Table';
 const Allusers = () => {
     const { user } = useContext(AuthContext)
     const [accounts, setAccounts] = useState([]);
+    const [accountReload, setAccountReload] = useState(false)
     useEffect(() => {
         fetch('http://localhost:5000/accounts?account=all')
             .then(res => res.json())
@@ -28,7 +29,7 @@ const Allusers = () => {
                 </tr>
             </thead>
             <tbody>
-                {accounts?.map((acc, i) => <Account index={i} acc={acc} key={acc._id}></Account>)}
+                {accounts?.map((acc, i) => <Account accountReload={accountReload} setAccountReload={setAccountReload} index={i} acc={acc} key={acc._id}></Account>)}
 
             </tbody>
         </Table>

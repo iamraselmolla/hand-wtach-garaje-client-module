@@ -5,7 +5,8 @@ import Account from '../Shared/Account';
 
 const AllAdmin = () => {
     const { user } = useContext(AuthContext)
-    const [accounts, setAccounts] = useState([])
+    const [accounts, setAccounts] = useState([]);
+    const [accountReload, setAccountReload] = useState(false)
     useEffect(() => {
         fetch('http://localhost:5000/accounts?account=admin')
             .then(res => res.json())
@@ -13,7 +14,7 @@ const AllAdmin = () => {
             .catch(err => console.log(err.message))
     }
 
-        , [user?.email])
+        , [user?.email],)
     return (
         <>
         <Table className="text-center" striped bordered hover>

@@ -2,6 +2,7 @@ import { async } from '@firebase/util';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
+import toast from 'react-hot-toast';
 import Items from '../Shared/Items';
 
 const AllreportedItems = () => {
@@ -13,7 +14,19 @@ const AllreportedItems = () => {
             const data = await res.json();
             return data
         }
-    })
+    });
+    const handleResolveReport = (id,name) => {
+        fetch(`http://localhost:5000/items/reported-solved/${id}`, {
+            method: 'PUT'
+        })
+        .then(res => res.json())
+        .then(data => {
+            refetch()
+           return toast.success(`${name} report removed`)
+
+        })
+        .catch(err => console.log(err.message))
+    }
     return (
         <section>
             <div className="container">
@@ -39,7 +52,7 @@ const AllreportedItems = () => {
                                 <td> {s?.name} </td>
                                 <td> {s?.price} </td>
                                 <td> <img src={s?.itemImage} width="50px" className='rounded-cricle' alt="" srcset="" /> </td>
-                                <th> <button className='theme_bg text-white fw-bold border-0 rounded px-2 py-1'>Remove Report</button> </th>
+                                <th> <button onClick={() => handleResolveReport(s?._id, s?.name)} className='theme_bg text-white fw-bold border-0 rounded px-2 py-1'>Remove Report</button> </th>
                             </tr>
                            
 

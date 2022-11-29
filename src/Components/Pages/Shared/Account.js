@@ -6,7 +6,7 @@ import 'react-photo-view/dist/react-photo-view.css';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 
 
-const Account = ({ acc, index }) => {
+const Account = ({ acc, index,accountReload,setAccountReload }) => {
     const handleVeiryfy = (id) => {
       if(window.confirm(`Do you want to verify  account ${acc?.username}`)){
         fetch(`http://localhost:5000/accounts/verify/${id}`,{
@@ -14,11 +14,15 @@ const Account = ({ acc, index }) => {
         })
         .then(res => res.json())
         .then(data => {
+            setAccountReload(!accountReload)
             toast.success(`${acc?.username} has been verified`)
         })
       }
     }
     const handleDeleteUser = (id) => {
+        if(acc?.accountType === 'admin'){
+            return toast.error('You can\'t delete an admin')
+        }
         if(acc?.signupby === 'google'){
             return toast.error('You cannot delete a google user. You only can block')
         }
@@ -28,6 +32,7 @@ const Account = ({ acc, index }) => {
             })
             .then(res => res.json())
             .then(data => {
+                setAccountReload(!accountReload)
                 toast.success(`${acc?.username} has been deleted`)
             })
         }

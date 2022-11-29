@@ -10,14 +10,15 @@ import './Items.css'
 import toast from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../../AuthContext/AuthProvider';
+import axios from 'axios';
 
 
 const Items = ({ watch, handleShow, refetch, setModalData }) => {
-
+const [accountStatus, setAccountStatus] = useState(false)
     const { user, accountType } = useContext(AuthContext)
     const { _id, name, advertise, category, category_id, condition, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, mainprice, repairOrDamage, sold, userEmail, userName, userProfilePicture, reported } = watch;
 
-
+console.log(accountType)
     // Mark watch sold Out
     const handleSoldOut = (id) => {
         fetch(`http://localhost:5000/items/sold-out/${id}`, {
@@ -30,6 +31,30 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
             })
             .catch(err => console.log(err))
     }
+    const getAxiosData = async () => {
+        try {
+            const resposne = await axios(`http://localhost:5000/check-verify?email=${user?.email}`);
+            setAccountStatus(resposne.data)
+            console.log(accountStatus)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    getAxiosData()
+    // useEffect(()=> {}, [user?.email])
+    
+    // const handleItemAvailable = (id) => {
+    //     fetch(`http://localhost:5000/items/available/${id}`, {
+    //         method: 'PUT'
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             toast.success(`${name} has been marked as available`)
+    //             refetch()
+    //         })
+    //         .catch(err => console.log(err))
+    // }
     // Mark watch Advertise
     const handleAdvertise = (id) => {
         fetch(`http://localhost:5000/items/advertised/${id}`, {
@@ -81,6 +106,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
     }
 
     const handleDeleteItem = (id) => {
+
         if (window.confirm(`DO you want to delete ${name} permanently`)) {
 
 
@@ -116,7 +142,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
     }
 
     return (
-        <div className={`item theme_border position-relative}`}>
+        <div className={`item ${reported ? 'border border-3 border-danger' : 'theme_border' }  position-relative}`}>
            
             <PhotoProvider>
                 <div className="foo text-center">
@@ -126,7 +152,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
                 </div>
             </PhotoProvider>
 
-            <div className={`p-3 rounded-bottom`}>
+            <div className={`p-3 rounded-bottom `}>
                 <div className="d-flex flex-wrap justify-content-between gap-2">
                     <div className="theme_border_2 px-2 py-1 rounded fw-bold">
                         {category} Watch
@@ -170,7 +196,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
                     <small>Posted on: {new Date(insertTime).toLocaleString()}</small>
                 </div>
                 <h3 className="mb-0 mt-3">
-                    {name} <TiTick className='rounded-circle bg-primary fs-6 text-white'></TiTick>
+                    {name} {accountStatus && <TiTick className='rounded-circle bg-primary fs-6 text-white'></TiTick>}
                 </h3>
 
                 <h4 className="mb-1 fw-bolder theme_color">
@@ -199,10 +225,10 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
                     <FaTrashAlt title="Delete This Watch" style={{ cursor: 'pointer' }} onClick={() => handleDeleteItem(_id)} className='text-danger fs-1'></FaTrashAlt>
                      }
                     {/* {user?.email && user !== userEmail && accountType?.accountType === 'buyer' && !reported &&  */}
-                    <GoReport title="Report This Watch" onClick={() => handleReporting(_id)} style={{ cursor: 'pointer' }} className={`text-danger fs-1 ${reported && 'text-white'}`}></GoReport>
+                    <GoReport title="Report This Watch" onClick={() => handleReporting(_id)} style={{ cursor: 'pointer' }} className={`text-danger fs-1`}></GoReport>
                     {/* } */}
                     {/* {user?.email !== userEmail && user && accountType?.accountType === 'buyer' &&  */}
-                    <BiAddToQueue title="Add to wishlist" style={{ cursor: 'pointer' }} className={`text-danger fs-1 ${reported && 'text-white'}`}></BiAddToQueue>
+                    <BiAddToQueue title="Add to wishlist" style={{ cursor: 'pointer' }} className={`text-danger fs-1`}></BiAddToQueue>
                     {/* } */}
                     {/* {accountType?.accountType === 'admin' && reported && <BiCheckShield onClick={() => handleSolved(_id)} title="Mark as solved" style={{ cursor: 'pointer' }} className='text-danger ms-2 fs-1'></BiCheckShield>} */}
                 </div>

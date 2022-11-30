@@ -5,3 +5,19 @@
     background-color: none;
     border: none;
 }
+p.reported_items{
+    margin-top: 0;
+    margin-bottom: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: rgb(255, 0, 0);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    font-weight: bolder;
+    color: #fff;
+    width: 60px;
+    font-size: 10px;
+    height: 60px;
+    line-height: 60px;
+}

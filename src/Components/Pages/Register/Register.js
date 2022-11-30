@@ -42,6 +42,7 @@ const Register = () => {
                         const insertTime = new Date().getTime();
                         const profilepicture = imageData.data.url;
                         const allData = { accountType, username, email, profilepicture, signupby, insertTime }
+                       
 
                         fetch('https://assignment-12-server-gray.vercel.app/users', {
                             method: 'POST',

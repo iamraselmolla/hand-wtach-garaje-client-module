@@ -149,7 +149,8 @@ const [accountStatus, setAccountStatus] = useState(false)
         <div className={`item ${reported ? 'border border-3 border-danger' : 'theme_border' }  position-relative my-2}`}>
            
             <PhotoProvider>
-                <div className="foo text-center">
+                <div className="foo text-center position-relative">
+                    {reported && <p className='reported_items'>reported</p>}
                     <PhotoView src={itemImage}>
                         <img style={{ maxHeight: '300px' }} className='img-fluid' src={itemImage} alt="" />
                     </PhotoView>

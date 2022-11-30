@@ -3,3 +3,7 @@
 6. need to add all selling item and displaying it under admin dashboard template
 need to show all advertised product in admin dashboard
 need to add block user and need to show under admin dashboard
+
+
+
+need to show bought item under buyer my shopping

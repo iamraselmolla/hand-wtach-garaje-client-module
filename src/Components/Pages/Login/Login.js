@@ -115,7 +115,7 @@ const Login = () => {
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control name="password" className='rounded-5' type="password" placeholder="Password" />
                                 </Form.Group>
-                                <button className="theme_bg outline-0 border-0 px-5 py-3 fw-bolder text-white rounded">
+                                <button className="theme_bg w-100 outline-0 border-0 px-5 py-2 fw-bolder text-white rounded">
                                     Login
                                 </button>
                                 {loginError && <p className='text-danger fw-bolder'>{loginError}</p>}
@@ -125,7 +125,7 @@ const Login = () => {
                                 <h4 className="mt-3 fw-bolder">
                                     Sign in using
                                 </h4>
-                                <Button onClick={handleGoogleSign} variant="theme_bg" className='w-100 fw-bolder text-white'><FaGoogle></FaGoogle> Google</Button>
+                                <button onClick={handleGoogleSign} className='theme_bg w-100 outline-0 border-0 px-5 py-2 fw-bolder text-white rounded'><FaGoogle></FaGoogle> Google</button>
 
 
                             </div>

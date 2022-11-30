@@ -63,7 +63,7 @@ const Categories = () => {
             {modalData &&
                 <Modal scrollable show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title className='fw-bolder theme_color'> Book:  {modalData?.name} </Modal.Title>
+                        <Modal.Title className='fw-bolder theme_color'> Book:  {modalData?.name.split(' ').length > 10 ? modalData?.name.split(' ').slice(0,10).join(' '): modalData?.name} </Modal.Title>
                     </Modal.Header>
                     <Modal.Body >
                         <Form onSubmit={handleBooking}>

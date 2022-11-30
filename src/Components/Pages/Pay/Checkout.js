@@ -46,10 +46,11 @@ const Checkout = ({ booking, prodcut_id }) => {
         } else {
             setError(null)
             console.log(paymentMethod)
-            const payment_id = paymentMethod.id
-            const payment_type = paymentMethod.card.brand + " " + paymentMethod.type;
+            const payment_id = paymentMethod?.id
+            const payment_type = paymentMethod?.card.brand + " " + paymentMethod.type;
             const paymentTime = new Date().getTime();
             const allPaymentInfo = { payment_id, payment_type, paymentTime }
+            console.log(allPaymentInfo, prodcut_id)
             fetch(`https://assignment-12-server-gray.vercel.app/payment-done/${prodcut_id}`, {
                 method: 'PUT',
                 headers: {
@@ -65,6 +66,7 @@ const Checkout = ({ booking, prodcut_id }) => {
                         .then(res => res.json())
                         .then(data => {
                             toast.success(`Payment Successfull`)
+                            
                             navigate('/dashboard/my-shopping/')
                         })
                         .catch(err => console.log(err))

@@ -15,10 +15,9 @@ import axios from 'axios';
 
 const Items = ({ watch, handleShow, refetch, setModalData }) => {
 const [accountStatus, setAccountStatus] = useState(false)
-    const { user, accountType } = useContext(AuthContext)
+    const { user, accountType,typeOfAccount } = useContext(AuthContext)
     const { _id, name, advertise, category, category_id, condition, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, mainprice, repairOrDamage, sold, userEmail, userName, userProfilePicture, reported } = watch;
 
-console.log(accountType)
     // Mark watch sold Out
     const handleSoldOut = (id) => {
         fetch(`https://assignment-12-server-gray.vercel.app/items/sold-out/${id}`, {
@@ -130,6 +129,9 @@ console.log(accountType)
 
     // Handle booking
     const handleBook = () => {
+        if(typeOfAccount === 'seller'){
+            return toast.error('A seller account can\'t book  item')
+        }
         if (user?.email === userEmail) {
             return toast.error('You are viewing as this watch author. You cannot book your own item')
         }

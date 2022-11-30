@@ -10,19 +10,18 @@ import { AuthContext } from '../../AuthContext/AuthProvider';
 const Register = () => {
     const { createUser, updateUserInfo, logOut } = useContext(AuthContext);
     const googleAuth = new GoogleAuthProvider();
+
+    const [itemUploading, setLoadingStatus] = useState(false)
     const [error, setError] = useState('')
     const imageBbApiKey = process.env.REACT_APP_imageBBAPI;
-    const [setRegisterBtnDIsable, setBtnStatus] = useState(false);
     const navigate = useNavigate();
     const handleRegister = (e) => {
         e.preventDefault()
-
+        setLoadingStatus(true)
         createUser(e.target.email.value, e.target.password.value)
             .then(res => {
                 console.log();
                 const currentUser = { email: res.user?.email }
-
-                setBtnStatus(true)
                 const accountType = e.target.sellerBuyer.value
                 const username = e.target.username.value;
                 const email = e.target.email.value;
@@ -54,8 +53,6 @@ const Register = () => {
                             .then(res2 => res2.json())
                             .then(data => {
                                 setError('')
-                                toast.success('Registration Successful')
-                                setBtnStatus(false)
                                 e.target.reset()
                                 navigate('/login');
                                 fetch('https://assignment-12-server-gray.vercel.app/jwt', {
@@ -74,8 +71,9 @@ const Register = () => {
                                     })
                                     .then(data => {
                                         localStorage.setItem('access-token', data?.token)
-                
-                                        toast.success(`Hello ${username}, You are logged in here successfully`)
+                                        setLoadingStatus(false)
+                                        toast.success('Registration Successful')
+
                                     })
                             })
                     })
@@ -84,7 +82,10 @@ const Register = () => {
                 // e.target.reset()
 
             })
-            .catch(err => setError(err.message));
+            .catch(err => {
+                setLoadingStatus(false)
+                return setError(err.message)
+            });
     }
     return (
         <section className='py-5 text-center'>
@@ -109,31 +110,32 @@ const Register = () => {
                                 </div>
                                 <Form.Group className="mb-3 mt-4" controlId="formBasicEmail2">
                                     <Form.Label>Username</Form.Label>
-                                    <Form.Control name="username" type="text" className='rounded-5' placeholder="Username" />
+                                    <Form.Control required name="username" type="text" className='rounded-5' placeholder="Username" />
 
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicName2">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control name="email" type="email" className='rounded-5' placeholder="example@gmail.com" />
+                                    <Form.Control required name="email" type="email" className='rounded-5' placeholder="example@gmail.com" />
 
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword2">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control name="password" className='rounded-5' type="password" placeholder="Password" />
+                                    <Form.Control required name="password" className='rounded-5' type="password" placeholder="Password" />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicFile2">
                                     <Form.Label>Profile Picture</Form.Label>
-                                    <Form.Control name="profilepicture" className='rounded-5' type="file" placeholder="Profile Picture" />
+                                    <Form.Control required name="profilepicture" className='rounded-5' type="file" placeholder="Profile Picture" />
                                 </Form.Group>
 
-                                <button disabled={setRegisterBtnDIsable} className="theme_bg outline-0 border-0 px-5 py-3 fw-bolder text-white rounded">
+                                <button className={`theme_bg outline-0 border-0 px-5 py-2 w-100 fw-bolder text-white rounded ${itemUploading ? 'd-none': 'd-block'}`}>
                                     Register
                                 </button>
-                                {setRegisterBtnDIsable && <div className="text-center">
-                                    <div className="spinner-border" role="status">
-                                    </div>
-                                </div>}
+                                <button className={`btn w-100 btn-primary ${itemUploading ? 'd-block' : 'd-none'}`} type="button" disabled>
+                                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                Registering...
+                            </button>
+                                
                                 {error && <p className='text-danger fw-bold'>{error}</p>}
 
                             </Form>

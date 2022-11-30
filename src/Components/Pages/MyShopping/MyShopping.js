@@ -9,25 +9,27 @@ const MyShopping = () => {
     const [allShopping, setAllShopping] = useState([])
 
 
-    // useEffect(() => {
-    //     fetch(`https://assignment-12-server-gray.vercel.app/my-shopping?email=${user?.email}`)
-    //         .then(res => res.json())
-    //         .then(data => setAllShopping(data))
-    //         .catch(err => console.log(err.message))
-    // }, [user?.email])
+    useEffect(() => {
+        fetch(`https://assignment-12-server-gray.vercel.app/my-shopping?email=${user?.email}`)
+            .then(res => res.json())
+            .then(data => setAllShopping(data))
+            .catch(err => console.log(err.message))
+    }, [])
 
 
     // Axios request
-    const getAxiosData = async () => {
-        try {
-            const resposne = await axios(`https://assignment-12-server-gray.vercel.app/my-shopping?email=${user?.email}`);
-            setAllShopping(resposne?.data)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-    getAxiosData()
+//  const handleAxios = () => {
+//     const getAxiosData = async () => {
+//         try {
+//             const resposne = await axios(`https://assignment-12-server-gray.vercel.app/my-shopping?email=${user?.email}`);
+//             setAllShopping(resposne?.data)
+//         }
+//         catch (error) {
+//             console.log(error)
+//         }
+//     }
+//     getAxiosData()
+//  }
     return (
         <section>
             <div className="container">
@@ -45,7 +47,7 @@ const MyShopping = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {allShopping && allShopping?.map((s, i) => {
+                            { allShopping?.map((s, i) => {
                                 return <>
                                     <tr>
                                         <td>

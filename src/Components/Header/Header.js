@@ -8,7 +8,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../AuthContext/AuthProvider';
 
 const Header = () => {
-    const { user, logOut } = useContext(AuthContext);
+    const { user, logOut ,typeOfAccount} = useContext(AuthContext);
 
     const handlelogOut = () => {
         logOut()
@@ -42,8 +42,11 @@ const Header = () => {
                             }
                             {user && <img width="60" className='rounded-circle ms-4' src={user?.photoURL} />}
                             {user && <NavDropdown className='fw-bolder mt-2' title={`Hello ${user?.displayName || user?.email}`} id="basic-nav-dropdown">
-                                <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/dashboard">Dashboard</Link>
-                                <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/profile">Profile</Link>
+                              {typeOfAccount === 'admin' ? 
+                                <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/dashboard/activity">Dashboard</Link> :
+                                <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/dashboard/">Dashboard</Link> 
+                            }
+                            <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/profile">Profile</Link>
                                 <NavLink onClick={handlelogOut} className="text-decoration-none px-2 fw-bolder text-black px-3">Logout</NavLink>
                             </NavDropdown>}
                         </Nav>

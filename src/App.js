@@ -73,7 +73,7 @@ function App() {
         },
         {
           path: '/pay/:id',
-          element: <PaymentItem></PaymentItem>,
+          element:<PrivateRoute> <PaymentItem></PaymentItem></PrivateRoute>,
           loader: ({params}) => {
             return fetch(`https://assignment-12-server-gray.vercel.app/pay/${params.id}`)
           }

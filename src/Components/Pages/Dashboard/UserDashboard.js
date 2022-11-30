@@ -10,13 +10,13 @@ const UserDashBoard = () => {
     const [allItems, setAllItems] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/all-users')
+        fetch('https://assignment-12-server-gray.vercel.app/all-users')
             .then(res => res.json())
             .then(users => setAllUsers(users))
 
     }, [])
     useEffect(() => {
-        fetch('http://localhost:5000/all-uploaded-items')
+        fetch('https://assignment-12-server-gray.vercel.app/all-uploaded-items')
             .then(res => res.json())
             .then(users => setAllItems(users))
 

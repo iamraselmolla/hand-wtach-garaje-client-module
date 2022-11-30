@@ -8,7 +8,7 @@ const Verification = () => {
     const handleVerify = async (e) => {
         setLoader(true)
         e.preventDefault();
-        const res = await fetch(`http://localhost:5000/payment-verification?paymentID=${e.target.paymentid.value}`);
+        const res = await fetch(`https://assignment-12-server-gray.vercel.app/payment-verification?paymentID=${e.target.paymentid.value}`);
         const paymentData = await res.json();
         setLoader(false)
         return paymentData;

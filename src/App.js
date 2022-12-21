@@ -28,6 +28,7 @@ import UserDashBoard from './Components/Pages/Dashboard/UserDashboard';
 import AdminRoute from './Components/Routes/AdminRoute';
 import SellerRoute from './Components/Routes/SellerRoute';
 import BuyerRoute from './Components/Routes/BuyerRoute';
+import ItemDetails from './Components/Pages/Shared/ItemDetails';
 
 
 function App() {
@@ -62,10 +63,17 @@ function App() {
         },
         {
           path: '/categories/:id',
-          loader: ({params}) => {
-            return fetch(`https://assignment-12-server-gray.vercel.app/categories/${params.id}`)
+          loader: ({ params }) => {
+            return fetch(`http://localhost:5000/categories/${params.id}`)
           },
           element: <Categories></Categories>
+        },
+        {
+          path: '/details/items/:id',
+          loader: ({params}) => {
+            return fetch(`http://localhost:5000/details/${params.id}`)
+          },
+          element: <ItemDetails></ItemDetails>
         },
         {
           path: '/register',
@@ -73,9 +81,9 @@ function App() {
         },
         {
           path: '/pay/:id',
-          element:<PrivateRoute> <PaymentItem></PaymentItem></PrivateRoute>,
-          loader: ({params}) => {
-            return fetch(`https://assignment-12-server-gray.vercel.app/pay/${params.id}`)
+          element: <PrivateRoute> <PaymentItem></PaymentItem></PrivateRoute>,
+          loader: ({ params }) => {
+            return fetch(`http://localhost:5000/pay/${params.id}`)
           }
         },
         {
@@ -95,7 +103,7 @@ function App() {
         },
         {
           path: '/dashboard/add-an-item',
-          element:<AddAnItem></AddAnItem>
+          element: <AddAnItem></AddAnItem>
         },
         {
           path: '/dashboard/allsellers',

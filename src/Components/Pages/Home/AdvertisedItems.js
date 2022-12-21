@@ -33,7 +33,7 @@ const AdvertisedItems = (allData) => {
         const insertTime = new Date().getTime();
         const allData = { number, location, category, category_id, email, name, img, productname, price, product_id, paid, insertTime }
         
-        fetch('https://assignment-12-server-gray.vercel.app/booked', {
+        fetch('http://localhost:5000/booked', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -49,7 +49,7 @@ const AdvertisedItems = (allData) => {
 
     }
     return (
-        <section className="container-fluid py-5 mx-auto">
+        <section className="container py-5 mx-auto">
             <div className="row pt-2">
                 <div className="col mb-4 text-center">
                     <h5 className="mb-0 theme_color">

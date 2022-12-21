@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import Items from '../Shared/Items';
 
 const AllreportedItems = () => {
-    const url = `https://assignment-12-server-gray.vercel.app/reported/all-items`;
+    const url = `http://localhost:5000/reported/all-items`;
     const { data: reportedItems = [], isLoading, refetch } = useQuery({
         queryKey: ['all-items'],
         queryFn: async () => {
@@ -16,7 +16,7 @@ const AllreportedItems = () => {
         }
     });
     const handleResolveReport = (id,name) => {
-        fetch(`https://assignment-12-server-gray.vercel.app/items/reported-solved/${id}`, {
+        fetch(`http://localhost:5000/items/reported-solved/${id}`, {
             method: 'PUT'
         })
         .then(res => res.json())

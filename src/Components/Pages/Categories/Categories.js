@@ -31,7 +31,7 @@ const Categories = () => {
     const insertTime = new Date().getTime();
     const allData = { number, location, category, category_id, email, name, img, productname, price, product_id, paid, insertTime }
     console.log(allData);
-    fetch('https://assignment-12-server-gray.vercel.app/booked', {
+    fetch('http://localhost:5000/booked', {
         method: 'POST',
         headers: {
             'content-type': 'application/json'

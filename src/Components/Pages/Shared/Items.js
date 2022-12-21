@@ -20,7 +20,7 @@ const [accountStatus, setAccountStatus] = useState(false)
 
     // Mark watch sold Out
     const handleSoldOut = (id) => {
-        fetch(`https://assignment-12-server-gray.vercel.app/items/sold-out/${id}`, {
+        fetch(`http://localhost:5000/items/sold-out/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -32,7 +32,7 @@ const [accountStatus, setAccountStatus] = useState(false)
     }
     const getAxiosData = async () => {
         try {
-            const resposne = await axios(`https://assignment-12-server-gray.vercel.app/check-verify?email=${userEmail}`);
+            const resposne = await axios(`http://localhost:5000/check-verify?email=${userEmail}`);
             setAccountStatus(resposne?.data)
         }
         catch (error) {
@@ -43,7 +43,7 @@ const [accountStatus, setAccountStatus] = useState(false)
     // useEffect(()=> {}, [user?.email])
     
     // const handleItemAvailable = (id) => {
-    //     fetch(`https://assignment-12-server-gray.vercel.app/items/available/${id}`, {
+    //     fetch(`http://localhost:5000/items/available/${id}`, {
     //         method: 'PUT'
     //     })
     //         .then(res => res.json())
@@ -55,7 +55,7 @@ const [accountStatus, setAccountStatus] = useState(false)
     // }
     // Mark watch Advertise
     const handleAdvertise = (id) => {
-        fetch(`https://assignment-12-server-gray.vercel.app/items/advertised/${id}`, {
+        fetch(`http://localhost:5000/items/advertised/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -79,7 +79,7 @@ const [accountStatus, setAccountStatus] = useState(false)
         }
         const reportedTime = new Date().getTime();
 
-        fetch(`https://assignment-12-server-gray.vercel.app/items/reported/${id}`, {
+        fetch(`http://localhost:5000/items/reported/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -95,7 +95,7 @@ const [accountStatus, setAccountStatus] = useState(false)
     }
     // Handle Solving
     const handleSolved = (id) => {
-        fetch(`https://assignment-12-server-gray.vercel.app/items/reported-solved/${id}`, {
+        fetch(`http://localhost:5000/items/reported-solved/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -111,7 +111,7 @@ const [accountStatus, setAccountStatus] = useState(false)
         if (window.confirm(`DO you want to delete ${name} permanently`)) {
 
 
-            fetch(`https://assignment-12-server-gray.vercel.app/delete-items/${id}`, {
+            fetch(`http://localhost:5000/delete-items/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json'
@@ -158,29 +158,7 @@ const [accountStatus, setAccountStatus] = useState(false)
             </PhotoProvider>
 
             <div className={`p-3 rounded-bottom `}>
-                <div className="d-flex flex-wrap justify-content-between gap-2">
-                    <div className="theme_border_2 px-2 py-1 rounded fw-bold">
-                        {category} Watch
-                    </div>
-                    <div className="theme_border_2 px-2 py-1 rounded fw-bold">
-                        {advertise ? 'Adertised' : 'Not adertised'}
-                    </div>
-                    <div className="theme_border_2 px-2 py-1 rounded fw-bold">
-                        {sold ? 'Sold' : 'Not Sold'}
-                    </div>
-                    <div className="theme_border_2 px-2 py-1 rounded fw-bold">
-                        {repairOrDamage ? 'Repaired' : 'Not Repaired'}
-                    </div>
-                    <div className="theme_border_2 px-2 py-1 rounded fw-bold">
-                        {condition && condition + ' condition'}
-                    </div>
-                    <div className="theme_border_2 px-2 py-1 rounded fw-bold">
-                        Used For: {duration} Month
-                    </div>
-                    <div className="theme_border_2 px-2 py-1 rounded fw-bold">
-                        Main Purchase Time: {pruchingtime}
-                    </div>
-                </div>
+                
                 <div className="d-flex align-items-center mt-3">
                     <div className='me-2'>
                         <PhotoProvider>
@@ -201,7 +179,12 @@ const [accountStatus, setAccountStatus] = useState(false)
                     <small>Posted on: {new Date(insertTime).toLocaleString()}</small>
                 </div>
                 <h3 className="mb-0 mt-3">
-                    {name} {accountStatus && <TiTick title="Verified Account" className='rounded-circle bg-primary fs-6 text-white'></TiTick>}
+                    <Link to={`/details/items/${_id}`}>
+                    {
+                        name.split(' ').length>3 ? name.split(' ').slice(0,3).join(' ')+ '...' : name
+                    } 
+                    </Link>
+                    {accountStatus && <TiTick title="Verified Account" className='rounded-circle bg-primary fs-6 text-white'></TiTick>}
                 </h3>
 
                 <h4 className="mb-1 fw-bolder theme_color">

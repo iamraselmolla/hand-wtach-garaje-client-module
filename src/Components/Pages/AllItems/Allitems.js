@@ -64,14 +64,14 @@ const Allitems = () => {
     }
     return (
         <section>
-            <div className="container py-5">
+            <div className="container-fluid py-5">
                 <div className="row text-center mb-4">
                     <h1 className="fw-bolder theme_color">
                         We have {allWatches?.length} unsold {allWatches?.length > 1 ? 'watches' : 'watch'}
                     </h1>
                 </div>
                 <div className="row">
-                    {allWatches?.map(watch => <div key={watch?._id} className="col-md-6 my-2 "><Items   handleShow={handleShow} setModalData={setModalData} refetch={refetch} watch={watch}></Items></div>)}
+                    {allWatches?.map(watch => <div key={watch?._id} className="col-md-4 my-2 "><Items   handleShow={handleShow} setModalData={setModalData} refetch={refetch} watch={watch}></Items></div>)}
                 </div>
             </div>
             {modalData &&

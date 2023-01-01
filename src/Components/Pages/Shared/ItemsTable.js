@@ -6,7 +6,7 @@ const ItemsTable = ({index, data}) => {
     return (
         <tr>
             <td>{index+1}</td>
-            <td>{productname.split(' ').length>6 ? productname.split(' ').slice(0,6).join(' '): productname}</td>
+            <td>{productname?.split(' ').length>6 ? productname?.split(' ').slice(0,6).join(' '): productname}</td>
             <td>{price}</td>
             <td> <img src={img} width="50px" alt="" className='rounded-cricle' /> </td>
             <td>{location}</td>

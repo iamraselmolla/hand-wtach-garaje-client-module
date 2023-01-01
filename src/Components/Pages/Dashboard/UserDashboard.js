@@ -83,7 +83,7 @@ const UserDashBoard = () => {
                     <div className="theme_border theme_bg text-white px-2 py-4 rounded">
                         <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/VWF7x8q/admin-icon.png" alt="" />
                             <h5 className="fw-bolder mt-3">
-                               {allWacthes} Watch
+                               <Link className='text-decoration-none' to="/dashboard/all-uploaded-items">{allWacthes}</Link> Watch
                             </h5>
                         </div>
                     </div>
@@ -91,7 +91,7 @@ const UserDashBoard = () => {
                     <div className="theme_border theme_bg text-white px-2 py-4 rounded">
                         <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/KWqDgd9/pngtree-vector-sold-icon-pn.png" alt="" />
                             <h5 className="fw-bolder mt-3">
-                                {allSold?.length} Sold
+                             <Link  to="/all-sold-items"></Link>   {allSold?.length} Sold
                             </h5>
                         </div>
                     </div>

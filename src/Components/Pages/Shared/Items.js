@@ -147,7 +147,6 @@ const [accountStatus, setAccountStatus] = useState(false)
 
     return (
         <div className={`item ${reported ? 'border border-3 border-danger' : 'theme_border' }  position-relative my-2}`}>
-           
             <PhotoProvider>
                 <div className="foo text-center position-relative">
                     {reported && <p className='reported_items'>reported</p>}
@@ -179,7 +178,7 @@ const [accountStatus, setAccountStatus] = useState(false)
                     <small>Posted on: {new Date(insertTime).toLocaleString()}</small>
                 </div>
                 <h3 className="mb-0 mt-3">
-                    <Link to={`/details/items/${_id}`}>
+                    <Link className='text-decoration-none' to={`/details/items/${_id}`}>
                     {
                         name.split(' ').length>3 ? name.split(' ').slice(0,3).join(' ')+ '...' : name
                     } 
@@ -202,7 +201,7 @@ const [accountStatus, setAccountStatus] = useState(false)
                     <span className='fw-bolder text-black'>Reason of Selling: </span> {reason}
                 </p>
                 {/* {watch ? <NavDropdown className='fw-bolder action_div mt-2 position-absolute top-0 fs-3 fw-bold' title="..." id="basic-nav-dropdown"> */}
-                <div className="p-2 d-flex justify-content-evenly">
+                {!sold ? <div className="p-2 d-flex justify-content-evenly">
                     {!sold && user?.email === userEmail &&
                         <img onClick={() => handleSoldOut(_id)} title="mark as Sold out" style={{ cursor: 'pointer' }} width="40" className='me-2' src="https://i.ibb.co/tqdbw59/pngtree-sold-out-png-image-4169086-copy.png" />
                     }
@@ -212,17 +211,12 @@ const [accountStatus, setAccountStatus] = useState(false)
                     {user?.email === userEmail && 
                     <FaTrashAlt title="Delete This Watch" style={{ cursor: 'pointer' }} onClick={() => handleDeleteItem(_id)} className='text-danger fs-1'></FaTrashAlt>
                      }
-                    {/* {user?.email && user !== userEmail && accountType?.accountType === 'buyer' && !reported &&  */}
+                  
                     <GoReport title="Report This Watch" onClick={() => handleReporting(_id)} style={{ cursor: 'pointer' }} className={`text-danger fs-1`}></GoReport>
-                    {/* } */}
-                    {/* {user?.email !== userEmail && user && accountType?.accountType === 'buyer' &&  */}
-                    <BiAddToQueue title="Add to wishlist" style={{ cursor: 'pointer' }} className={`text-danger fs-1`}></BiAddToQueue>
-                    {/* } */}
-                    {/* {accountType?.accountType === 'admin' && reported && <BiCheckShield onClick={() => handleSolved(_id)} title="Mark as solved" style={{ cursor: 'pointer' }} className='text-danger ms-2 fs-1'></BiCheckShield>} */}
-                </div>
-                {/* </NavDropdown> : ''} */}
+               
+                </div> : ''}
 
-                {<button onClick={handleBook} className="theme_bg  border-0 w-100 text-white fw-bolder py-2 rounded px-3 text-center w-100">  Book Now  </button>}
+                {!sold && <button onClick={handleBook} className="theme_bg  border-0 w-100 text-white fw-bolder py-2 rounded px-3 text-center w-100">  Book Now  </button>}
 
             </div>
         </div >

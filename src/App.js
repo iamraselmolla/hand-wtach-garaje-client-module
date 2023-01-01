@@ -29,6 +29,8 @@ import AdminRoute from './Components/Routes/AdminRoute';
 import SellerRoute from './Components/Routes/SellerRoute';
 import BuyerRoute from './Components/Routes/BuyerRoute';
 import ItemDetails from './Components/Pages/Shared/ItemDetails';
+import AllUploadedItems from './Components/Pages/AllUploadedItems/AllUploadedItems';
+import AllSoldItems from './Components/Pages/AllSoldItems/AllSoldItems';
 
 
 function App() {
@@ -56,6 +58,11 @@ function App() {
         {
           path: '/blog',
           element: <Blog></Blog>
+        },
+       
+        {
+          path: '/all-sold-items',
+          element: <AllSoldItems></AllSoldItems>
         },
         {
           path: '/verification',
@@ -108,6 +115,10 @@ function App() {
         {
           path: '/dashboard/allsellers',
           element: <AdminRoute><Allsellers></Allsellers></AdminRoute>
+        },
+        {
+          path: '/dashboard/all-uploaded-items',
+          element: <AdminRoute><AllUploadedItems></AllUploadedItems></AdminRoute>
         },
         {
           path: '/dashboard/allbuyers',

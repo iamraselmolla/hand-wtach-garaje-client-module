@@ -1,36 +1,29 @@
-import { async } from '@firebase/util';
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Table } from 'react-bootstrap';
-import toast from 'react-hot-toast';
 import Items from '../Shared/Items';
+import ItemsTable from '../Shared/ItemsTable';
 
-const AllreportedItems = () => {
-    const url = `http://localhost:5000/reported/all-items`;
-    const { data: reportedItems = [], isLoading, refetch } = useQuery({
+const AllUploadedItems = () => {
+    const { data: allWatches = [], isLoading, refetch } = useQuery({
         queryKey: ['all-items'],
         queryFn: async () => {
-            const res = await fetch(url)
+            const res = await fetch('http://localhost:5000/all-uploaded-items');
             const data = await res.json();
-            return data
+            return data;
         }
     });
-    const handleResolveReport = (id, name) => {
-        fetch(`http://localhost:5000/items/reported-solved/${id}`, {
-            method: 'PUT'
-        })
-            .then(res => res.json())
-            .then(data => {
-                refetch()
-                return toast.success(`${name} report removed`)
-
-            })
-            .catch(err => console.log(err.message))
-    }
 
     return (
-        <>
-            {reportedItems?.length > 0 ?
+        <section>
+            <div className="container-fluid py-5">
+                <div className="row text-center mb-4">
+                    <h1 className="fw-bolder theme_color">
+                        We had {allWatches?.length} total {allWatches?.length > 1 ? 'Watches' : 'Watch'}
+                    </h1>
+                </div>
+                <>
+            {allWatches?.length > 0 ?
                 <section>
                     <div className="container">
                         <div className="row text-center">
@@ -41,21 +34,21 @@ const AllreportedItems = () => {
                                         <th>Watch Name</th>
                                         <th>Price</th>
                                         <th>Image</th>
-                                        <th>Action</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
 
-                                    {reportedItems?.map((s, i) => {
+                                    {allWatches?.map((s, i) => {
                                         return <>
 
-                                            <tr>
+                                            <tr className={`${s?.sold ? 'bg-danger text-white' : ''}`}>
                                                 <td>{i + 1}</td>
                                                 <td> {s?.name} </td>
                                                 <td> {s?.price} </td>
                                                 <td> <img src={s?.itemImage} width="50px" className='rounded-cricle' alt="" srcset="" /> </td>
-                                                <th> <button onClick={() => handleResolveReport(s?._id, s?.name)} className='theme_bg text-white fw-bold border-0 rounded px-2 py-1'>Remove Report</button> </th>
+                                                <th> {s?.sold ? 'Sold' : 'Unsold'} </th>
                                             </tr>
 
 
@@ -74,7 +67,10 @@ const AllreportedItems = () => {
             }
 
         </>
+            </div>
+
+        </section>
     );
 };
 
-export default AllreportedItems;
+export default AllUploadedItems;

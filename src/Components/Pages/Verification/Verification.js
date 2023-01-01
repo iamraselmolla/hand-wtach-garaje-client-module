@@ -5,19 +5,22 @@ import { Button, Form, Spinner } from 'react-bootstrap';
 
 const Verification = () => {
     const [loader, setLoader] = useState(false)
+    const [paymentData, setPaymentData] = useState({})
     const handleVerify = async (e) => {
         setLoader(true)
         e.preventDefault();
         const res = await fetch(`http://localhost:5000/payment-verification?paymentID=${e.target.paymentid.value}`);
-        const paymentData = await res.json();
+        const newPaymentData = await res.json();
         setLoader(false)
-        return paymentData;
+        return setPaymentData(newPaymentData);
     }
    
+    console.log(paymentData)
     return (
         <section>
             <div className="container py-5">
                 <div className="row">
+                    
                     <div className="col-md-3 mx-auto">
                         <Form onSubmit={handleVerify}>
                             <Form.Group className="mb-3" controlId="formBasicPassword">

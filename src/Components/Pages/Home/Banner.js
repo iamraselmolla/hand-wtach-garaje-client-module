@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Banner = () => {
     return (
         <section>
-        <div className="container">
+        <div className="container py-5">
             <div className="row align-items-center">
                 <div className="col-md-6 py-5">
                     <h5 className="mb-0 theme_color">

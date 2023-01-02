@@ -12,7 +12,7 @@ const MyShopping = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/my-shopping?email=${user?.email}`)
+        fetch(`https://assignment-12-server-gray.vercel.app/my-shopping?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setAllShopping(data))
             .catch(err => console.log(err.message))
@@ -23,7 +23,7 @@ const MyShopping = () => {
     //  const handleAxios = () => {
     //     const getAxiosData = async () => {
     //         try {
-    //             const resposne = await axios(`http://localhost:5000/my-shopping?email=${user?.email}`);
+    //             const resposne = await axios(`https://assignment-12-server-gray.vercel.app/my-shopping?email=${user?.email}`);
     //             setAllShopping(resposne?.data)
     //         }
     //         catch (error) {
@@ -50,8 +50,8 @@ const MyShopping = () => {
                         </thead>
                         <tbody>
                             {allShopping?.length > 0 && allShopping?.map((s, i) => {
-                                return <>
-                                    <tr>
+                                return 
+                                    <tr key={s?._id}>
                                         <td>
                                             {i + 1}
                                         </td>
@@ -73,7 +73,7 @@ const MyShopping = () => {
                                             {new Date(s?.paymentTime).toLocaleString()}
                                         </td>
                                     </tr>
-                                </>
+                               
                             })}
                         </tbody>
                     </Table>

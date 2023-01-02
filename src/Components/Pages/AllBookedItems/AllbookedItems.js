@@ -1,8 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 import ItemsTable from '../Shared/ItemsTable';
+import { BiSad } from 'react-icons/bi';
+
 
 const AllbookedItems = () => {
     const { user } = useContext(AuthContext)
@@ -19,9 +22,9 @@ const AllbookedItems = () => {
             <div className="container text-center">
                 <div className="row">
                     <div className="col">
-                        <Table striped bordered hover>
+                        {bookedData?.length > 0 ? <Table striped bordered hover>
                             <thead>
-                                <tr>
+                                <tr className='bg-black text-white fs-5'>
                                     <th></th>
                                     <th>Watch Name</th>
                                     <th>Price</th>
@@ -32,10 +35,16 @@ const AllbookedItems = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {bookedData &&  bookedData?.map((bookItem,i) => <ItemsTable index={i} data={bookItem} key={bookItem?._id}></ItemsTable>)}
-                                
+                                {bookedData && bookedData?.map((bookItem, i) => <ItemsTable index={i} data={bookItem} key={bookItem?._id}></ItemsTable>)}
+
                             </tbody>
-                        </Table>
+                        </Table> :
+                            <div className='text-center'>
+                                <BiSad style={{fontSize: '80px'}} className='theme_color'></BiSad>
+                                <h3 className='fw-bold'>You didn't booked any item. Please booked an item from <Link to="/all-items">here</Link></h3>
+                            </div>
+
+                        }
                     </div>
                 </div>
             </div>

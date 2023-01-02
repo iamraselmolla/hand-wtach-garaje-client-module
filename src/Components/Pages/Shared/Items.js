@@ -151,7 +151,7 @@ const [accountStatus, setAccountStatus] = useState(false)
                 <div className="foo text-center position-relative">
                     {reported && <p className='reported_items'>reported</p>}
                     <PhotoView src={itemImage}>
-                        <img style={{ maxHeight: '300px' }} className='img-fluid' src={itemImage} alt="" />
+                        <img style={{ maxHeight: '200px' }} className='img-fluid' src={itemImage} alt="" />
                     </PhotoView>
                 </div>
             </PhotoProvider>
@@ -192,7 +192,7 @@ const [accountStatus, setAccountStatus] = useState(false)
                 <del><small className='fw-bolder'>Original Price of Purchase: {mainprice}</small></del>
 
                 <p className="text-muted mt-3 mb-1">
-                    <span className='fw-bolder text-black'>Product Description: </span> {description}
+                    <span className='fw-bolder text-black'>Description: </span> {description.length>40 ? description.slice(0,40 )+ ' ... More': description}
                 </p>
                 <p className="text-muted mb-1">
                     <span className='fw-bolder text-black'>Product Used for: </span> {duration} month

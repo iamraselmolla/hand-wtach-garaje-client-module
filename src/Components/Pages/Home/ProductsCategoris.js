@@ -6,7 +6,7 @@ const ProductsCategoris = () => {
     const {data: categories = [], isLoading, refetch} = useQuery({
         queryKey: ['categoriess'],
         queryFn: async () => {
-            const res = await fetch('https://assignment-12-server-gray.vercel.app/categories');
+            const res = await fetch('http://localhost:5000/categories');
             const data = await res.json();
             return data;
         }
@@ -19,7 +19,7 @@ const ProductsCategoris = () => {
                         Browse Categoris
                     </h5>
                     <h2 className="fw-bold">
-                        Check Our All Categors Product
+                        Check Our All Categories
                     </h2>
                     <p className="fs-5 w-75 mx-auto">
                         We are experts in finding the best watches from world-renowned brands including Rolex, Breitling, Bell & Ross, and many other brands.

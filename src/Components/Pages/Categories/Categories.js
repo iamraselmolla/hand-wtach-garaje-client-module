@@ -31,7 +31,7 @@ const Categories = () => {
     const insertTime = new Date().getTime();
     const allData = { number, location, category, category_id, email, name, img, productname, price, product_id, paid, insertTime }
     console.log(allData);
-    fetch('https://assignment-12-server-gray.vercel.app/booked', {
+    fetch('http://localhost:5000/booked', {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -55,7 +55,7 @@ const Categories = () => {
                     </h2>
                 </div>
                 <div className="row mt-3">
-                    {categoryData?.map(singleItem => <div className="col-md-6" key={singleItem?._id}>
+                    {categoryData?.map(singleItem => <div className="col-md-4 my-3" key={singleItem?._id}>
                         <Items handleShow={handleShow} setModalData={setModalData} watch={singleItem}></Items>
                     </div> )}
                 </div>

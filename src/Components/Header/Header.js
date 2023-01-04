@@ -42,11 +42,10 @@ const Header = () => {
                             }
                             {user && <img width="60" className='rounded-circle ms-4' src={user?.photoURL} />}
                             {user && <NavDropdown className='fw-bolder mt-2' title={`Hello ${user?.displayName || user?.email}`} id="basic-nav-dropdown">
-                              {typeOfAccount === 'admin' ? 
-                                <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/dashboard/activity">Dashboard</Link> :
-                                <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/dashboard/">Dashboard</Link> 
-                            }
-                            <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/profile">Profile</Link>
+                           
+                                <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/dashboard/activity">Dashboard</Link> 
+                            
+                            <NavLink className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/profile">Profile</NavLink>
                                 <NavLink onClick={handlelogOut} className="text-decoration-none px-2 fw-bolder text-black px-3">Logout</NavLink>
                             </NavDropdown>}
                         </Nav>

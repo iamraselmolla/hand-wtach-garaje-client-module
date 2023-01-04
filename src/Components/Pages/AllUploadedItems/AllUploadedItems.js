@@ -8,7 +8,7 @@ const AllUploadedItems = () => {
     const { data: allWatches = [] } = useQuery({
         queryKey: ['all-items'],
         queryFn: async () => {
-            const res = await fetch('https://assignment-12-server-gray.vercel.app/all-uploaded-items');
+            const res = await fetch('http://localhost:5000/all-uploaded-items');
             const data = await res.json();
             return data;
         }

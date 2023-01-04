@@ -9,7 +9,7 @@ const AllAddedItems = () => {
 
 
     useEffect(() => {
-            fetch(`https://assignment-12-server-gray.vercel.app/added-items?email=${user?.email}`)
+            fetch(`http://localhost:5000/added-items?email=${user?.email}`)
             .then(res=> res.json())
             .then(data => setAllData(data))
     }, [user?.email, allData])

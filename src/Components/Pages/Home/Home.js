@@ -13,7 +13,7 @@ const Home = () => {
     const { data : advertidesProducts = [], refetch } = useQuery({
         queryKey: ['advertised-items'],
         queryFn: async () => {
-            const res = await fetch('https://assignment-12-server-gray.vercel.app/advertised-items?limit=3');
+            const res = await fetch('http://localhost:5000/advertised-items?limit=3');
             const data = res.json();
             return data;
         }

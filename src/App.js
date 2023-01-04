@@ -71,14 +71,14 @@ function App() {
         {
           path: '/categories/:id',
           loader: ({ params }) => {
-            return fetch(`https://assignment-12-server-gray.vercel.app/categories/${params.id}`)
+            return fetch(`http://localhost:5000/categories/${params.id}`)
           },
           element: <Categories></Categories>
         },
         {
           path: '/details/items/:id',
           loader: ({params}) => {
-            return fetch(`https://assignment-12-server-gray.vercel.app/details/${params.id}`)
+            return fetch(`http://localhost:5000/details/${params.id}`)
           },
           element: <ItemDetails></ItemDetails>
         },
@@ -90,7 +90,7 @@ function App() {
           path: '/pay/:id',
           element: <PrivateRoute> <PaymentItem></PaymentItem></PrivateRoute>,
           loader: ({ params }) => {
-            return fetch(`https://assignment-12-server-gray.vercel.app/pay/${params.id}`)
+            return fetch(`http://localhost:5000/pay/${params.id}`)
           }
         },
         {
@@ -106,7 +106,7 @@ function App() {
       children: [
         {
           path: '/dashboard/activity',
-          element: <AdminRoute><UserDashBoard></UserDashBoard></AdminRoute>
+          element: <UserDashBoard></UserDashBoard>
         },
         {
           path: '/dashboard/add-an-item',

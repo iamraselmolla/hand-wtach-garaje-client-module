@@ -18,16 +18,12 @@ const Dashborad = () => {
                 <div className="py-5 row">
                     <div className="col-md-2 dashboard-panel">
                        
-                                   {typeOfAccount === 'admin' && <Link className="d-block fw-bolder text-decoration-none py-2 px-2"
+                                    <Link className="d-block fw-bolder text-decoration-none py-2 px-2"
                                         to="/dashboard/activity"
                                     >
-                                       Admin Dashboard
-                                    </Link>}
-                                   {typeOfAccount !== 'admin' && <Link className="d-block fw-bolder text-decoration-none py-2 px-2"
-                                        to="/dashboard"
-                                    >
-                                        Dashboard
-                                    </Link>}
+                                       Dashboard
+                                    </Link>
+                                  
                        
                                    {typeOfAccount  === 'seller' &&  <NavLink className="d-block fw-bolder text-decoration-none py-2 px-2"
                                         to="/dashboard/add-an-item"

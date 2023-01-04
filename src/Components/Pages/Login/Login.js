@@ -27,7 +27,7 @@ const Login = () => {
                 const profilepicture = res.user.photoURL || 'Not provided from authentic site';
                 const signupby = 'google'
                 const allData = { accountType, username, email, profilepicture, signupby, insertTime }
-                fetch('https://assignment-12-server-gray.vercel.app/jwt', {
+                fetch('http://localhost:5000/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -46,7 +46,7 @@ const Login = () => {
                         toast.success(`Hello ${username}, You are logged in here successfully`)
                         setError(null)
                         navigate(from, { replace: true });
-                        fetch('https://assignment-12-server-gray.vercel.app/users', {
+                        fetch('http://localhost:5000/users', {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'
@@ -72,7 +72,7 @@ const Login = () => {
                 const currentUser = { email: res.user?.email }
                 const username = res?.user?.displayName
 
-                fetch('https://assignment-12-server-gray.vercel.app/jwt', {
+                fetch('http://localhost:5000/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

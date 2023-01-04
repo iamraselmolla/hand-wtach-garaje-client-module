@@ -1,10 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+
 import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { PhotoProvider, PhotoView } from 'react-photo-view';
-import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
+import MyshoppingItem from '../Shared/MyshoppingItem';
 
 const MyShopping = () => {
     const { user } = useContext(AuthContext);
@@ -12,26 +10,12 @@ const MyShopping = () => {
 
 
     useEffect(() => {
-        fetch(`https://assignment-12-server-gray.vercel.app/my-shopping?email=${user?.email}`)
+        fetch(`http://localhost:5000/my-shopping?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setAllShopping(data))
             .catch(err => console.log(err.message))
-    }, [])
+    }, [user?.email])
 
-
-    // Axios request
-    //  const handleAxios = () => {
-    //     const getAxiosData = async () => {
-    //         try {
-    //             const resposne = await axios(`https://assignment-12-server-gray.vercel.app/my-shopping?email=${user?.email}`);
-    //             setAllShopping(resposne?.data)
-    //         }
-    //         catch (error) {
-    //             console.log(error)
-    //         }
-    //     }
-    //     getAxiosData()
-    //  }
     return (
         <section>
             <div className="container">
@@ -49,32 +33,7 @@ const MyShopping = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {allShopping?.length > 0 && allShopping?.map((s, i) => {
-                                return 
-                                    <tr key={s?._id}>
-                                        <td>
-                                            {i + 1}
-                                        </td>
-                                        <td><Link className='text-decoration-none' to={`/details/items/${s?._id}`}>{s?.productname}</Link></td>
-                                        <td>{s?.price}$</td>
-                                        <td>
-                                            <PhotoProvider>
-                                                <div className="foo">
-                                                    <PhotoView src={s?.img}>
-                                                    <img width="40px" className='rounded-circle' src={s?.img} alt="" />
-                                                    </PhotoView>
-                                                </div>
-                                            </PhotoProvider>
-
-                                        </td>
-                                        <td>{s?.payment_type}</td>
-                                        <td>{s?.payment_id}</td>
-                                        <td>
-                                            {new Date(s?.paymentTime).toLocaleString()}
-                                        </td>
-                                    </tr>
-                               
-                            })}
+                            {allShopping && allShopping?.map((s, i) => <MyshoppingItem s={s} i={i} key={s?._id}></MyshoppingItem> )}
                         </tbody>
                     </Table>
                 </div>

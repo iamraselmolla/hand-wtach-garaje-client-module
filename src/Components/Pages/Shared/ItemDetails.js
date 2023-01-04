@@ -17,7 +17,7 @@ const ItemDetails = () => {
     const { data: allWatches = [], isLoading, refetch } = useQuery({
         queryKey: ['all-items'],
         queryFn: async () => {
-            const res = await fetch('https://assignment-12-server-gray.vercel.app/all-items');
+            const res = await fetch('http://localhost:5000/all-items');
             const data = await res.json();
             return data;
         }
@@ -38,7 +38,7 @@ const ItemDetails = () => {
         const insertTime = new Date().getTime();
         const allData = { number, location, category, category_id, email, name, img, productname, price, product_id, paid, insertTime }
         
-        fetch('https://assignment-12-server-gray.vercel.app/booked', {
+        fetch('http://localhost:5000/booked', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -167,7 +167,7 @@ const ItemDetails = () => {
                             Price: ${price}
                         </p>
 
-                        <Form onSubmit={handleBooking}>
+                        {sold ? <h4 className='text-success'> This item is already sold</h4> :<Form onSubmit={handleBooking}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control defaultValue={user?.email} disabled type="email" placeholder="Enter email" />
@@ -196,7 +196,7 @@ const ItemDetails = () => {
                             <button style={{ cursor: 'pointer' }} className="theme_bg border-0 text-white text-center w-100 fw-bolder px-3 py-2 rounded">
                                 Book Now
                             </button>
-                        </Form>
+                        </Form>}
 
                     </div>
                 </div>

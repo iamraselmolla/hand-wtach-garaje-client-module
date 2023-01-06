@@ -1,32 +1,40 @@
 import React from 'react';
 import { useContext } from 'react';
-import { Button } from 'react-bootstrap';
-import { Form } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
+// import { Form } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 
 const Profile = () => {
-  const { user } = useContext(AuthContext)
-  console.log(user)
+  const { user, updateUserInfo } = useContext(AuthContext)
+  const handleUpdateUserInfo = (e) => {
+    e.preventDefault()
+    console.log(e.target.username.value)
+    updateUserInfo({ displayName: e.target.username.value })
+      .then(() => {
+        toast.success(('Profile Updated'))
+      })
+  }
   return (
     <section className="container py-5">
       <div className="row">
-        <form>
+        <Form onSubmit={handleUpdateUserInfo}>
           <div className="form-group mb-3">
             <label for="exampleInputEmail1">Username</label>
-            <input defaultValue={user?.displayName} type="email" name="username" className="form-control" id="username" placeholder="Username" />
+            <input defaultValue={user?.displayName} type="text" name="username" className="form-control" id="userNameID" placeholder="Username" />
 
           </div>
           <div className="form-group mb-3">
             <label for="exampleInputEmail1">Email</label>
-            <input defaultValue={user?.email} type="email" name="username" className="form-control" id="email" placeholder="Email" />
+            <input readOnly defaultValue={user?.email} type="text" name="username" className="form-control" id="email" placeholder="Email" />
 
           </div>
-          <img style={{maxWidth: '150px'}} className="rounded-circle mb-3" src={`${user?.photoURL}`} alt="" />
+          <img style={{ maxWidth: '150px' }} className="rounded-circle mb-3" src={`${user?.photoURL}`} alt="" />
           <div className="form-group">
-            <input type="file" name="img" className="form-control-file mb-2" id="img"/>
+            <input type="file" name="img" className="form-control-file mb-2" id="img" />
           </div>
-          <button className="btn btn-primary">Update</button>
-        </form>
+          <button type='submit' className="btn btn-primary">Update</button>
+        </Form>
       </div>
     </section>
   );

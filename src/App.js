@@ -31,6 +31,7 @@ import BuyerRoute from './Components/Routes/BuyerRoute';
 import ItemDetails from './Components/Pages/Shared/ItemDetails';
 import AllUploadedItems from './Components/Pages/AllUploadedItems/AllUploadedItems';
 import AllSoldItems from './Components/Pages/AllSoldItems/AllSoldItems';
+import ForgetPassword from './Components/Pages/ForgetPasswod/ForgetPassword';
 
 
 function App() {
@@ -46,6 +47,10 @@ function App() {
         {
           path: '/all-items',
           element: <Allitems></Allitems>
+        },
+        {
+          path: '/forget-password',
+          element: <ForgetPassword></ForgetPassword>
         },
         {
           path: '/profile',

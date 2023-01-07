@@ -22,7 +22,8 @@ const AllbookedItems = () => {
             <div className="container text-center">
                 <div className="row">
                     <div className="col">
-                        {bookedData?.length > 0 ? <Table striped bordered hover>
+                        {bookedData?.length > 0 ? 
+                        <Table striped bordered hover>
                             <thead>
                                 <tr className='bg-black text-white fs-5'>
                                     <th></th>

@@ -40,7 +40,7 @@ const Header = () => {
 
                                 </>
                             }
-                            {user && <img width="60" className='rounded-circle ms-4' src={user?.photoURL} />}
+                            {user?.photoURL && <img width="60" className='rounded-circle ms-4' src={user?.photoURL} />}
                             {user && <NavDropdown className='fw-bolder mt-2' title={`Hello ${user?.displayName || user?.email}`} id="basic-nav-dropdown">
                            
                                 <Link className='text-decoration-none d-block fw-bolder p-1 px-2 text-black' to="/dashboard/activity">Dashboard</Link> 

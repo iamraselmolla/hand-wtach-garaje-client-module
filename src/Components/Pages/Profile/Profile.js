@@ -26,7 +26,7 @@ const Profile = () => {
           </div>
           <div className="form-group mb-3">
             <label for="exampleInputEmail1">Email</label>
-            <input readOnly defaultValue={user?.email} type="text" name="username" className="form-control" id="email" placeholder="Email" />
+            <input readOnly defaultValue={user?.email} type="text" name="email" className="form-control" id="email" placeholder="Email" />
 
           </div>
           <img style={{ maxWidth: '150px' }} className="rounded-circle mb-3" src={`${user?.photoURL}`} alt="" />

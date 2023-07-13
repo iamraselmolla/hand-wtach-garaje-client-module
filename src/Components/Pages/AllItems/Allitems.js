@@ -9,16 +9,16 @@ import toast from 'react-hot-toast';
 const Allitems = () => {
     const { user, accountType } = useContext(AuthContext)
     const [show, setShow] = useState(false);
-    const [modalData, setModalData] = useState(null);
-    
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [modalData, setModalData] = useState(null);
+    
     const navigate = useNavigate()
     // const [allWatches, setWatches] = useState([])
     const { data: allWatches = [], isLoading, refetch } = useQuery({
         queryKey: ['all-items'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/all-items');
+            const res = await fetch('https://assignment-12-server-gray.vercel.app/all-items');
             const data = await res.json();
             return data;
         }
@@ -47,7 +47,7 @@ const Allitems = () => {
         const insertTime = new Date().getTime();
         const allData = { number, location, category, category_id, email, name, img, productname, price, product_id, paid, insertTime }
         console.log(allData);
-        fetch('http://localhost:5000/booked', {
+        fetch('https://assignment-12-server-gray.vercel.app/booked', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

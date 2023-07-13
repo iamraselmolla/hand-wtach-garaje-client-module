@@ -15,6 +15,7 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
+    const [itemUploading, setItemUploading] = useState(false)
     // Google login
     const handleGoogleSign = () => {
         loginWithGoogle(googleAuth)
@@ -27,7 +28,7 @@ const Login = () => {
                 const profilepicture = res.user.photoURL || 'Not provided from authentic site';
                 const signupby = 'google'
                 const allData = { accountType, username, email, profilepicture, signupby, insertTime }
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://assignment-12-server-gray.vercel.app/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -46,7 +47,7 @@ const Login = () => {
                         toast.success(`Hello ${username}, You are logged in here successfully`)
                         setError(null)
                         navigate(from, { replace: true });
-                        fetch('http://localhost:5000/users', {
+                        fetch('https://assignment-12-server-gray.vercel.app/users', {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'
@@ -66,13 +67,14 @@ const Login = () => {
     }
     // Email Login
     const handleEmailLogin = (e) => {
+        setItemUploading(true);
         e.preventDefault()
         login(e.target.email.value, e.target.password.value)
             .then(res => {
                 const currentUser = { email: res.user?.email }
                 const username = res?.user?.displayName
 
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://assignment-12-server-gray.vercel.app/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -89,11 +91,15 @@ const Login = () => {
                     .then(data => {
                         localStorage.setItem('access-token', data?.token)
                         navigate(from, { replace: true });
+                        setItemUploading(true);
 
                         toast.success(`Hello ${username}, You are logged in here successfully`)
                     })
             })
-            .catch(err => setError(err.message))
+            .catch(err => {
+                setItemUploading(false);
+                return setError(err.message)
+            })
     }
     return (
         <section className='py-5 text-center'>
@@ -115,8 +121,12 @@ const Login = () => {
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control name="password" className='rounded-5' type="password" placeholder="Password" />
                                 </Form.Group>
-                                <button className="theme_bg w-100 outline-0 border-0 px-5 py-2 fw-bolder text-white rounded">
+                                <button className={`${itemUploading ? 'd-none' : 'd-block'} theme_bg w-100 outline-0 border-0 px-5 py-2 fw-bolder text-white rounded`}>
                                     Login
+                                </button>
+                                <button className={`btn w-100 btn-primary ${itemUploading ? 'd-block' : 'd-none'}`} type="button" disabled>
+                                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    Please Wait...
                                 </button>
                                 {loginError && <p className='text-danger fw-bolder'>{loginError}</p>}
                             </Form>

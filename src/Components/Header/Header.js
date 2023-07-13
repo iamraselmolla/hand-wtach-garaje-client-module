@@ -24,7 +24,7 @@ const Header = () => {
         <header className='navbar-light bg-light'>
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Link to="/"><Navbar.Brand> <img width="60" src="https://i.ibb.co/hFhmqHh/logo.png" alt="logo" /> </Navbar.Brand></Link>
+                    <Link to="/"><Navbar.Brand> <img width="60" src="logo.png" alt="logo" /> </Navbar.Brand></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">

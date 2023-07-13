@@ -42,9 +42,9 @@ const Register = () => {
                         const insertTime = new Date().getTime();
                         const profilepicture = imageData.data.url;
                         const allData = { accountType, username, email, profilepicture, signupby, insertTime }
-                       
 
-                        fetch('http://localhost:5000/users', {
+
+                        fetch('https://assignment-12-server-gray.vercel.app/users', {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'
@@ -56,7 +56,7 @@ const Register = () => {
                                 setError('')
                                 e.target.reset()
                                 navigate('/login');
-                                fetch('http://localhost:5000/jwt', {
+                                fetch('https://assignment-12-server-gray.vercel.app/jwt', {
                                     method: 'POST',
                                     headers: {
                                         'content-type': 'application/json'
@@ -64,7 +64,7 @@ const Register = () => {
                                     body: JSON.stringify(currentUser)
                                 })
                                     .then(res => {
-                
+
                                         if (res.status === 401 || res.status === 403) {
                                             return logOut();
                                         }
@@ -129,14 +129,14 @@ const Register = () => {
                                     <Form.Control required name="profilepicture" className='rounded-5' type="file" placeholder="Profile Picture" />
                                 </Form.Group>
 
-                                <button className={`theme_bg outline-0 border-0 px-5 py-2 w-100 fw-bolder text-white rounded ${itemUploading ? 'd-none': 'd-block'}`}>
+                                <button className={`theme_bg outline-0 border-0 px-5 py-2 w-100 fw-bolder text-white rounded ${itemUploading ? 'd-none' : 'd-block'}`}>
                                     Register
                                 </button>
                                 <button className={`btn w-100 btn-primary ${itemUploading ? 'd-block' : 'd-none'}`} type="button" disabled>
-                                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                                Registering...
-                            </button>
-                                
+                                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    Registering...
+                                </button>
+
                                 {error && <p className='text-danger fw-bold'>{error}</p>}
 
                             </Form>

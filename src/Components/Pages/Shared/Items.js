@@ -20,7 +20,7 @@ const [accountStatus, setAccountStatus] = useState(false)
 
     // Mark watch sold Out
     const handleSoldOut = (id) => {
-        fetch(`http://localhost:5000/items/sold-out/${id}`, {
+        fetch(`https://assignment-12-server-gray.vercel.app/items/sold-out/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -32,7 +32,7 @@ const [accountStatus, setAccountStatus] = useState(false)
     }
     const getAxiosData = async () => {
         try {
-            const resposne = await axios(`http://localhost:5000/check-verify?email=${userEmail}`);
+            const resposne = await axios(`https://assignment-12-server-gray.vercel.app/check-verify?email=${userEmail}`);
             setAccountStatus(resposne?.data)
         }
         catch (error) {
@@ -43,7 +43,7 @@ const [accountStatus, setAccountStatus] = useState(false)
     // useEffect(()=> {}, [user?.email])
     
     // const handleItemAvailable = (id) => {
-    //     fetch(`http://localhost:5000/items/available/${id}`, {
+    //     fetch(`https://assignment-12-server-gray.vercel.app/items/available/${id}`, {
     //         method: 'PUT'
     //     })
     //         .then(res => res.json())
@@ -55,7 +55,7 @@ const [accountStatus, setAccountStatus] = useState(false)
     // }
     // Mark watch Advertise
     const handleAdvertise = (id) => {
-        fetch(`http://localhost:5000/items/advertised/${id}`, {
+        fetch(`https://assignment-12-server-gray.vercel.app/items/advertised/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -79,7 +79,7 @@ const [accountStatus, setAccountStatus] = useState(false)
         }
         const reportedTime = new Date().getTime();
 
-        fetch(`http://localhost:5000/items/reported/${id}`, {
+        fetch(`https://assignment-12-server-gray.vercel.app/items/reported/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -95,7 +95,7 @@ const [accountStatus, setAccountStatus] = useState(false)
     }
     // Handle Solving
     const handleSolved = (id) => {
-        fetch(`http://localhost:5000/items/reported-solved/${id}`, {
+        fetch(`https://assignment-12-server-gray.vercel.app/items/reported-solved/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -111,7 +111,7 @@ const [accountStatus, setAccountStatus] = useState(false)
         if (window.confirm(`DO you want to delete ${name} permanently`)) {
 
 
-            fetch(`http://localhost:5000/delete-items/${id}`, {
+            fetch(`https://assignment-12-server-gray.vercel.app/delete-items/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json'

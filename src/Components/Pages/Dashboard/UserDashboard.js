@@ -11,7 +11,7 @@ const UserDashBoard = () => {
     const [bookedData, setBookedData] = useState([]);
     const [allShopping, setAllShopping] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/my-shopping?email=${user?.email}`)
+        fetch(`https://assignment-12-server-gray.vercel.app/my-shopping?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setAllShopping(data))
             .catch(err => console.log(err.message))
@@ -19,19 +19,19 @@ const UserDashBoard = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/all-users')
+        fetch('https://assignment-12-server-gray.vercel.app/all-users')
             .then(res => res.json())
             .then(users => setAllUsers(users))
 
     }, []);
     useEffect(() => {
-        fetch(`http://localhost:5000/booked?email=${user?.email}`)
+        fetch(`https://assignment-12-server-gray.vercel.app/booked?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setBookedData(data))
             .catch(err => console.log(err.message))
     }, [user?.email]);
     useEffect(() => {
-        fetch('http://localhost:5000/all-uploaded-items')
+        fetch('https://assignment-12-server-gray.vercel.app/all-uploaded-items')
             .then(res => res.json())
             .then(users => setAllItems(users))
 
@@ -61,7 +61,7 @@ const UserDashBoard = () => {
                             </h2>
                             <div className="col-md-3 my-2">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid rounded-circle' style={{ width: '100px' }} src="https://i.ibb.co/HPdScqD/buyer-icon-1.png" alt="" /> <br />
+                                    <img className='img-fluid rounded-circle' style={{ width: '100px' }} src="https://i.ibb.co/jTMT7cf/buyer-icon.png" alt="" /> <br />
                                     <h5 className="fw-bolder mt-3">
                                         <Link className='text-decoration-none' to="/dashboard/allbuyers">{allBuyer?.length}</Link> Buyer
                                     </h5>
@@ -69,7 +69,7 @@ const UserDashBoard = () => {
                             </div>
                             <div className="col-md-3 my-2">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/dbCMCVV/seller-icon.png" alt="" /> <br />
+                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/gR1kY0P/seller-icon.png" alt="" /> <br />
                                     <h5 className="fw-bolder mt-3">
                                         <Link className='text-decoration-none' to="/dashboard/allsellers">{allSeller?.length}</Link> Seller
                                     </h5>
@@ -77,7 +77,7 @@ const UserDashBoard = () => {
                             </div>
                             <div className="col-md-3 my-2">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/VWF7x8q/admin-icon.png" alt="" />
+                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/c8DqFWR/admin-icon.png" alt="" />
                                     <h5 className="fw-bolder mt-3">
                                         <Link className='text-decoration-none' to="/dashboard/all-admin">{allAdmin?.length}</Link> Admin
                                     </h5>
@@ -85,7 +85,7 @@ const UserDashBoard = () => {
                             </div>
                             <div className="col-md-3 my-2">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/ZhMWdYb/block-user-icon.png" alt="" />
+                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/rk3j74W/block-user-icon.png" alt="" />
                                     <h5 className="fw-bolder mt-3">
                                         <Link className='text-decoration-none' to="">0</Link> Blocked User
                                     </h5>

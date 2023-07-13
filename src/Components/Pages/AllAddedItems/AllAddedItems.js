@@ -11,7 +11,7 @@ const AllAddedItems = () => {
 
 
     useEffect(() => {
-            fetch(`http://localhost:5000/added-items?email=${user?.email}`)
+            fetch(`https://assignment-12-server-gray.vercel.app/added-items?email=${user?.email}`)
             .then(res=> res.json())
             .then(data => setAllData(data))
     }, [user?.email, allData])
@@ -25,7 +25,7 @@ const AllAddedItems = () => {
                 </div>
                 <div className="row">
                     {allData?.length > 0 && allData?.map(itemSingle => <div key={itemSingle?._id} className="col-md-6"><Items  watch={itemSingle}></Items></div> )}
-                    {allData &&  <div className='text-center'>
+                    {!allData &&  <div className='text-center'>
                                 <BiSad style={{fontSize: '80px'}} className='theme_color'></BiSad>
                                 <h3 className='fw-bold'>You didn't add any item. Please add an item from <Link to="/dashboard/add-an-item">here</Link></h3>
                             </div>}

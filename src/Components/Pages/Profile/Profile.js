@@ -18,23 +18,25 @@ const Profile = () => {
   return (
     <section className="container py-5">
       <div className="row">
-        <Form onSubmit={handleUpdateUserInfo}>
-          <div className="form-group mb-3">
-            <label for="exampleInputEmail1">Username</label>
-            <input defaultValue={user?.displayName} type="text" name="username" className="form-control" id="userNameID" placeholder="Username" />
+        <div className="col-md-6 offset-md-3">
+          <Form onSubmit={handleUpdateUserInfo}>
+            <div className="form-group mb-3">
+              <label for="exampleInputEmail1">Username</label>
+              <input defaultValue={user?.displayName} type="text" name="username" className="form-control" id="userNameID" placeholder="Username" />
 
-          </div>
-          <div className="form-group mb-3">
-            <label for="exampleInputEmail1">Email</label>
-            <input readOnly defaultValue={user?.email} type="text" name="email" className="form-control" id="email" placeholder="Email" />
+            </div>
+            <div className="form-group mb-3">
+              <label for="exampleInputEmail1">Email</label>
+              <input readOnly defaultValue={user?.email} type="text" name="email" className="form-control" id="email" placeholder="Email" />
 
-          </div>
-          <img style={{ maxWidth: '150px' }} className="rounded-circle mb-3" src={`${user?.photoURL}`} alt="" />
-          <div className="form-group">
-            <input type="file" name="img" className="form-control-file mb-2" id="img" />
-          </div>
-          <button type='submit' className="btn btn-primary">Update</button>
-        </Form>
+            </div>
+            <img style={{ maxWidth: '150px' }} className="rounded-circle mb-3" src={`${user?.photoURL}`} alt="" />
+            <div className="form-group">
+              <input type="file" name="img" className="form-control-file mb-2" id="img" />
+            </div>
+            <button type='submit' className="btn btn-primary">Update</button>
+          </Form>
+        </div>
       </div>
     </section>
   );

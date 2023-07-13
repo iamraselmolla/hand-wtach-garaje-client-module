@@ -5,5 +5,5 @@ Live Website Link: https://rasel-buy-watch.web.app/
 
 
 Admin panel access
-email: new@gmail.com
+email: admin@gmail.com
 password: asdfgh

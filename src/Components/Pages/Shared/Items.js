@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button, NavDropdown, NavLink } from 'react-bootstrap';
 import { TiTick } from "react-icons/ti";
 import { GoReport } from "react-icons/go";
-import { BiAddToQueue, BiCheckShield } from "react-icons/bi";
+import { MdCheckCircleOutline } from "react-icons/md";
+import { RiAuctionFill } from "react-icons/ri";
 import { FaAd, FaTrashAlt } from "react-icons/fa";
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { json, Link } from 'react-router-dom';
@@ -13,9 +14,10 @@ import { AuthContext } from '../../AuthContext/AuthProvider';
 import axios from 'axios';
 
 
+
 const Items = ({ watch, handleShow, refetch, setModalData }) => {
-const [accountStatus, setAccountStatus] = useState(false)
-    const { user, accountType,typeOfAccount } = useContext(AuthContext)
+    const [accountStatus, setAccountStatus] = useState(false)
+    const { user, accountType, typeOfAccount } = useContext(AuthContext)
     const { _id, name, advertise, category, category_id, condition, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, mainprice, repairOrDamage, sold, userEmail, userName, userProfilePicture, reported } = watch;
 
     // Mark watch sold Out
@@ -41,7 +43,7 @@ const [accountStatus, setAccountStatus] = useState(false)
     }
     getAxiosData()
     // useEffect(()=> {}, [user?.email])
-    
+
     // const handleItemAvailable = (id) => {
     //     fetch(`https://assignment-12-server-gray.vercel.app/items/available/${id}`, {
     //         method: 'PUT'
@@ -68,13 +70,13 @@ const [accountStatus, setAccountStatus] = useState(false)
     }
     // Handle Reporting
     const handleReporting = (id) => {
-        if(reported){
+        if (reported) {
             return toast.error('Already reported')
         }
-        if(!user){
+        if (!user) {
             return toast.error('You need to login an  account to report an item')
         }
-        if(accountType?.accountType !== 'buyer'){
+        if (accountType?.accountType !== 'buyer') {
             return toast.error('You need to login a buyer account to report an item')
         }
         const reportedTime = new Date().getTime();
@@ -84,7 +86,7 @@ const [accountStatus, setAccountStatus] = useState(false)
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({reportedTime})
+            body: JSON.stringify({ reportedTime })
         })
             .then(res => res.json())
             .then(data => {
@@ -129,7 +131,7 @@ const [accountStatus, setAccountStatus] = useState(false)
 
     // Handle booking
     const handleBook = () => {
-        if(typeOfAccount === 'seller'){
+        if (typeOfAccount === 'seller') {
             return toast.error('A seller account can\'t book  item')
         }
         if (user?.email === userEmail) {
@@ -138,7 +140,7 @@ const [accountStatus, setAccountStatus] = useState(false)
         if (!user?.email) {
             return toast.error('Please login first to book this item')
         }
-        if(sold){
+        if (sold) {
             return toast.error('This item is already sold')
         }
         handleShow();
@@ -146,7 +148,7 @@ const [accountStatus, setAccountStatus] = useState(false)
     }
 
     return (
-        <div className={`item ${reported ? 'border border-3 border-danger' : 'theme_border' }  position-relative my-2}`}>
+        <div className={`item ${reported ? 'border border-3 border-danger' : 'theme_border'}  position-relative my-2`}>
             <PhotoProvider>
                 <div className="foo text-center position-relative">
                     {reported && <p className='reported_items'>reported</p>}
@@ -157,7 +159,7 @@ const [accountStatus, setAccountStatus] = useState(false)
             </PhotoProvider>
 
             <div className={`p-3 rounded-bottom `}>
-                
+
                 <div className="d-flex align-items-center mt-3">
                     <div className='me-2'>
                         <PhotoProvider>
@@ -170,7 +172,7 @@ const [accountStatus, setAccountStatus] = useState(false)
 
                     </div>
                     <div>
-                        <small className='mb-0'>{userName}</small> <br />
+                        <small className='mb-0'>{userName}  {accountStatus && <TiTick title="Verified Account" className='rounded-circle bg-primary fs-6 text-white'></TiTick>}</small> <br />
                         <small>{location}</small>
                     </div>
                 </div>
@@ -179,11 +181,11 @@ const [accountStatus, setAccountStatus] = useState(false)
                 </div>
                 <h3 className="mb-0 mt-3">
                     <Link className='text-decoration-none' to={`/details/items/${_id}`}>
-                    {
-                        name.split(' ').length>3 ? name.split(' ').slice(0,3).join(' ')+ '...' : name
-                    } 
+                        {
+                            name.split(' ').length > 3 ? name.split(' ').slice(0, 3).join(' ') + '...' : name
+                        }
                     </Link>
-                    {accountStatus && <TiTick title="Verified Account" className='rounded-circle bg-primary fs-6 text-white'></TiTick>}
+
                 </h3>
 
                 <h4 className="mb-1 fw-bolder theme_color">
@@ -192,7 +194,7 @@ const [accountStatus, setAccountStatus] = useState(false)
                 <del><small className='fw-bolder'>Original Price of Purchase: {mainprice}</small></del>
 
                 <p className="text-muted mt-3 mb-1">
-                    <span className='fw-bolder text-black'>Description: </span> {description.length>40 ? description.slice(0,40 )+ ' ... More': description}
+                    <span className='fw-bolder text-black'>Description: </span> {description.length > 40 ? description.slice(0, 40) + ' ... More' : description}
                 </p>
                 <p className="text-muted mb-1">
                     <span className='fw-bolder text-black'>Product Used for: </span> {duration} month
@@ -203,19 +205,25 @@ const [accountStatus, setAccountStatus] = useState(false)
                 {/* {watch ? <NavDropdown className='fw-bolder action_div mt-2 position-absolute top-0 fs-3 fw-bold' title="..." id="basic-nav-dropdown"> */}
                 {!sold ? <div className="p-2 d-flex justify-content-evenly">
                     {!sold && user?.email === userEmail &&
-                        <img onClick={() => handleSoldOut(_id)} title="mark as Sold out" style={{ cursor: 'pointer' }} width="40" className='me-2' src="https://i.ibb.co/tqdbw59/pngtree-sold-out-png-image-4169086-copy.png" />
+                        <RiAuctionFill style={{ cursor: 'pointer' }} title='Sent it to Auction' className='text-success' size={"2em"} />
+                    }
+                    {!sold && user?.email === userEmail &&
+                        <MdCheckCircleOutline style={{ cursor: 'pointer' }} onClick={() => handleSoldOut(_id)} title='Mark it sold' size={"2em"} />
                     }
                     {!advertise && user?.email === userEmail &&
-                        <FaAd onClick={() => handleAdvertise(_id)} title="Ad this Watch" style={{ cursor: 'pointer' }} className='text-primary fs-1 me-2'></FaAd>
+                        <FaAd size={"2em"} onClick={() => handleAdvertise(_id)} title="Ad this Watch" style={{ cursor: 'pointer' }} className='text-primary  me-2'></FaAd>
                     }
-                    
-                  
-                    <GoReport title="Report This Watch" onClick={() => handleReporting(_id)} style={{ cursor: 'pointer' }} className={`text-danger fs-1`}></GoReport>
-               
+
+
+                    {user?.email !== userEmail && <>
+                        <GoReport title="Report This Watch" onClick={() => handleReporting(_id)} style={{ cursor: 'pointer' }} className={`text-danger fs-1`}></GoReport>
+                    </>}
+                    {user?.email === userEmail &&
+                        <FaTrashAlt size={"2em"} title="Delete This Watch" style={{ cursor: 'pointer' }} onClick={() => handleDeleteItem(_id)} className='text-danger'></FaTrashAlt>
+                    }
+
                 </div> : ''}
-                {user?.email === userEmail && 
-                    <FaTrashAlt title="Delete This Watch" style={{ cursor: 'pointer' }} onClick={() => handleDeleteItem(_id)} className='text-danger fs-1'></FaTrashAlt>
-                     }
+
 
                 {!sold && <button onClick={handleBook} className="theme_bg  border-0 w-100 text-white fw-bolder py-2 rounded px-3 text-center w-100">  Book Now  </button>}
 

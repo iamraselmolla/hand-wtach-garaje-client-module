@@ -12,7 +12,7 @@ const AdvertisedItems = (allData) => {
     const { user, accountType } = useContext(AuthContext)
     const [show, setShow] = useState(false);
     const [modalData, setModalData] = useState(null);
-    
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const navigate = useNavigate()
@@ -32,8 +32,8 @@ const AdvertisedItems = (allData) => {
         const paid = false;
         const insertTime = new Date().getTime();
         const allData = { number, location, category, category_id, email, name, img, productname, price, product_id, paid, insertTime }
-        
-        fetch('https://assignment-12-server-gray.vercel.app/booked', {
+
+        fetch('http://localhost:5000/booked', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -41,11 +41,11 @@ const AdvertisedItems = (allData) => {
             body: JSON.stringify(allData)
 
         })
-        .then(res => res.json())
-        .then(data => {
-            toast.success(`${modalData.name} has been booked`)
-            navigate('/dashboard/all-booked-items')
-        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success(`${modalData.name} has been booked`)
+                navigate('/dashboard/all-booked-items')
+            })
 
     }
     return (
@@ -56,7 +56,7 @@ const AdvertisedItems = (allData) => {
                         Advertised Wacthes
                     </h5>
                     <h2 className="fw-bold">
-                        Book Our Sponsored Watches Collection
+                        See Our Auction Items
                     </h2>
                 </div>
             </div>
@@ -69,8 +69,8 @@ const AdvertisedItems = (allData) => {
 
             {modalData &&
                 <Modal scrollable show={show} onHide={handleClose}>
-                     <Modal.Header closeButton>
-                        <Modal.Title className='fw-bolder theme_color'> Book:  {modalData?.name.split(' ').length > 10 ? modalData?.name.split(' ').slice(0,10).join(' '): modalData?.name} </Modal.Title>
+                    <Modal.Header closeButton>
+                        <Modal.Title className='fw-bolder theme_color'> Book:  {modalData?.name.split(' ').length > 10 ? modalData?.name.split(' ').slice(0, 10).join(' ') : modalData?.name} </Modal.Title>
                     </Modal.Header>
                     <Modal.Body >
                         <Form onSubmit={handleBooking}>

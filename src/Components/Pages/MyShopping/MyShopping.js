@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
 import MyshoppingItem from '../Shared/MyshoppingItem';
-import {BiSad} from 'react-icons/bi'
+import { BiSad } from 'react-icons/bi'
 
 const MyShopping = () => {
     const { user } = useContext(AuthContext);
@@ -12,7 +12,7 @@ const MyShopping = () => {
 
 
     useEffect(() => {
-        fetch(`https://assignment-12-server-gray.vercel.app/my-shopping?email=${user?.email}`)
+        fetch(`http://localhost:5000/my-shopping?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setAllShopping(data))
             .catch(err => console.log(err.message))
@@ -43,9 +43,9 @@ const MyShopping = () => {
                         </Table>
                         :
                         <div className="text-center">
-                             <BiSad style={{fontSize: '80px'}} className='theme_color'></BiSad>
+                            <BiSad style={{ fontSize: '80px' }} className='theme_color'></BiSad>
 
-: <h3 className='fw-bold'>You didn't buy any item. Please booked an first from <Link className='text-decoration-none' to="/all-items">here</Link></h3>
+                            : <h3 className='fw-bold'>You didn't buy any item. Please booked an first from <Link className='text-decoration-none' to="/all-items">here</Link></h3>
                         </div>
                     }
                 </div>

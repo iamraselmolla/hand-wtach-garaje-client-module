@@ -8,15 +8,15 @@ const Allusers = () => {
     const [accounts, setAccounts] = useState([]);
     const [accountReload, setAccountReload] = useState(false)
     useEffect(() => {
-        fetch('https://assignment-12-server-gray.vercel.app/accounts?account=all',{
+        fetch('http://localhost:5000/accounts?account=all', {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('access-token')}`
-            } 
+            }
         })
             .then(res => res.json())
             .then(data => setAccounts(data))
             .catch(err => console.log(err.message))
-    }, [user?.email,accounts])
+    }, [user?.email, accounts])
     return (
         <Table className="text-center" striped bordered hover>
             <thead>

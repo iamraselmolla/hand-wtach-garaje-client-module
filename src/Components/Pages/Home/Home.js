@@ -10,10 +10,10 @@ import ProductsCategoris from './ProductsCategoris';
 import Steps from './Steps';
 
 const Home = () => {
-    const { data : advertidesProducts = [], refetch } = useQuery({
+    const { data: advertidesProducts = [], refetch } = useQuery({
         queryKey: ['advertised-items'],
         queryFn: async () => {
-            const res = await fetch('https://assignment-12-server-gray.vercel.app/advertised-items?limit=3');
+            const res = await fetch('http://localhost:5000/auctions-items?limit=3');
             const data = res.json();
             return data;
         }
@@ -22,7 +22,7 @@ const Home = () => {
         <>
             <Banner></Banner>
             <Steps></Steps>
-            {advertidesProducts?.length > 0 &&  <AdvertisedItems allData={advertidesProducts}></AdvertisedItems>}
+            {advertidesProducts?.length > 0 && <AdvertisedItems allData={advertidesProducts}></AdvertisedItems>}
             <BuyingLuxury></BuyingLuxury>
             <ProductsCategoris></ProductsCategoris>
             <FeaturesImg></FeaturesImg>

@@ -11,7 +11,7 @@ const UserDashBoard = () => {
     const [bookedData, setBookedData] = useState([]);
     const [allShopping, setAllShopping] = useState([])
     useEffect(() => {
-        fetch(`https://assignment-12-server-gray.vercel.app/my-shopping?email=${user?.email}`)
+        fetch(`http://localhost:5000/my-shopping?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setAllShopping(data))
             .catch(err => console.log(err.message))
@@ -19,19 +19,19 @@ const UserDashBoard = () => {
 
 
     useEffect(() => {
-        fetch('https://assignment-12-server-gray.vercel.app/all-users')
+        fetch('http://localhost:5000/all-users')
             .then(res => res.json())
             .then(users => setAllUsers(users))
 
     }, []);
     useEffect(() => {
-        fetch(`https://assignment-12-server-gray.vercel.app/booked?email=${user?.email}`)
+        fetch(`http://localhost:5000/booked?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setBookedData(data))
             .catch(err => console.log(err.message))
     }, [user?.email]);
     useEffect(() => {
-        fetch('https://assignment-12-server-gray.vercel.app/all-uploaded-items')
+        fetch('http://localhost:5000/all-uploaded-items')
             .then(res => res.json())
             .then(users => setAllItems(users))
 
@@ -137,7 +137,7 @@ const UserDashBoard = () => {
                     <div className="row text-center">
                         <div className="col-md-6">
                             <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                <TbBrandBooking style={{fontSize: '80px'}}></TbBrandBooking>
+                                <TbBrandBooking style={{ fontSize: '80px' }}></TbBrandBooking>
                                 <h5 className="fw-bolder mt-3">
                                     <Link to="/dashboard/all-booked-items" className='text-decoration-none'>
                                         {bookedData?.length}
@@ -147,7 +147,7 @@ const UserDashBoard = () => {
                         </div>
                         <div className="col-md-6">
                             <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                <BiPurchaseTag style={{fontSize: '80px'}}></BiPurchaseTag>
+                                <BiPurchaseTag style={{ fontSize: '80px' }}></BiPurchaseTag>
                                 <h5 className="fw-bolder mt-3">
                                     <Link to="/dashboard/my-shopping" className='text-decoration-none'>
                                         {allShopping?.length}

@@ -5,17 +5,17 @@ import { useNavigate } from 'react-router-dom';
 
 const Checkout = ({ booking, prodcut_id }) => {
     const [cardError, setError] = useState('');
-    const [clientSecret, setClientSecret] = useState("")    
+    const [clientSecret, setClientSecret] = useState("")
     const [paymentLoading, setPaymentLoading] = useState(false)
-     const stripe = useStripe();
+    const stripe = useStripe();
     const elements = useElements();
     const navigate = useNavigate()
     const price = booking;
     console.log(price)
-  
+
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("https://assignment-12-server-gray.vercel.app/create-payment-intent", {
+        fetch("http://localhost:5000/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -54,44 +54,44 @@ const Checkout = ({ booking, prodcut_id }) => {
                     },
                 },
             );
-            if(confirmError){
+            if (confirmError) {
                 setPaymentLoading(false)
                 setError(confirmError.message)
                 return;
             }
             console.log(paymentIntent)
-            if(paymentIntent?.status === "succeeded"){
+            if (paymentIntent?.status === "succeeded") {
                 setPaymentLoading(true)
-            
-            setError(null)
-            const payment_id = paymentIntent?.id
-            const payment_type = paymentMethod?.card.brand + " " + paymentMethod.type;
-            const paymentTime = new Date().getTime();
-            const allPaymentInfo = { payment_id, payment_type, paymentTime }
-            fetch(`https://assignment-12-server-gray.vercel.app/payment-done/${prodcut_id}`, {
-                method: 'PUT',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(allPaymentInfo)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    fetch(`https://assignment-12-server-gray.vercel.app/items/sold-out/${prodcut_id}`, {
-                        method: 'PUT'
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            setPaymentLoading(false)
-                            toast.success(`Payment Successfull`)
-                            
-                            navigate('/dashboard/my-shopping/')
-                        })
-                        .catch(err => console.log(err))
+
+                setError(null)
+                const payment_id = paymentIntent?.id
+                const payment_type = paymentMethod?.card.brand + " " + paymentMethod.type;
+                const paymentTime = new Date().getTime();
+                const allPaymentInfo = { payment_id, payment_type, paymentTime }
+                fetch(`http://localhost:5000/payment-done/${prodcut_id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(allPaymentInfo)
                 })
-                .catch(err => console.log(err.message))
+                    .then(res => res.json())
+                    .then(data => {
+                        fetch(`http://localhost:5000/items/sold-out/${prodcut_id}`, {
+                            method: 'PUT'
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                setPaymentLoading(false)
+                                toast.success(`Payment Successfull`)
+
+                                navigate('/dashboard/my-shopping/')
+                            })
+                            .catch(err => console.log(err))
+                    })
+                    .catch(err => console.log(err.message))
+            }
         }
-    }
 
     }
 
@@ -115,17 +115,17 @@ const Checkout = ({ booking, prodcut_id }) => {
                 }}
             />
             <button
-             className={`theme_bg mt-3 rounded  border-0 w-100 
-             text-white px-3 py-2 fw-bolder ${paymentLoading ? 'd-none' : 'd-block'}`} type="submit" 
-             disabled={!stripe
-                || !clientSecret
-            }>
+                className={`theme_bg mt-3 rounded  border-0 w-100 
+             text-white px-3 py-2 fw-bolder ${paymentLoading ? 'd-none' : 'd-block'}`} type="submit"
+                disabled={!stripe
+                    || !clientSecret
+                }>
                 Pay Now
             </button>
             <button className={`btn w-100 btn-primary ${paymentLoading ? 'd-block' : 'd-none'}`} type="button" disabled>
-                                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                                Processing
-                            </button>
+                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Processing
+            </button>
             {cardError && <p className="text-danger">{cardError}</p>}
         </form>
     );

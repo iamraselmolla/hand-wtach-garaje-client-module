@@ -8,10 +8,10 @@ const AllAdmin = () => {
     const [accounts, setAccounts] = useState([]);
     const [accountReload, setAccountReload] = useState(false)
     useEffect(() => {
-        fetch('https://assignment-12-server-gray.vercel.app/accounts?account=admin',{
+        fetch('http://localhost:5000/accounts?account=admin', {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('access-token')}`
-            } 
+            }
         })
             .then(res => res.json())
             .then(data => setAccounts(data))
@@ -21,25 +21,25 @@ const AllAdmin = () => {
         , [user?.email],)
     return (
         <>
-        <Table className="text-center" striped bordered hover>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Profile Picture</th>
-                    <th>Account Type</th>
-                    <th>Signup by</th>
-                    <th>Signup at</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-               {accounts?.map((acc,i) =>  <Account index={i}  acc ={acc} key={acc._id}></Account>)}
+            <Table className="text-center" striped bordered hover>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Profile Picture</th>
+                        <th>Account Type</th>
+                        <th>Signup by</th>
+                        <th>Signup at</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {accounts?.map((acc, i) => <Account index={i} acc={acc} key={acc._id}></Account>)}
 
-            </tbody>
-        </Table>
-    </>
+                </tbody>
+            </Table>
+        </>
     );
 };
 

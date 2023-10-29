@@ -8,7 +8,7 @@ const AllUploadedItems = () => {
     const { data: allWatches = [] } = useQuery({
         queryKey: ['all-items'],
         queryFn: async () => {
-            const res = await fetch('https://assignment-12-server-gray.vercel.app/all-uploaded-items');
+            const res = await fetch('http://localhost:5000/all-uploaded-items');
             const data = await res.json();
             return data;
         }
@@ -50,7 +50,7 @@ const AllUploadedItems = () => {
                                                         <td> <PhotoProvider>
                                                             <div className="foo">
                                                                 <PhotoView src={s?.itemImage}>
-                                                                <img src={s?.itemImage} width="50px" className='rounded-cricle' alt="Watch image"/>
+                                                                    <img src={s?.itemImage} width="50px" className='rounded-cricle' alt="Watch image" />
                                                                 </PhotoView>
                                                             </div>
                                                         </PhotoProvider> </td>

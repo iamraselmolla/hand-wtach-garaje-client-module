@@ -18,11 +18,11 @@ import axios from 'axios';
 const Items = ({ watch, handleShow, refetch, setModalData }) => {
     const [accountStatus, setAccountStatus] = useState(false)
     const { user, accountType, typeOfAccount } = useContext(AuthContext)
-    const { _id, name, advertise, category, category_id, condition, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, mainprice, repairOrDamage, sold, userEmail, userName, userProfilePicture, reported } = watch;
+    const { _id, name, advertise, auction, category, category_id, condition, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, mainprice, repairOrDamage, sold, userEmail, userName, userProfilePicture, reported, } = watch;
 
     // Mark watch sold Out
     const handleSoldOut = (id) => {
-        fetch(`https://assignment-12-server-gray.vercel.app/items/sold-out/${id}`, {
+        fetch(`http://localhost:5000/items/sold-out/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -34,7 +34,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
     }
     const getAxiosData = async () => {
         try {
-            const resposne = await axios(`https://assignment-12-server-gray.vercel.app/check-verify?email=${userEmail}`);
+            const resposne = await axios(`http://localhost:5000/check-verify?email=${userEmail}`);
             setAccountStatus(resposne?.data)
         }
         catch (error) {
@@ -45,7 +45,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
     // useEffect(()=> {}, [user?.email])
 
     // const handleItemAvailable = (id) => {
-    //     fetch(`https://assignment-12-server-gray.vercel.app/items/available/${id}`, {
+    //     fetch(`http://localhost:5000/items/available/${id}`, {
     //         method: 'PUT'
     //     })
     //         .then(res => res.json())
@@ -57,13 +57,25 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
     // }
     // Mark watch Advertise
     const handleAdvertise = (id) => {
-        fetch(`https://assignment-12-server-gray.vercel.app/items/advertised/${id}`, {
+        fetch(`http://localhost:5000/items/advertised/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
             .then(data => {
-                toast.success(`${name} has been marked as Advertising Wacth`);
-                refetch()
+                toast.success(`${name} has been sent to Auction Department`);
+                // refetch()
+
+            })
+            .catch(err => console.log(err))
+    }
+    const handleAuction = (id) => {
+        fetch(`http://localhost:5000/items/auction/${id}`, {
+            method: 'PUT'
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success(`${name} has been sent to Auction Department`);
+                // refetch()
 
             })
             .catch(err => console.log(err))
@@ -76,12 +88,10 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
         if (!user) {
             return toast.error('You need to login an  account to report an item')
         }
-        if (accountType?.accountType !== 'buyer') {
-            return toast.error('You need to login a buyer account to report an item')
-        }
+
         const reportedTime = new Date().getTime();
 
-        fetch(`https://assignment-12-server-gray.vercel.app/items/reported/${id}`, {
+        fetch(`http://localhost:5000/items/reported/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -97,7 +107,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
     }
     // Handle Solving
     const handleSolved = (id) => {
-        fetch(`https://assignment-12-server-gray.vercel.app/items/reported-solved/${id}`, {
+        fetch(`http://localhost:5000/items/reported-solved/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -113,7 +123,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
         if (window.confirm(`DO you want to delete ${name} permanently`)) {
 
 
-            fetch(`https://assignment-12-server-gray.vercel.app/delete-items/${id}`, {
+            fetch(`http://localhost:5000/delete-items/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json'
@@ -204,15 +214,15 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
                 </p>
                 {/* {watch ? <NavDropdown className='fw-bolder action_div mt-2 position-absolute top-0 fs-3 fw-bold' title="..." id="basic-nav-dropdown"> */}
                 {!sold ? <div className="p-2 d-flex justify-content-evenly">
-                    {!sold && user?.email === userEmail &&
-                        <RiAuctionFill style={{ cursor: 'pointer' }} title='Sent it to Auction' className='text-success' size={"2em"} />
+                    {!sold && !auction && user?.email === userEmail &&
+                        <RiAuctionFill onClick={() => handleAuction(_id)} style={{ cursor: 'pointer' }} title='Sent it to Auction' className='text-success' size={"2em"} />
                     }
                     {!sold && user?.email === userEmail &&
                         <MdCheckCircleOutline style={{ cursor: 'pointer' }} onClick={() => handleSoldOut(_id)} title='Mark it sold' size={"2em"} />
                     }
-                    {!advertise && user?.email === userEmail &&
-                        <FaAd size={"2em"} onClick={() => handleAdvertise(_id)} title="Ad this Watch" style={{ cursor: 'pointer' }} className='text-primary  me-2'></FaAd>
-                    }
+                    {/* {!advertise && user?.email === userEmail &&
+                        <FaAd size={"2em"} title="Ad this Watch" style={{ cursor: 'pointer' }} className='text-primary  me-2'></FaAd>
+                    } */}
 
 
                     {user?.email !== userEmail && <>
@@ -225,7 +235,8 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
                 </div> : ''}
 
 
-                {!sold && <button onClick={handleBook} className="theme_bg  border-0 w-100 text-white fw-bolder py-2 rounded px-3 text-center w-100">  Book Now  </button>}
+                {!sold && !auction && < button onClick={handleBook} className="theme_bg  border-0 w-100 text-white fw-bolder py-2 rounded px-3 text-center w-100">  Book Now  </button>}
+                {!sold && auction && <Link to={`/details/items/${_id}`}> < button className="theme_bg  border-0 w-100 text-white fw-bolder py-2 rounded px-3 text-center w-100">  Go to Auction Page  </button></Link>}
 
             </div>
         </div >

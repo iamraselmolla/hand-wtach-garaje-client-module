@@ -48,9 +48,9 @@ const AddAnItem = () => {
                 const category = e.target.category.value;
                 const condition = e.target.condition.value;
                 let repairOrDamage;
-                if(e.target.repairdamage.value === 'yes'){
+                if (e.target.repairdamage.value === 'yes') {
                     repairOrDamage = true
-                }else(
+                } else (
                     repairOrDamage = false
                 )
                 const userEmail = user.email;
@@ -60,8 +60,8 @@ const AddAnItem = () => {
                 const advertise = false;
                 const verified = false;
                 const sold = false;
-                const allDataInfo = { name, price,mainprice,verified, number, location, description, pruchingtime, duration, reason, itemImage, category, condition, repairOrDamage, userEmail, userName, userProfilePicture, insertTime, category_id,advertise, sold };
-                fetch('https://assignment-12-server-gray.vercel.app/watches', {
+                const allDataInfo = { name, price, mainprice, verified, number, location, description, pruchingtime, duration, reason, itemImage, category, condition, repairOrDamage, userEmail, userName, userProfilePicture, insertTime, category_id, advertise, sold };
+                fetch('http://localhost:5000/watches', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

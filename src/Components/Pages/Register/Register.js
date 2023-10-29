@@ -44,7 +44,7 @@ const Register = () => {
                         const allData = { accountType, username, email, profilepicture, signupby, insertTime }
 
 
-                        fetch('https://assignment-12-server-gray.vercel.app/users', {
+                        fetch('http://localhost:5000/users', {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'
@@ -56,7 +56,7 @@ const Register = () => {
                                 setError('')
                                 e.target.reset()
                                 navigate('/login');
-                                fetch('https://assignment-12-server-gray.vercel.app/jwt', {
+                                fetch('http://localhost:5000/jwt', {
                                     method: 'POST',
                                     headers: {
                                         'content-type': 'application/json'

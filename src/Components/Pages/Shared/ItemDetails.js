@@ -12,12 +12,12 @@ const ItemDetails = () => {
     const detailsData = useLoaderData();
 
     const { user } = useContext(AuthContext)
-    const { _id, name, advertise, category, category_id, condition, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, mainprice, repairOrDamage, sold, userEmail, userName, userProfilePicture, reported } = detailsData;
+    const { _id, name, advertise, category, category_id, condition, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, auction, mainprice, repairOrDamage, sold, userEmail, userName, userProfilePicture, reported } = detailsData;
     const navigate = useNavigate()
     const { data: allWatches = [], isLoading, refetch } = useQuery({
         queryKey: ['all-items'],
         queryFn: async () => {
-            const res = await fetch('https://assignment-12-server-gray.vercel.app/all-items');
+            const res = await fetch('http://localhost:5000/all-items');
             const data = await res.json();
             return data;
         }
@@ -37,8 +37,8 @@ const ItemDetails = () => {
         const paid = false;
         const insertTime = new Date().getTime();
         const allData = { number, location, category, category_id, email, name, img, productname, price, product_id, paid, insertTime }
-        
-        fetch('https://assignment-12-server-gray.vercel.app/booked', {
+
+        fetch('http://localhost:5000/booked', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -46,11 +46,11 @@ const ItemDetails = () => {
             body: JSON.stringify(allData)
 
         })
-        .then(res => res.json())
-        .then(data => {
-            toast.success(`${detailsData.name} has been booked`)
-            navigate('/dashboard/all-booked-items')
-        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success(`${detailsData.name} has been booked`)
+                navigate('/dashboard/all-booked-items')
+            })
 
     }
 
@@ -72,7 +72,7 @@ const ItemDetails = () => {
                                             </div>
                                         </PhotoProvider>
                                         <div>
-                                            <Link className='text-decoration-none' to={`/details/items/${watch?._id}`}> {watch?.name.length>20 ? watch?.name.slice(0,15) + ' ...' : watch?.name} </Link>
+                                            <Link className='text-decoration-none' to={`/details/items/${watch?._id}`}> {watch?.name.length > 20 ? watch?.name.slice(0, 15) + ' ...' : watch?.name} </Link>
                                             <p className="theme_color fw-bolder">
                                                 ${watch?.price}
                                             </p>
@@ -167,36 +167,52 @@ const ItemDetails = () => {
                             Price: ${price}
                         </p>
 
-                        {sold ? <h4 className='text-success'> This item is already sold</h4> :<Form onSubmit={handleBooking}>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control defaultValue={user?.email} disabled type="email" placeholder="Enter email" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Username</Form.Label>
-                                <Form.Control disabled defaultValue={user?.displayName} type="text" placeholder="Enter Username" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Watch name</Form.Label>
-                                <Form.Control disabled defaultValue={detailsData?.name} type="text" placeholder="Watch Name" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Watch Price</Form.Label>
-                                <Form.Control disabled defaultValue={detailsData?.price} type="text" placeholder="Watch Price" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Customer Number</Form.Label>
-                                <Form.Control required name="phonenumber" type="number" placeholder="Your Number" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Meeting Location</Form.Label>
-                                <Form.Control required name="meetlocation" type="text" placeholder="Safe Meeting Location" />
-                            </Form.Group>
+                        {sold && <h4 className='text-success'> This item is already sold</h4>}
 
-                            <button style={{ cursor: 'pointer' }} className="theme_bg border-0 text-white text-center w-100 fw-bolder px-3 py-2 rounded">
-                                Book Now
-                            </button>
-                        </Form>}
+                        {!sold && !auction && <>
+                            <Form onSubmit={handleBooking}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control defaultValue={user?.email} disabled type="email" placeholder="Enter email" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control disabled defaultValue={user?.displayName} type="text" placeholder="Enter Username" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Watch name</Form.Label>
+                                    <Form.Control disabled defaultValue={detailsData?.name} type="text" placeholder="Watch Name" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Watch Price</Form.Label>
+                                    <Form.Control disabled defaultValue={detailsData?.price} type="text" placeholder="Watch Price" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Customer Number</Form.Label>
+                                    <Form.Control required name="phonenumber" type="number" placeholder="Your Number" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Meeting Location</Form.Label>
+                                    <Form.Control required name="meetlocation" type="text" placeholder="Safe Meeting Location" />
+                                </Form.Group>
+
+                                <button style={{ cursor: 'pointer' }} className="theme_bg border-0 text-white text-center w-100 fw-bolder px-3 py-2 rounded">
+                                    Book Now
+                                </button>
+                            </Form>
+                        </>}
+                        {!sold && auction && <>
+                            Auction Price
+                            <Form className='d-'>
+                                <Form.Group className="mb-3" controlId="forAuctionPrice">
+                                    <Form.Control required name="auctionPrise" type="number" placeholder="Give your auction highest value" />
+                                </Form.Group>
+                                <button style={{ cursor: 'pointer' }} className="theme_bg border-0 text-white text-center w-100 fw-bolder px-3 py-2 rounded">
+                                    Bid
+                                </button>
+                            </Form>
+
+                        </>}
 
                     </div>
                 </div>

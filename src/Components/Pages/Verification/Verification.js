@@ -14,7 +14,7 @@ const Verification = () => {
             setPaymentData(null)
             setLoader(true)
             e.preventDefault();
-            const res = await fetch(`https://assignment-12-server-gray.vercel.app/payment-verification?paymentID=${e.target.paymentid.value}`);
+            const res = await fetch(`http://localhost:5000/payment-verification?paymentID=${e.target.paymentid.value}`);
             const newPaymentData = await res.json();
 
             setLoader(false)
@@ -26,7 +26,7 @@ const Verification = () => {
             setLoader(false)
             setNotFound('Data not found. Please check it again')
         }
-        finally{
+        finally {
             setLoader(false)
         }
     }
@@ -69,7 +69,7 @@ const Verification = () => {
                             </h2>
                             <h5 className="fw-bolder theme_color">
                                 Price: {paymentData?.price}$
-                            </h5> 
+                            </h5>
                             <p className="mb-2">
                                 <b>Card: </b> {paymentData?.payment_type}
                             </p>

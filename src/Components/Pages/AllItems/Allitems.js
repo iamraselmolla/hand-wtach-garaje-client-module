@@ -12,23 +12,23 @@ const Allitems = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [modalData, setModalData] = useState(null);
-    
+
     const navigate = useNavigate()
     // const [allWatches, setWatches] = useState([])
     const { data: allWatches = [], isLoading, refetch } = useQuery({
         queryKey: ['all-items'],
         queryFn: async () => {
-            const res = await fetch('https://assignment-12-server-gray.vercel.app/all-items');
+            const res = await fetch('http://localhost:5000/all-items');
             const data = await res.json();
             return data;
         }
     });
-    if(isLoading){
+    if (isLoading) {
         return <>
-        <div className="text-center">
-        <div style={{position: 'absolute', top: '48%', left: '48%'}} className="spinner-border" role="status">
-        </div>
-      </div>
+            <div className="text-center">
+                <div style={{ position: 'absolute', top: '48%', left: '48%' }} className="spinner-border" role="status">
+                </div>
+            </div>
         </>
     }
     const handleBooking = (e) => {
@@ -47,7 +47,7 @@ const Allitems = () => {
         const insertTime = new Date().getTime();
         const allData = { number, location, category, category_id, email, name, img, productname, price, product_id, paid, insertTime }
         console.log(allData);
-        fetch('https://assignment-12-server-gray.vercel.app/booked', {
+        fetch('http://localhost:5000/booked', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -55,11 +55,11 @@ const Allitems = () => {
             body: JSON.stringify(allData)
 
         })
-        .then(res => res.json())
-        .then(data => {
-            toast.success(`${modalData.name} has been booked`)
-            navigate('/dashboard/all-booked-items')
-        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success(`${modalData.name} has been booked`)
+                navigate('/dashboard/all-booked-items')
+            })
 
     }
     return (
@@ -71,13 +71,13 @@ const Allitems = () => {
                     </h1>
                 </div>
                 <div className="row">
-                    {allWatches?.map(watch => <div key={watch?._id} className="col-md-4 my-2 "><Items   handleShow={handleShow} setModalData={setModalData} refetch={refetch} watch={watch}></Items></div>)}
+                    {allWatches?.map(watch => <div key={watch?._id} className="col-md-4 my-2 "><Items handleShow={handleShow} setModalData={setModalData} refetch={refetch} watch={watch}></Items></div>)}
                 </div>
             </div>
             {modalData &&
                 <Modal scrollable show={show} onHide={handleClose}>
-                     <Modal.Header closeButton>
-                        <Modal.Title className='fw-bolder theme_color'> Book:  {modalData?.name.split(' ').length > 10 ? modalData?.name.split(' ').slice(0,10).join(' '): modalData?.name} </Modal.Title>
+                    <Modal.Header closeButton>
+                        <Modal.Title className='fw-bolder theme_color'> Book:  {modalData?.name.split(' ').length > 10 ? modalData?.name.split(' ').slice(0, 10).join(' ') : modalData?.name} </Modal.Title>
                     </Modal.Header>
                     <Modal.Body >
                         <Form onSubmit={handleBooking}>

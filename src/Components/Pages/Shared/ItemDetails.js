@@ -12,7 +12,7 @@ const ItemDetails = () => {
     const detailsData = useLoaderData();
 
     const { user } = useContext(AuthContext)
-    const { _id, name, advertise, category, category_id, condition, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, auction, mainprice, repairOrDamage, sold, userEmail, userName, userProfilePicture, reported } = detailsData;
+    const { _id, name, advertise, category, category_id, condition, userEmail, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, auction, mainprice, repairOrDamage, sold, userName, userProfilePicture, reported } = detailsData;
     const navigate = useNavigate()
     const { data: allWatches = [], isLoading, refetch } = useQuery({
         queryKey: ['all-items'],
@@ -22,6 +22,29 @@ const ItemDetails = () => {
             return data;
         }
     });
+
+    const handleAuctionStart = (productId) => {
+        fetch('http://localhost:5000/startAuction', {
+            method: 'PUT', // Use PUT for updating an existing auction
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(productId)
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .then(data => {
+            toast.success('Auction has been started');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            toast.error('Failed to start the auction');
+        });
+    }
     const handleBooking = (e) => {
         e.preventDefault();
         const number = e.target.phonenumber.value;
@@ -83,12 +106,19 @@ const ItemDetails = () => {
                         </ListGroup>
                     </Card>
                 </div>
-                <div className="col-md-6">
-                    <h3 className="mb-0 mt-3">
+                <div className="col-md-6 ">
+                   <div className="justify-content-between d-flex">
+                   <h3 className="mb-0 mt-3">
                         {
                             name
                         }
                     </h3>
+                    {user?.email === userEmail && <>
+                        <button onClick={() => handleAuctionStart(_id)} className='btn btn-info' >
+                        Start Auction
+                    </button>
+                    </>}
+                   </div>
 
                     <div className="d-flex align-items-center mt-3">
                         <div className='me-2'>

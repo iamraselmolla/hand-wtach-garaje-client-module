@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { Link, useLoaderData, useNavigate, useNavigation } from 'react-router-dom';
@@ -9,10 +9,13 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { Form } from 'react-bootstrap';
 
 const ItemDetails = () => {
-    const detailsData = useLoaderData();
+    const [detailsData, setdetailsData] = useState(useLoaderData())
+    // useEffect(() => {
+    //     detailsData = useLoaderData();
+    // }, [])
 
-    const { user } = useContext(AuthContext)
-    const { _id, name, advertise, category, category_id, condition, userEmail, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, auction, mainprice, repairOrDamage, sold, userName, userProfilePicture, reported } = detailsData;
+    const { user, typeOfAccount } = useContext(AuthContext)
+    const { _id, name, advertise, category, startAuction, category_id, condition, userEmail, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, auction, mainprice, repairOrDamage, sold, userName, userProfilePicture, reported } = detailsData;
     const navigate = useNavigate()
     const { data: allWatches = [], isLoading, refetch } = useQuery({
         queryKey: ['all-items'],
@@ -23,27 +26,24 @@ const ItemDetails = () => {
         }
     });
 
+
     const handleAuctionStart = (productId) => {
+        console.log(productId)
         fetch('http://localhost:5000/startAuction', {
             method: 'PUT', // Use PUT for updating an existing auction
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(productId)
+            body: JSON.stringify({ productId })
         })
-        .then(res => {
-            if (!res.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return res.json();
-        })
-        .then(data => {
-            toast.success('Auction has been started');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            toast.error('Failed to start the auction');
-        });
+            .then(res => res.json())
+            .then(data => {
+                toast.success('Auction has been started');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                toast.error('Failed to start the auction');
+            });
     }
     const handleBooking = (e) => {
         e.preventDefault();
@@ -61,12 +61,13 @@ const ItemDetails = () => {
         const insertTime = new Date().getTime();
         const allData = { number, location, category, category_id, email, name, img, productname, price, product_id, paid, insertTime }
 
+        const bookedData = { email, insertTime, name, img, number, location }
         fetch('http://localhost:5000/booked', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(allData)
+            body: JSON.stringify({ bookedData, product_id })
 
         })
             .then(res => res.json())
@@ -76,7 +77,26 @@ const ItemDetails = () => {
             })
 
     }
+    const handleAuctionStop = (productId) => {
+        fetch('http://localhost:5000/stopAuction', {
+            method: 'PUT', // Use PUT for updating an existing auction
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ productId })
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success('Auction has been stopped');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                toast.error('Failed to start the auction');
+            });
+    }
+    const hanldeBid = () => {
 
+    }
     return (
         <section className='container py-5'>
             <div className="row">
@@ -107,18 +127,25 @@ const ItemDetails = () => {
                     </Card>
                 </div>
                 <div className="col-md-6 ">
-                   <div className="justify-content-between d-flex">
-                   <h3 className="mb-0 mt-3">
-                        {
-                            name
-                        }
-                    </h3>
-                    {user?.email === userEmail && <>
-                        <button onClick={() => handleAuctionStart(_id)} className='btn btn-info' >
-                        Start Auction
-                    </button>
-                    </>}
-                   </div>
+                    <div className="justify-content-between d-flex">
+                        <h3 className="mb-0 mt-3">
+                            {
+                                name
+                            }
+                        </h3>
+                        {(user?.email === userEmail || typeOfAccount === 'admin') && !startAuction && <>
+                            <button onClick={() => handleAuctionStart(_id)} className='btn btn-info' >
+                                Start Auction
+                            </button>
+                        </>}
+                        {(user?.email === userEmail || typeOfAccount === 'admin') && auction && startAuction && <>
+                            <button
+                                onClick={() => handleAuctionStop(_id)}
+                                className='btn btn-danger' >
+                                Stop Auction
+                            </button>
+                        </>}
+                    </div>
 
                     <div className="d-flex align-items-center mt-3">
                         <div className='me-2'>
@@ -231,23 +258,36 @@ const ItemDetails = () => {
                                 </button>
                             </Form>
                         </>}
-                        {!sold && auction && <>
-                            Auction Price
-                            <Form className='d-'>
-                                <Form.Group className="mb-3" controlId="forAuctionPrice">
-                                    <Form.Control required name="auctionPrise" type="number" placeholder="Give your auction highest value" />
-                                </Form.Group>
-                                <button style={{ cursor: 'pointer' }} className="theme_bg border-0 text-white text-center w-100 fw-bolder px-3 py-2 rounded">
-                                    Bid
-                                </button>
-                            </Form>
-
+                        {(!sold && auction && startAuction) && (
+                            <>
+                                Auction Price
+                                <Form className='d-'>
+                                    <Form.Group className="mb-3" controlId="forAuctionPrice">
+                                        <Form.Control required name="auctionPrice" type="number" placeholder="Give your auction highest value" />
+                                    </Form.Group>
+                                    <button onClick={() => hanldeBid(_id)} style={{ cursor: 'pointer' }} className="theme_bg border-0 text-white text-center w-100 fw-bolder px-3 py-2 rounded">
+                                        Bid
+                                    </button>
+                                </Form>
+                            </>
+                        )
+                        }
+                        {!sold && auction && !startAuction && <>
+                            <h2 className='text-info'>
+                                Auction will be started very soon
+                            </h2>
                         </>}
+
+
+
+
+
+
 
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 };
 

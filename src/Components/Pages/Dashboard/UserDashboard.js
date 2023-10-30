@@ -1,8 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthProvider';
-import { BiPurchaseTag } from 'react-icons/bi'
+import { BiPurchaseTag, BiBlock } from 'react-icons/bi'
 import { TbBrandBooking } from 'react-icons/tb'
+import { BsSmartwatch } from 'react-icons/bs'
+import { SiSellfy } from 'react-icons/si'
+import { RiAdvertisementLine } from 'react-icons/ri'
+import { VscReport } from 'react-icons/vsc'
+import { AiOutlineShop, AiOutlineShoppingCart } from 'react-icons/ai'
+import { GrUserAdmin } from 'react-icons/gr'
 
 const UserDashBoard = () => {
     const { user, typeOfAccount } = useContext(AuthContext);
@@ -61,7 +67,7 @@ const UserDashBoard = () => {
                             </h2>
                             <div className="col-md-3 my-2">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid rounded-circle' style={{ width: '100px' }} src="https://i.ibb.co/jTMT7cf/buyer-icon.png" alt="" /> <br />
+                                    <AiOutlineShoppingCart size={'8em'} /> <br />
                                     <h5 className="fw-bolder mt-3">
                                         <Link className='text-decoration-none' to="/dashboard/allbuyers">{allBuyer?.length}</Link> Buyer
                                     </h5>
@@ -69,7 +75,7 @@ const UserDashBoard = () => {
                             </div>
                             <div className="col-md-3 my-2">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/gR1kY0P/seller-icon.png" alt="" /> <br />
+                                    <AiOutlineShop size={'8em'} /> <br />
                                     <h5 className="fw-bolder mt-3">
                                         <Link className='text-decoration-none' to="/dashboard/allsellers">{allSeller?.length}</Link> Seller
                                     </h5>
@@ -77,7 +83,7 @@ const UserDashBoard = () => {
                             </div>
                             <div className="col-md-3 my-2">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/c8DqFWR/admin-icon.png" alt="" />
+                                    <GrUserAdmin size={'8em'} />
                                     <h5 className="fw-bolder mt-3">
                                         <Link className='text-decoration-none' to="/dashboard/all-admin">{allAdmin?.length}</Link> Admin
                                     </h5>
@@ -85,7 +91,7 @@ const UserDashBoard = () => {
                             </div>
                             <div className="col-md-3 my-2">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/rk3j74W/block-user-icon.png" alt="" />
+                                    <BiBlock size="8em" />
                                     <h5 className="fw-bolder mt-3">
                                         <Link className='text-decoration-none' to="">0</Link> Blocked User
                                     </h5>
@@ -98,7 +104,8 @@ const UserDashBoard = () => {
                             </h2>
                             <div className="col-md-3">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/VWF7x8q/admin-icon.png" alt="" />
+                                    <BsSmartwatch size={'8em'} style={{ width: '100px' }} />
+
                                     <h5 className="fw-bolder mt-3">
                                         <Link className='text-decoration-none' to="/dashboard/all-uploaded-items">{allWacthes}</Link> Watch
                                     </h5>
@@ -106,7 +113,7 @@ const UserDashBoard = () => {
                             </div>
                             <div className="col-md-3">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/KWqDgd9/pngtree-vector-sold-icon-pn.png" alt="" />
+                                    <SiSellfy size={'8em'} />
                                     <h5 className="fw-bolder mt-3">
                                         <Link to="/all-sold-items"></Link>   {allSold?.length} Sold
                                     </h5>
@@ -114,7 +121,7 @@ const UserDashBoard = () => {
                             </div>
                             <div className="col-md-3">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid' style={{ width: '100px' }} src="https://i.ibb.co/FnRzdsr/advertising.png" alt="" />
+                                    <RiAdvertisementLine size={'8em'} />
                                     <h5 className="fw-bolder mt-3">
                                         {allAdvertise?.length} Advertised
                                     </h5>
@@ -122,7 +129,7 @@ const UserDashBoard = () => {
                             </div>
                             <div className="col-md-3">
                                 <div className="theme_border theme_bg text-white px-2 py-4 rounded">
-                                    <img className='img-fluid' style={{ width: '125px' }} src="https://i.ibb.co/YZ09N7T/reported.png" alt="" />
+                                    <VscReport size={'8em'} />
                                     <h5 className="fw-bolder mt-3">
                                         <Link to="/dashboard/reported-items" className='text-decoration-none'>
                                             {allReported?.length}

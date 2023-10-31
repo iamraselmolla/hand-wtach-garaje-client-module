@@ -11,7 +11,7 @@ const AllAddedItems = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/added-items?email=${user?.email}`)
+        fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/added-items?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setAllData(data))
     }, [user?.email])

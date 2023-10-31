@@ -9,7 +9,7 @@ import { AuthContext } from '../../AuthContext/AuthProvider';
 const Account = ({ acc, index, accountReload, setAccountReload }) => {
     const handleVeiryfy = (id) => {
         if (window.confirm(`Do you want to verify ${acc?.username}`)) {
-            fetch(`http://localhost:5000/accounts/verify/${id}`, {
+            fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/accounts/verify/${id}`, {
                 method: 'PUT'
             })
                 .then(res => res.json())
@@ -27,7 +27,7 @@ const Account = ({ acc, index, accountReload, setAccountReload }) => {
         //     return toast.error('You cannot delete a google user. You only can block')
         // }
         if (window.confirm(`Do you want to delete this user ${acc?.username}`)) {
-            fetch(`http://localhost:5000/accounts/verify/${id}`, {
+            fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/accounts/verify/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

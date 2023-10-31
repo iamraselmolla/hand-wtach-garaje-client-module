@@ -22,7 +22,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
 
     // Mark watch sold Out
     const handleSoldOut = (id) => {
-        fetch(`http://localhost:5000/items/sold-out/${id}`, {
+        fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/items/sold-out/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -34,7 +34,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
     }
     const getAxiosData = async () => {
         try {
-            const resposne = await axios(`http://localhost:5000/check-verify?email=${userEmail}`);
+            const resposne = await axios(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/check-verify?email=${userEmail}`);
             setAccountStatus(resposne?.data)
         }
         catch (error) {
@@ -45,7 +45,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
     // useEffect(()=> {}, [user?.email])
 
     // const handleItemAvailable = (id) => {
-    //     fetch(`http://localhost:5000/items/available/${id}`, {
+    //     fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/items/available/${id}`, {
     //         method: 'PUT'
     //     })
     //         .then(res => res.json())
@@ -57,7 +57,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
     // }
     // Mark watch Advertise
     const handleAdvertise = (id) => {
-        fetch(`http://localhost:5000/items/advertised/${id}`, {
+        fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/items/advertised/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -69,7 +69,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
             .catch(err => console.log(err))
     }
     const handleAuction = (id) => {
-        fetch(`http://localhost:5000/items/auction/${id}`, {
+        fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/items/auction/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -91,7 +91,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
 
         const reportedTime = new Date().getTime();
 
-        fetch(`http://localhost:5000/items/reported/${id}`, {
+        fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/items/reported/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -107,7 +107,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
     }
     // Handle Solving
     const handleSolved = (id) => {
-        fetch(`http://localhost:5000/items/reported-solved/${id}`, {
+        fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/items/reported-solved/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())
@@ -123,7 +123,7 @@ const Items = ({ watch, handleShow, refetch, setModalData }) => {
         if (window.confirm(`DO you want to delete ${name} permanently`)) {
 
 
-            fetch(`http://localhost:5000/delete-items/${id}`, {
+            fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/delete-items/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json'

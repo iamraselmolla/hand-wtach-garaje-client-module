@@ -15,7 +15,7 @@ const Checkout = ({ booking, prodcut_id }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -68,7 +68,7 @@ const Checkout = ({ booking, prodcut_id }) => {
                 const payment_type = paymentMethod?.card.brand + " " + paymentMethod.type;
                 const paymentTime = new Date().getTime();
                 const allPaymentInfo = { payment_id, payment_type, paymentTime }
-                fetch(`http://localhost:5000/payment-done/${prodcut_id}`, {
+                fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/payment-done/${prodcut_id}`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
@@ -77,7 +77,7 @@ const Checkout = ({ booking, prodcut_id }) => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        fetch(`http://localhost:5000/items/sold-out/${prodcut_id}`, {
+                        fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/items/sold-out/${prodcut_id}`, {
                             method: 'PUT'
                         })
                             .then(res => res.json())

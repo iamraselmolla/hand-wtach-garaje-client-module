@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
     // FInd loggedin account type
     useEffect(() => {
 
-        fetch(`http://localhost:5000/users?email=${user?.email}`)
+        fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/users?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setAccountType(data))
             .catch(err => console.log(err))
@@ -58,7 +58,6 @@ const AuthProvider = ({ children }) => {
     }, [])
 
     const authInfo = { createUser, setLoading, user, typeOfAccount, loading, loginWithGoogle, updateUserInfo, login, logOut, accountType }
-    console.log(accountType)
     return (
         <div>
             <AuthContext.Provider value={authInfo}>

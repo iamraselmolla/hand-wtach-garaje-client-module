@@ -76,14 +76,14 @@ function App() {
         {
           path: '/categories/:id',
           loader: ({ params }) => {
-            return fetch(`http://localhost:5000/categories/${params.id}`)
+            return fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/categories/${params.id}`)
           },
           element: <Categories></Categories>
         },
         {
           path: '/details/items/:id',
           loader: ({ params }) => {
-            return fetch(`http://localhost:5000/details/${params.id}`)
+            return fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/details/${params.id}`)
           },
           element: <ItemDetails></ItemDetails>
         },
@@ -95,7 +95,7 @@ function App() {
           path: '/pay/:id',
           element: <PrivateRoute> <PaymentItem></PaymentItem></PrivateRoute>,
           loader: ({ params }) => {
-            return fetch(`http://localhost:5000/pay/${params.id}`)
+            return fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/pay/${params.id}`)
           }
         },
         {

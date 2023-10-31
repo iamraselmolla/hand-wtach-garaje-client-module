@@ -10,7 +10,7 @@ const Allbuyers = () => {
     const [accountReload, setAccountReload] = useState(false)
     const [accounts, setAccounts] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/accounts?account=buyer', {
+        fetch('https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/accounts?account=buyer', {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('access-token')}`
             }

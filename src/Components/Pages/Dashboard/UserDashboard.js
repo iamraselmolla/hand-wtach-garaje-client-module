@@ -17,7 +17,7 @@ const UserDashBoard = () => {
     const [bookedData, setBookedData] = useState([]);
     const [allShopping, setAllShopping] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/my-shopping?email=${user?.email}`)
+        fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/my-shopping?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setAllShopping(data))
             .catch(err => console.log(err.message))
@@ -25,19 +25,19 @@ const UserDashBoard = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/all-users')
+        fetch('https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/all-users')
             .then(res => res.json())
             .then(users => setAllUsers(users))
 
     }, []);
     useEffect(() => {
-        fetch(`http://localhost:5000/booked?email=${user?.email}`)
+        fetch(`https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/booked?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setBookedData(data))
             .catch(err => console.log(err.message))
     }, [user?.email]);
     useEffect(() => {
-        fetch('http://localhost:5000/all-uploaded-items')
+        fetch('https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/all-uploaded-items')
             .then(res => res.json())
             .then(users => setAllItems(users))
 

@@ -5,7 +5,7 @@ import { AiFillDelete } from 'react-icons/ai'
 
 const ItemsTable = ({ index, data }) => {
     const { name, itemImage, price, location, sold, _id } = data;
-    console.log(data)
+
     return (
         <tr>
             <td>{index + 1}</td>

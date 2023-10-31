@@ -9,27 +9,39 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { Form } from 'react-bootstrap';
 
 const ItemDetails = () => {
+
     const [detailsData, setdetailsData] = useState(useLoaderData())
+    const [bidValue, setBidValue] = useState(0);
+    const [allItems, setAllItems] = useState([])
+    const [reload, setReload] = useState(false)
+
+    // useEffect(() => [
+
+    // ], [])
+
+    const handleBidValueChange = (e) => {
+        // Update the bidValue state with the value entered by the user
+        setBidValue(e.target.value);
+    }
     // useEffect(() => {
     //     detailsData = useLoaderData();
     // }, [])
 
-    const { user, typeOfAccount } = useContext(AuthContext)
-    const { _id, name, advertise, category, startAuction, category_id, condition, userEmail, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, auction, mainprice, repairOrDamage, sold, userName, userProfilePicture, reported } = detailsData;
+    const { user, typeOfAccount, accountType } = useContext(AuthContext)
+    const { _id, name, advertise, endAuction, category, startAuction, category_id, condition, userEmail, description, duration, insertTime, itemImage, location, number, price, pruchingtime, reason, auction, mainprice, repairOrDamage, sold, userName, userProfilePicture, reported, bids } = detailsData;
     const navigate = useNavigate()
     const { data: allWatches = [], isLoading, refetch } = useQuery({
         queryKey: ['all-items'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/all-items');
+            const res = await fetch('https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/all-items');
             const data = await res.json();
             return data;
         }
     });
 
-
     const handleAuctionStart = (productId) => {
         console.log(productId)
-        fetch('http://localhost:5000/startAuction', {
+        fetch('https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/startAuction', {
             method: 'PUT', // Use PUT for updating an existing auction
             headers: {
                 'content-type': 'application/json'
@@ -62,7 +74,7 @@ const ItemDetails = () => {
         const allData = { number, location, category, category_id, email, name, img, productname, price, product_id, paid, insertTime }
 
         const bookedData = { email, insertTime, name, img, number, location }
-        fetch('http://localhost:5000/booked', {
+        fetch('https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/booked', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -70,15 +82,26 @@ const ItemDetails = () => {
             body: JSON.stringify({ bookedData, product_id })
 
         })
-            .then(res => res.json())
+            .then(res => {
+                const findJson = res.json()
+                console.log(findJson)
+                return findJson
+            }
+
+
+            )
             .then(data => {
+                console.loog(data)
+                if (data.status === 409) {
+                    return toast.error(data.message)
+                }
                 toast.success(`${detailsData.name} has been booked`)
                 navigate('/dashboard/all-booked-items')
             })
 
     }
     const handleAuctionStop = (productId) => {
-        fetch('http://localhost:5000/stopAuction', {
+        fetch('https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/stopAuction', {
             method: 'PUT', // Use PUT for updating an existing auction
             headers: {
                 'content-type': 'application/json'
@@ -94,9 +117,66 @@ const ItemDetails = () => {
                 toast.error('Failed to start the auction');
             });
     }
-    const hanldeBid = () => {
+    function getTimeAgo(timestamp) {
+        const currentTime = new Date().getTime();
+        const timeDifference = currentTime - timestamp;
+
+        const seconds = Math.floor(timeDifference / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        if (seconds < 60) {
+            return seconds + (seconds === 1 ? " second ago" : " seconds ago");
+        } else if (minutes < 60) {
+            return minutes + (minutes === 1 ? " minute ago" : " minutes ago");
+        } else if (hours < 24) {
+            return hours + (hours === 1 ? " hour ago" : " hours ago");
+        } else {
+            return days + (days === 1 ? " day ago" : " days ago");
+        }
+    }
+    const hanldeBid = (e, _id) => {
+        e.preventDefault()
+        if (bidValue < price) {
+            return toast.error("Please give an amount more than the actual auction price")
+        }
+        else {
+            const { email, username, profilepicture } = accountType
+            const bidData = {
+
+                amount: parseFloat(bidValue),
+                userInfo: {
+                    email, username, profilepicture
+                },
+                biddingTime: new Date().getTime()
+            }
+            fetch('https://assignment-12-server-9btb6ecgx-iamraselmolla.vercel.app/bid', {
+                method: 'PUT', // Use PUT for updating an existing auction
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({ productId: _id, bidData })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data?.message) {
+
+                        return toast.error(data.message)
+                    }
+                    toast.success(bidValue + 'has been bidden')
+                    setReload(!reload)
+                })
+                .catch(err => {
+                    // if(err)
+                    console.log(err.status)
+                })
+        }
+
 
     }
+
+
     return (
         <section className='container py-5'>
             <div className="row">
@@ -133,18 +213,13 @@ const ItemDetails = () => {
                                 name
                             }
                         </h3>
-                        {(user?.email === userEmail || typeOfAccount === 'admin') && !startAuction && <>
-                            <button onClick={() => handleAuctionStart(_id)} className='btn btn-info' >
-                                Start Auction
-                            </button>
-                        </>}
-                        {(user?.email === userEmail || typeOfAccount === 'admin') && auction && startAuction && <>
-                            <button
-                                onClick={() => handleAuctionStop(_id)}
-                                className='btn btn-danger' >
+
+
+                        {auction && startAuction && !endAuction && (
+                            <button onClick={() => handleAuctionStop(_id)} className='btn btn-danger'>
                                 Stop Auction
                             </button>
-                        </>}
+                        )}
                     </div>
 
                     <div className="d-flex align-items-center mt-3">
@@ -260,12 +335,36 @@ const ItemDetails = () => {
                         </>}
                         {(!sold && auction && startAuction) && (
                             <>
+                                <h2 className="text-success">
+                                    Bids
+                                </h2>
+                                {bids?.map(singleBid => (
+                                    <div className='my-2 pb-2 border-bottom'>
+
+                                        <div className="d-flex justify-content-between">
+                                            <div className="d-flex">
+                                                <div>
+                                                    <img width="40" className='rounded-circle' src={singleBid?.userInfo?.profilepicture} />
+                                                </div>
+                                                <div className='d-flex flex-column'>
+                                                    <p className="text-bold mb-0">
+                                                        {singleBid?.userInfo?.username}
+                                                    </p>
+                                                    {getTimeAgo(singleBid?.biddingTime)}
+                                                </div>
+                                            </div>
+                                            <div className='theme_color text-weight-bold'>
+                                                ${singleBid?.amount}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                                 Auction Price
-                                <Form className='d-'>
+                                <Form>
                                     <Form.Group className="mb-3" controlId="forAuctionPrice">
-                                        <Form.Control required name="auctionPrice" type="number" placeholder="Give your auction highest value" />
+                                        <Form.Control onChange={handleBidValueChange} required name="auctionPrice" type="number" placeholder="Give your auction highest value" />
                                     </Form.Group>
-                                    <button onClick={() => hanldeBid(_id)} style={{ cursor: 'pointer' }} className="theme_bg border-0 text-white text-center w-100 fw-bolder px-3 py-2 rounded">
+                                    <button onClick={(e) => hanldeBid(e, _id)} style={{ cursor: 'pointer' }} className="theme_bg border-0 text-white text-center w-100 fw-bolder px-3 py-2 rounded">
                                         Bid
                                     </button>
                                 </Form>
